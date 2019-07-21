@@ -1,0 +1,39 @@
+"=============================================================================
+" vimrc --- Entry file for vim
+" Copyright (c) 2016-2017 Shidong Wang & Contributors
+" Author: Shidong Wang < wsdjeg at 163.com >
+" URL: https://spacevim.org
+" License: GPLv3
+"=============================================================================
+
+" Note: Skip initialization for vim-tiny or vim-small.
+if 1
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/main.vim'
+endif
+" vim:set et sw=2
+
+let g:spacevim_enable_vimfiler_filetypeicon = 1
+let g:spacevim_enable_ycm = 1
+
+let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_json_enabled_makers = ['jsonlint']
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_fish_enabled_makers = ['fish']
+let g:neomake_vim_enabled_makers = ['vint']
+
+let g:neoformat_enabled_python= ['autopep8', 'yapf']
+let g:neoformat_enabled_json = ['jq', 'js-beautify']
+let g:neoformat_enabled_js = ['prettier', 'prettier-eslint', 'js-beautify', 'esformatter']
+let g:neoformat_enabled_markdown = ['prettier', 'remark']
+let g:neoformat_enabled_html = ['prettier', 'html-beautify']
+let g:neoformat_enabled_fish = ['fish_indent']
+"let g:neoformat_enabled_vim = ['vint'] " not implemented
+"let g:neoformat_verbose = 1
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|node_modules)$'
+let g:ctrlp_user_command = 'rg --files' " MacOSX/Linux
+
+imap <C-d> <Del>
+imap <C-k> <C-o>D
+nmap <C-i> <Space>jf

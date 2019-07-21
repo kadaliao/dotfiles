@@ -1,0 +1,9 @@
+pkg_arg: ~/Desktop/anki.apkg
+recur_dir: ~/ankdown-cards
+card_model_name: Ankdown
+dollar: False
+highlight: True
+card_model_css: ".card {font-family: 'Crimson Pro', 'Crimson Text', 'Cardo', 'Times', 'serif';text-align: left; color: black; background-color: white; }"
+card_model_fields:
+  - name: Question
+  - name: Answer

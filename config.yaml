@@ -3,4 +3,30 @@ config:
   create: true
   dotpath: dotfiles
 dotfiles:
+  d_fish:
+    dst: ~/.config/fish
+    src: config/fish
+  f_ankdown-conf.yaml:
+    dst: ~/.ankdown-conf.yaml
+    src: ankdown-conf.yaml
+  f_init.toml:
+    dst: ~/.SpaceVim.d/init.toml
+    src: SpaceVim.d/init.toml
+  f_tmux.conf:
+    dst: ~/.tmux.conf
+    src: tmux.conf
+  f_vimrc:
+    dst: ~/.vim/vimrc
+    src: vim/vimrc
+  d_powerline:
+    src: config/powerline
+    dst: ~/.config/powerline
 profiles:
+  liaoxingyi-mbp13-dbfm:
+    dotfiles:
+    - f_vimrc
+    - f_tmux.conf
+    - f_init.toml
+    - f_ankdown-conf.yaml
+    - d_fish
+    - d_powerline

@@ -1,0 +1,63 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export FZF_DEFAULT_COMMAND:rg\x20\x2d\x2dfiles
+SETUVAR --export PIPENV_PYPI_MIRROR:https\x3a//pypi\x2etuna\x2etsinghua\x2eedu\x2ecn/simple
+SETUVAR --export PIPENV_SKIP_LOCK:1
+SETUVAR --export PIPENV_VENV_IN_PROJECT:1
+SETUVAR THEME_EDEN_PROMPT_CHAR:\u00bb
+SETUVAR __fish_init_2_39_8:\x1d
+SETUVAR __fish_init_2_3_0:\x1d
+SETUVAR __fish_init_3_x:\x1d
+SETUVAR _fish_abbr_adg:ankdown\x20\x2d\x2dconfigFile\x20\x7e/\x2eankdown\x2dconf\x2eyaml
+SETUVAR _fish_abbr_dcs:docker\x2dcompose
+SETUVAR _fish_abbr_dpc:dae\x20pre\x20create\x20\x2d\x2dscm\x20github\x2dfm\x20\x2dr\x20liaoxingyi\x2dvf/
+SETUVAR _fish_abbr_dpfd:dae\x20permdir\x20\x2du\x20liaoxingyi_vf\x20download\x20\x2dp
+SETUVAR _fish_abbr_dpfr:dae\x20permdir\x20\x2du\x20liaoxingyi_vf\x20remove\x20\x2dp
+SETUVAR _fish_abbr_dpfu:dae\x20permdir\x20\x2du\x20liaoxingyi_vf\x20upload\x20\x2df
+SETUVAR _fish_abbr_dpl:dae\x20pre\x20log\x20\x2d\x2dpre
+SETUVAR _fish_abbr_dpu:dae\x20pre\x20update\x20\x2d\x2dpre
+SETUVAR _fish_abbr_drs:dae\x20runscript\x20\x2du\x20liaoxingyi_vf
+SETUVAR _fish_abbr_ds:docker\x2dcompose
+SETUVAR _fish_abbr_gcm:git\x20checkout\x20master
+SETUVAR _fish_abbr_gd:git\x20diff
+SETUVAR _fish_abbr_glp:git\x20log\x20\x2d\x2dpretty\x3doneline
+SETUVAR _fish_abbr_gp:git\x20push
+SETUVAR _fish_abbr_gpoh:git\x20push\x20\x2du\x20origin\x20HEAD
+SETUVAR _fish_abbr_gpum:git\x20pull\x20upstream\x20master
+SETUVAR _fish_abbr_gs:git\x20status
+SETUVAR _fish_abbr_jpt:jupyter\x20lab
+SETUVAR _fish_abbr_ppi:pipenv\x20install
+SETUVAR _fish_abbr_ppp:pipenv\x20run\x20python
+SETUVAR _fish_abbr_ppr:pipenv\x20run
+SETUVAR _fish_abbr_pps:pipenv\x20shell
+SETUVAR _fish_abbr_ppu:pipenv\x20uninstall
+SETUVAR _fish_abbr_taa:tmux\x20new\x20\x2dA\x20\x2ds\x20Playground
+SETUVAR fish_color_autosuggestion:969896
+SETUVAR fish_color_cancel:\x2dr
+SETUVAR fish_color_command:b294bb
+SETUVAR fish_color_comment:f0c674
+SETUVAR fish_color_cwd:green
+SETUVAR fish_color_cwd_root:red
+SETUVAR fish_color_end:b294bb
+SETUVAR fish_color_error:cc6666
+SETUVAR fish_color_escape:00a6b2
+SETUVAR fish_color_history_current:\x2d\x2dbold
+SETUVAR fish_color_host:normal
+SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:00a6b2
+SETUVAR fish_color_param:81a2be
+SETUVAR fish_color_quote:b5bd68
+SETUVAR fish_color_redirection:8abeb7
+SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_status:red
+SETUVAR fish_color_user:brgreen
+SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_greeting:\x1d
+SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR fish_pager_color_completion:normal
+SETUVAR fish_pager_color_description:B3A06D\x1eyellow
+SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_user_paths:/usr/local/opt/mysql\x405\x2e7/bin\x1e/Users/liaoxingyi/\x2efzf/bin
