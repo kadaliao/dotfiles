@@ -45,8 +45,8 @@
 # default_position = 'top'
 # default_height = 40
 
-[[layers]]
-name = "ctrlp"
+# [[layers]]
+# name = "ctrlp"
 
 [[layers]]
 name = "checkers"
