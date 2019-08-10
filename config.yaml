@@ -9,9 +9,6 @@ dotfiles:
   f_ankdown-conf.yaml:
     dst: ~/.ankdown-conf.yaml
     src: ankdown-conf.yaml
-  f_init.toml:
-    dst: ~/.SpaceVim.d/init.toml
-    src: SpaceVim.d/init.toml
   f_tmux.conf:
     dst: ~/.tmux.conf
     src: tmux.conf
@@ -24,13 +21,16 @@ dotfiles:
   f_config:
     src: usr/local/etc/privoxy/config
     dst: /usr/local/etc/privoxy/config
+  f_init.vim:
+    src: config/nvim/init.vim
+    dst: ~/.config/nvim/init.vim
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
     - f_vimrc
     - f_tmux.conf
-    - f_init.toml
     - f_ankdown-conf.yaml
     - d_fish
     - d_powerline
     - f_config
+    - f_init.vim

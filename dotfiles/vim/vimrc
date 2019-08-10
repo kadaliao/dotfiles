@@ -1,39 +1,83 @@
-"=============================================================================
-" vimrc --- Entry file for vim
-" Copyright (c) 2016-2017 Shidong Wang & Contributors
-" Author: Shidong Wang < wsdjeg at 163.com >
-" URL: https://spacevim.org
-" License: GPLv3
-"=============================================================================
+set nocompatible
+filetype plugin indent on
+syntax on
 
-" Note: Skip initialization for vim-tiny or vim-small.
-if 1
-    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/main.vim'
+set number
+set laststatus=2
+set modelines=5
+set vb t_vb=
+set ts=2 sts=2 sw=2 expandtab
+set incsearch
+set inccommand=nosplit
+set nojoinspaces
+set display+=lastline
+
+packadd minpac
+call minpac#init()
+
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-unimpaired')
+call minpac#add('machakann/vim-highlightedyank')
+call minpac#add('easymotion/vim-easymotion')
+call minpac#add('kassio/neoterm')
+call minpac#add('janko/vim-test')
+call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
+
+" leader key
+let mapleader = " "
+
+
+" --------------------------------------------
+" ------------   easy motion  ----------------
+" --------------------------------------------
+
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+" nmap <Leader>s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>jl <Plug>(easymotion-bd-jk)
+nmap <Leader>jl <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>jw <Plug>(easymotion-bd-w)
+nmap <Leader>jw <Plug>(easymotion-overwin-w)
+
+
+" --------------------------------------------
+" --------------   terminal ------------------
+" --------------------------------------------
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <A-[> <Esc>
+  " switching between split windows
 endif
-" vim:set et sw=2
 
-let g:spacevim_enable_vimfiler_filetypeicon = 1
-let g:spacevim_enable_ycm = 1
 
-let g:neomake_python_enabled_makers = ['pylint']
-let g:neomake_json_enabled_makers = ['jsonlint']
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_fish_enabled_makers = ['fish']
-let g:neomake_vim_enabled_makers = ['vint']
+" --------------------------------------------
+" ---------------  neoterm -------------------
+" --------------------------------------------
 
-let g:neoformat_enabled_python= ['autopep8', 'yapf']
-let g:neoformat_enabled_json = ['jq', 'js-beautify']
-let g:neoformat_enabled_js = ['prettier', 'prettier-eslint', 'js-beautify', 'esformatter']
-let g:neoformat_enabled_markdown = ['prettier', 'remark']
-let g:neoformat_enabled_html = ['prettier', 'html-beautify']
-let g:neoformat_enabled_fish = ['fish_indent']
-"let g:neoformat_enabled_vim = ['vint'] " not implemented
-"let g:neoformat_verbose = 1
+" 3<leader>tl will clear neoterm-3.
+nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|node_modules)$'
-let g:ctrlp_user_command = 'rg --files' " MacOSX/Linux
+" --------------------------------------------
+" ---------------- vim-test ------------------
+" --------------------------------------------
 
-imap <C-d> <Del>
-imap <C-k> <C-o>D
-nmap <C-i> <Space>jf
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+let test#strategy = "neoterm"
