@@ -43,18 +43,18 @@ colorscheme gruvbox
 
 call minpac#add('liuchengx/vim-which-key')
 
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-"nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+let g:mapleader = ','
+let g:maplocalleader = '<space>'
+nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  '<Space>'<CR>
 
 
 " -----------  custom mapping  ---------------
 
 nnoremap <leader>ve :tabedit ~/.vim/vimrc<cr>
 nnoremap <leader>vs :source ~/.vim/vimrc<cr>
-nnoremap <leader>fs :w<cr>
-nnoremap <leader>bd :q<cr>
+nnoremap <space>fs :w<cr>
+nnoremap <space>bd :q<cr>
 
 inoremap jk <esc>
 vnoremap jk <esc>
@@ -80,19 +80,29 @@ call minpac#add('christoomey/vim-tmux-navigator')
 
 " --------------   quick fix -----------------
 
-noremap <leader>el :copen<cr>
-noremap <leader>eo :cclose<cr>
-noremap <leader>en :cnext<cr>
-noremap <leader>ep :cpre<cr>
+noremap <space>el :copen<cr>
+noremap <space>eo :cclose<cr>
+noremap <space>en :cnext<cr>
+noremap <space>ep :cpre<cr>
 
 " -----------------   CtrlP --------------------
 call minpac#add('ctrlpvim/ctrlp.vim')
-nmap <leader>ji :CtrlPBufTag<cr>
-nmap <leader>ft :CtrlPBufTagAll<cr>
-nmap <leader>je :CtrlPMRUFiles<cr>
-nmap <leader>jb :CtrlPBuffer<cr>
+nmap <space>ji :CtrlPBufTag<cr>
+nmap <space>ft :CtrlPBufTagAll<cr>
+nmap <space>je :CtrlPMRUFiles<cr>
+nmap <space>jb :CtrlPBuffer<cr>
+
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|venv\|env'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+
 
 
 " ------------   easy motion  ----------------
@@ -107,13 +117,12 @@ call minpac#add('easymotion/vim-easymotion')
 " nmap <Leader>s <plug>(easymotion-overwin-f2)
 
 " Movesymotion-overwin-w) to line
-map <Leader>jl <plug>(easymotion-bd-jk)
-nmap <Space>jl <plug>(easymotion-overwin-line)
+map <space>jl <plug>(easymotion-bd-jk)
+nmap <space>jl <plug>(easymotion-overwin-line)
 
 " Move to word
-map  <Leader>jw <plug>(easymotion-bd-w)
-nmap <Space>jw <plug>(easymotion-overwin-w)
-
+map  <space>jw <plug>(easymotion-bd-w)
+nmap <space>jw <plug>(easymotion-overwin-w)
 
 
 " --------------   terminal ------------------
@@ -198,14 +207,19 @@ call minpac#add('mhinz/vim-startify')
 let g:startify_change_to_dir = 0
 
 
+
+" ---------------- vinegar -------------------
+call minpac#add('tpope/vim-vinegar')
+
+
 " ---------------- NerdTree ------------------
 call minpac#add('scrooloose/nerdtree')
 
-nmap <F1> :NERDTreeToggle<cr>
+nmap <F2> :NERDTreeToggle<cr>
 nmap <leader>g :NERDTreeToggle<cr>
 nmap <leader>o :NERDTreeFind<cr>
 
-
+let NERDTreeHijackNetrw = 0
 
 
 " -------------- AutoFormat  -----------------
