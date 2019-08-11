@@ -5,12 +5,18 @@ syntax on
 set number
 set laststatus=2
 set modelines=5
-set vb t_vb=
-set ts=2 sts=2 sw=2 expandtab
+set visualbell
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 set incsearch
-set inccommand=nosplit
-set nojoinspaces
 set display+=lastline
+set nojoinspaces
+
+if has('nvim')
+  set inccommand=nosplit
+endif
 
 packadd minpac
 call minpac#init()
@@ -18,66 +24,190 @@ call minpac#init()
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('machakann/vim-highlightedyank')
-call minpac#add('easymotion/vim-easymotion')
-call minpac#add('kassio/neoterm')
-call minpac#add('janko/vim-test')
+call minpac#add('lxhillwind/leader-clipboard')
+
 call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
+call minpac#add('tpope/vim-projectionist', {'type': 'opt'})
+call minpac#add('leafgarland/typescript-vim', {'type': 'opt'})
 call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+call minpac#add('tpope/vim-dispatch')
+call minpac#add('radenling/vim-dispatch-neovim')
+
+
+call minpac#add('morhetz/gruvbox')
+colorscheme gruvbox
+
+
+" ---------------- whichkey ------------------
+
+call minpac#add('liuchengx/vim-which-key')
+
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+"nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+
+" -----------  custom mapping  ---------------
+
+nnoremap <leader>ve :tabedit ~/.vim/vimrc<cr>
+nnoremap <leader>vs :source ~/.vim/vimrc<cr>
+nnoremap <leader>fs :w<cr>
+nnoremap <leader>bd :q<cr>
+
+inoremap jk <esc>
+vnoremap jk <esc>
+
+
+" ----------- custom commands  ---------------
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
 
-" leader key
-let mapleader = " "
+" Automatically source the vimrc file on save
+
+augroup autosourcing
+  autocmd! 
+  autocmd BufWritePost vimrc source %
+augroup END
 
 
-" --------------------------------------------
+" --------------   tmux navigator-----------------
+call minpac#add('christoomey/vim-tmux-navigator')
+
+
+" --------------   quick fix -----------------
+
+noremap <leader>el :copen<cr>
+noremap <leader>eo :cclose<cr>
+noremap <leader>en :cnext<cr>
+noremap <leader>ep :cpre<cr>
+
+" -----------------   CtrlP --------------------
+call minpac#add('ctrlpvim/ctrlp.vim')
+nmap <leader>ji :CtrlPBufTag<cr>
+nmap <leader>ft :CtrlPBufTagAll<cr>
+nmap <leader>je :CtrlPMRUFiles<cr>
+nmap <leader>jb :CtrlPBuffer<cr>
+
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|venv\|env'
+
+
 " ------------   easy motion  ----------------
-" --------------------------------------------
+
+call minpac#add('easymotion/vim-easymotion')
 
 " <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" map  <Leader>f <plug>(easymotion-bd-f)
+" nmap <Leader>f <plug>(easymotion-overwin-f)
 
 " s{char}{char} to move to {char}{char}
-" nmap <Leader>s <Plug>(easymotion-overwin-f2)
+" nmap <Leader>s <plug>(easymotion-overwin-f2)
 
-" Move to line
-map <Leader>jl <Plug>(easymotion-bd-jk)
-nmap <Leader>jl <Plug>(easymotion-overwin-line)
+" Movesymotion-overwin-w) to line
+map <Leader>jl <plug>(easymotion-bd-jk)
+nmap <Space>jl <plug>(easymotion-overwin-line)
 
 " Move to word
-map  <Leader>jw <Plug>(easymotion-bd-w)
-nmap <Leader>jw <Plug>(easymotion-overwin-w)
+map  <Leader>jw <plug>(easymotion-bd-w)
+nmap <Space>jw <plug>(easymotion-overwin-w)
 
 
-" --------------------------------------------
+
 " --------------   terminal ------------------
-" --------------------------------------------
+
+
 if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
-  tnoremap <A-[> <Esc>
+  tnoremap <ESC> <C-\><C-n>
+  tnoremap <A-[> <ESC>
   " switching between split windows
 endif
 
 
-" --------------------------------------------
 " ---------------  neoterm -------------------
-" --------------------------------------------
+
+call minpac#add('kassio/neoterm')
 
 " 3<leader>tl will clear neoterm-3.
-nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+"nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
-" --------------------------------------------
+
 " ---------------- vim-test ------------------
-" --------------------------------------------
+
+" call minpac#add('janko/vim-test')
 
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+" nmap <silent> t<C-n> :TestNearest<cr>
+" nmap <silent> t<C-f> :TestFile<cr>
+" nmap <silent> t<C-s> :TestSuite<cr>
+" nmap <silent> t<C-l> :TestLast<cr>
+" nmap <silent> t<C-g> :TestVisit<cr>
+ 
+" let test#strategy = "neoterm"
 
-let test#strategy = "neoterm"
+
+
+" ------------------- ale --------------------
+
+call minpac#add('w0rp/ale')
+
+" Mappings in the style of unimpaired-next
+nmap <silent> [W <plug>(ale_first)
+nmap <silent> [w <plug>(ale_previous)
+nmap <silent> ]w <plug>(ale_next)
+nmap <silent> ]W <plug>(ale_last)
+
+let b:ale_linters = ['flake8']
+let b:ale_fixers = [
+\   'remove_trailing_lines',
+\   'isort',
+\   'ale#fixers#generic_python#BreakUpLongLines',
+\   'yapf',
+\]
+
+nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<cr>
+
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 0
+
+
+" ------------------ grep --------------------
+
+
+call minpac#add('mhinz/vim-grepper')
+
+let g:grepper = {}
+let g:grepper.tools = ['grep', 'git', 'rg']
+
+" Search for the current word
+nnoremap <leader>* :Grepper -cword -noprompt<cr>
+" Search for the current selectionp
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+
+
+" ---------------- Starify -------------------
+call minpac#add('mhinz/vim-startify')
+" 禁止自动切换目录
+let g:startify_change_to_dir = 0
+
+
+" ---------------- NerdTree ------------------
+call minpac#add('scrooloose/nerdtree')
+
+nmap <F1> :NERDTreeToggle<cr>
+nmap <leader>g :NERDTreeToggle<cr>
+nmap <leader>o :NERDTreeFind<cr>
+
+
+
+
+" -------------- AutoFormat  -----------------
+call minpac#add('Chiel92/vim-autoformat')
+let g:formatter_yapf_style = 'pep8'

@@ -28,6 +28,7 @@ SETUVAR _fish_abbr_gpoh:git\x20push\x20\x2du\x20origin\x20HEAD
 SETUVAR _fish_abbr_gpum:git\x20pull\x20upstream\x20master
 SETUVAR _fish_abbr_gs:git\x20status
 SETUVAR _fish_abbr_jpt:jupyter\x20lab
+SETUVAR _fish_abbr_nv:nvim
 SETUVAR _fish_abbr_ppi:pipenv\x20install
 SETUVAR _fish_abbr_ppp:pipenv\x20run\x20python
 SETUVAR _fish_abbr_ppr:pipenv\x20run
