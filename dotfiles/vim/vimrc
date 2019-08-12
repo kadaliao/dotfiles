@@ -23,6 +23,7 @@ call minpac#init()
 
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
+
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('lxhillwind/leader-clipboard')
 
@@ -39,14 +40,20 @@ call minpac#add('morhetz/gruvbox')
 colorscheme gruvbox
 
 
+let g:mapleader = ','
+let g:maplocalleader = '<space>'
+
 " ---------------- whichkey ------------------
 
 call minpac#add('liuchengx/vim-which-key')
 
-let g:mapleader = ','
-let g:maplocalleader = '<space>'
 nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  '<Space>'<CR>
+nnoremap <silent> <space> :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> [ :<c-u>WhichKey '['<CR>
+nnoremap <silent> ] :<c-u>WhichKey ']'<CR>
+
+"not good for using special keys like 'yacd....'
+
 
 
 " -----------  custom mapping  ---------------
@@ -54,10 +61,14 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  '<Space>'<CR>
 nnoremap <leader>ve :tabedit ~/.vim/vimrc<cr>
 nnoremap <leader>vs :source ~/.vim/vimrc<cr>
 nnoremap <space>fs :w<cr>
-nnoremap <space>bd :q<cr>
+nmap <space>bd :q<cr>
+nmap <space>mk [m
+nmap <space>mj ]m
 
 inoremap jk <esc>
 vnoremap jk <esc>
+
+
 
 
 " ----------- custom commands  ---------------
@@ -74,8 +85,11 @@ augroup autosourcing
 augroup END
 
 
-" --------------   tmux navigator-----------------
-call minpac#add('christoomey/vim-tmux-navigator')
+" ------------- switching window -------------
+"nnoremap <c-l> <c-w>l
+"nnoremap <c-h> <c-w>h
+"nnoremap <c-j> <c-w>j
+"nnoremap <c-k> <c-w>k
 
 
 " --------------   quick fix -----------------
@@ -140,21 +154,21 @@ endif
 call minpac#add('kassio/neoterm')
 
 " 3<leader>tl will clear neoterm-3.
-"nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
 
 " ---------------- vim-test ------------------
 
-" call minpac#add('janko/vim-test')
+call minpac#add('janko/vim-test')
 
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-" nmap <silent> t<C-n> :TestNearest<cr>
-" nmap <silent> t<C-f> :TestFile<cr>
-" nmap <silent> t<C-s> :TestSuite<cr>
-" nmap <silent> t<C-l> :TestLast<cr>
-" nmap <silent> t<C-g> :TestVisit<cr>
- 
-" let test#strategy = "neoterm"
+nmap <silent> t<C-n> :TestNearest<cr>
+nmap <silent> t<C-f> :TestFile<cr>
+nmap <silent> t<C-s> :TestSuite<cr>
+nmap <silent> t<C-l> :TestLast<cr>
+nmap <silent> t<C-g> :TestVisit<cr>
+
+let test#strategy = "neoterm"
 
 
 
@@ -167,6 +181,7 @@ nmap <silent> [W <plug>(ale_first)
 nmap <silent> [w <plug>(ale_previous)
 nmap <silent> ]w <plug>(ale_next)
 nmap <silent> ]W <plug>(ale_last)
+nmap <silent> <space>ts :ALEToggle<cr>
 
 let b:ale_linters = ['flake8']
 let b:ale_fixers = [
@@ -206,11 +221,8 @@ call minpac#add('mhinz/vim-startify')
 " 禁止自动切换目录
 let g:startify_change_to_dir = 0
 
-
-
 " ---------------- vinegar -------------------
 call minpac#add('tpope/vim-vinegar')
-
 
 " ---------------- NerdTree ------------------
 call minpac#add('scrooloose/nerdtree')
@@ -220,7 +232,6 @@ nmap <leader>g :NERDTreeToggle<cr>
 nmap <leader>o :NERDTreeFind<cr>
 
 let NERDTreeHijackNetrw = 0
-
 
 " -------------- AutoFormat  -----------------
 call minpac#add('Chiel92/vim-autoformat')
