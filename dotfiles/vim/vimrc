@@ -13,6 +13,10 @@ set expandtab
 set incsearch
 set display+=lastline
 set nojoinspaces
+set relativenumber
+set cursorline 
+"set cursorcolumn 
+
 
 if has('nvim')
   set inccommand=nosplit
@@ -61,14 +65,19 @@ nnoremap <silent> ] :<c-u>WhichKey ']'<CR>
 nnoremap <leader>ve :tabedit ~/.vim/vimrc<cr>
 nnoremap <leader>vs :source ~/.vim/vimrc<cr>
 nnoremap <space>fs :w<cr>
-nmap <space>bd :q<cr>
 nmap <space>mk [m
 nmap <space>mj ]m
 
 inoremap jk <esc>
 vnoremap jk <esc>
 
+nmap <space>bd :q<cr>
+nmap <space>qq :qa<cr>
 
+
+" ctags
+nmap gd <c-]>
+nnoremap <space>mgd :Dispatch! ctags (find . -name "*.py")<cr> 
 
 
 " ----------- custom commands  ---------------
@@ -101,8 +110,8 @@ noremap <space>ep :cpre<cr>
 
 " -----------------   CtrlP --------------------
 call minpac#add('ctrlpvim/ctrlp.vim')
-nmap <space>ji :CtrlPBufTag<cr>
-nmap <space>ft :CtrlPBufTagAll<cr>
+nmap <space>ji :CtrlPBufTagAll<cr>
+nmap <space>ft :CtrlPTag<cr>
 nmap <space>je :CtrlPMRUFiles<cr>
 nmap <space>jb :CtrlPBuffer<cr>
 
@@ -236,3 +245,31 @@ let NERDTreeHijackNetrw = 0
 " -------------- AutoFormat  -----------------
 call minpac#add('Chiel92/vim-autoformat')
 let g:formatter_yapf_style = 'pep8'
+
+" ---------------   CtrlSF   -----------------
+call minpac#add('dyng/ctrlsf.vim')
+let g:ctrlsf_ackprg = '/usr/local/bin/rg'
+
+let g:ctrlsf_auto_focus = {
+    \ 'at' : 'start',
+    \ 'duration_less_than': 1000
+    \ }
+
+nmap     <c-f>f <plug>CtrlSFPrompt
+vmap     <c-f>f <plug>CtrlSFVwordPath
+vmap     <c-f>F <plug>CtrlSFVwordExec
+nmap     <c-f>n <plug>CtrlSFCwordPath
+nmap     <c-f>p <plug>CtrlSFPwordPath
+nnoremap <c-f>o :CtrlSFOpen<cr>
+nnoremap <c-f>t :CtrlSFToggle<cr>
+inoremap <c-f>t <esc>:CtrlSFToggle<cr>
+
+
+
+" ------------ Notes and tips  ---------------
+" C-] to go to the tag 
+" C-^ jump between the location
+" C-t jump to previous tag
+" C-W-] :stag split the current window and jump to the tag
+" []q to go to previous and next quick fix item
+
