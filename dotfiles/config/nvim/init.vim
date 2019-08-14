@@ -37,7 +37,7 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('radenling/vim-dispatch-neovim')
 
-call minpac#add('gcmt/wildfire.vim')
+"call minpac#add('gcmt/wildfire.vim')
 
 call minpac#add('morhetz/gruvbox')
 colorscheme gruvbox
@@ -54,6 +54,11 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent> <localleader> :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent> [ :<c-u>WhichKey '['<cr>
 nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+" use <lt> as \<
+nnoremap <silent> <c-f> :<c-u>WhichKey '<lt>c-f>'<cr>
+vnoremap <silent> <c-f> :<c-u>WhichKeyVisual '<lt>c-f>'<cr>
+
+" don't use whichkey plugin on special keys
 
 " -----------  custom mapping  ---------------
 nnoremap <leader>fve :tabedit ~/.config/nvim/init.vim<cr>
@@ -284,22 +289,27 @@ let g:ctrlsf_auto_focus = {
 
 "Input :CtrlSF in command line for you
 nmap     <c-f>f <plug>CtrlSFPrompt
+nmap     <c-f><c-f> <plug>CtrlSFPrompt
 
 "Prepare to search visual selected word
 vmap     <c-f>f <plug>CtrlSFVwordPath
-
 "Immediately search visual selected word
-vmap     <c-f>F <plug>CtrlSFVwordExec
+vmap     <c-f><c-f> <plug>CtrlSFVwordExec
 
-"Prepare to search the word under cursor
-"nmap     <c-f>n <plug>CtrlSFCwordPath
+"Search the word under cursor
+nmap     <c-f>g <plug>CtrlSFCwordPath
+nmap     <c-f><c-g> <plug>CtrlSFCwordExec
 
 "Prepare to search the word under cursor and add boundary to it
-"nmap     <c-f>p <plug>CtrlSFPwordPath
+nmap     <c-f>gb <plug>CtrlSFCCwordPath
+nmap     <c-f><c-g>b <plug>CtrlSFCCwordExec
 
-nnoremap <c-f>o :CtrlSFOpen<cr>
+"Not working, don't know why
+"nmap     <c-f>p <plug>CtrlSFPwordPath
+"nmap     <c-f><c-p> <plug>CtrlSFPwordExec
+
 nnoremap <c-f>t :CtrlSFToggle<cr>
-inoremap <c-f>t <esc>:CtrlSFToggle<cr>
+nnoremap <c-f><c-t> :CtrlSFToggle<cr>
 
 " ------------ Notes and tips  ---------------
 call minpac#add('terryma/vim-multiple-cursors')
@@ -316,4 +326,5 @@ call minpac#add('terryma/vim-multiple-cursors')
 " <leader>d go to definition
 " <leader>n find all use in quickfix window
 " & to repeat last substitute command
+" in search mode, <c-n> to multiple select with plugin vim-multiple-cursors
 
