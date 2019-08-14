@@ -9,8 +9,6 @@
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
-set -gx VIM_CONFIG $HOME/'.vim'
-
 set -gx GTAGSLABEL pygments
 
 # fzf

@@ -12,9 +12,6 @@ dotfiles:
   f_tmux.conf:
     dst: ~/.tmux.conf
     src: tmux.conf
-  f_vimrc:
-    dst: ~/.vim/vimrc
-    src: vim/vimrc
   d_powerline:
     src: config/powerline
     dst: ~/.config/powerline
@@ -27,7 +24,6 @@ dotfiles:
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
-    - f_vimrc
     - f_tmux.conf
     - f_ankdown-conf.yaml
     - d_fish
