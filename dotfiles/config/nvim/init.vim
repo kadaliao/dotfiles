@@ -1,6 +1,5 @@
-set nocompatible
-filetype plugin indent on
 syntax on
+filetype plugin indent on
 
 set number
 set laststatus=2
@@ -16,13 +15,10 @@ set ignorecase
 set display+=lastline
 set nojoinspaces
 set relativenumber
-set cursorline 
-set cursorcolumn 
-
-
-if has('nvim')
-  set inccommand=nosplit
-endif
+set nospell
+set inccommand=nosplit
+"set cursorline
+"set cursorcolumn
 
 packadd minpac
 call minpac#init()
@@ -47,6 +43,7 @@ call minpac#add('morhetz/gruvbox')
 colorscheme gruvbox
 
 
+" use \" here, \' won't work
 let g:mapleader = "\<space>"
 let g:maplocalleader = '\'
 
@@ -60,7 +57,7 @@ nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
 
 " -----------  custom mapping  ---------------
 nnoremap <leader>fve :tabedit ~/.config/nvim/init.vim<cr>
-nnoremap <leader>fvs :source ~/.config/nvim/init.vim<cr>
+"nnoremap <leader>fvs :source ~/.config/nvim/init.vim<cr>
 nnoremap <leader>fs :w<cr>
 nmap <leader>mk [m
 nmap <leader>mj ]m
@@ -72,13 +69,11 @@ nmap <leader>qq :qa<cr>
 nmap <silent> <leader>bp :tabp<cr>
 nmap <silent> <leader>bn :tabn<cr>
 
-" 使用<esc>有时候在括号后面会卡住
-imap jk <c-[>
-vmap jk <c-[>
-
+imap jk <esc>
+vmap jk <esc>
 
 " just generate tags for python files
-nnoremap <leader>mgd :Dispatch! ctags $(find . -name "*.py")<cr> 
+nnoremap <leader>mgd :Dispatch! ctags -R -h=".py"<cr>
 
 imap <c-h> <bs>
 imap <c-d> <del>
@@ -91,13 +86,21 @@ imap <c-e> <c-o>$
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
+" Quit help window just by q
+autocmd FileType help noremap <buffer> q :q<cr>
+autocmd FileType qf noremap <buffer> q :q<cr>
 
 " Automatically source the vimrc file on save
-
 augroup autosourcing
   autocmd! 
-  autocmd BufWritePost vimrc source %
+  autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
 augroup END
+
+" Put quick fix under main window
+augroup DragQuickfixWindowDown
+    autocmd!
+    autocmd FileType qf wincmd J
+augroup end
 
 
 " ---------------- NerdTree ------------------
@@ -108,27 +111,21 @@ nmap <F2> :NERDTreeToggle<cr>
 nmap <leader>ft :NERDTreeToggle<cr>
 nmap <leader>fo :NERDTreeFind<cr>
 
-let NERDTreeHijackNetrw = 0
-let NERDTreeQuitOnOpen = 1
+let NERDTreeHijackNetrw = 1
+let NERDTreeQuitOnOpen = 0
+let NERDTreeWinPos = 'right'
+let NERDTreeAutoDeleteBuffer = 1
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+augroup NerdEnter
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+augroup END
 
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-
-autocmd BufWinEnter * NERDTreeMirror
+" Auto open for each tab if NerdTree exists, abnormal with quickfix window
+" autocmd BufWinEnter * NERDTreeMirror
 
 " Auto quit Vim when actual files are closed
 function! s:CheckLeftBuffers(quitpre)
@@ -162,8 +159,8 @@ augroup AutoQuit
 augroup END
 
 " --------------   jedi-vim  -----------------
-" call minpac#add('davidhalter/jedi-vim')
-" call minpac#add('ervandew/supertab')
+call minpac#add('davidhalter/jedi-vim')
+call minpac#add('ervandew/supertab')
 
  
 " --------------   quick fix -----------------
@@ -178,6 +175,7 @@ nmap <leader>tji :CtrlPBufTagAll<cr>
 nmap <leader>tjs :CtrlPTag<cr>
 nmap <leader>fje :CtrlPMRUFiles<cr>
 nmap <leader>fjb :CtrlPBuffer<cr>
+nmap <leader>ff :CtrlPCurWD<cr>
 
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -246,7 +244,7 @@ nmap <silent> [W <plug>(ale_first)
 nmap <silent> [w <plug>(ale_previous)
 nmap <silent> ]w <plug>(ale_next)
 nmap <silent> ]W <plug>(ale_last)
-nmap <silent> <leader>ts :ALEToggle<cr>
+nmap <leader>ts :ALEToggle<cr>
 
 let b:ale_linters = ['flake8']
 let b:ale_fixers = [
@@ -267,7 +265,7 @@ let g:ale_lint_on_filetype_changed = 0
 
 " ---------------- Starify -------------------
 call minpac#add('mhinz/vim-startify')
-" 禁止自动切换目录
+" forbid to change directory
 let g:startify_change_to_dir = 1
 
 
@@ -284,15 +282,27 @@ let g:ctrlsf_auto_focus = {
     \ 'duration_less_than': 1000
     \ }
 
+"Input :CtrlSF in command line for you
 nmap     <c-f>f <plug>CtrlSFPrompt
+
+"Prepare to search visual selected word
 vmap     <c-f>f <plug>CtrlSFVwordPath
+
+"Immediately search visual selected word
 vmap     <c-f>F <plug>CtrlSFVwordExec
-nmap     <c-f>n <plug>CtrlSFCwordPath
-nmap     <c-f>p <plug>CtrlSFPwordPath
+
+"Prepare to search the word under cursor
+"nmap     <c-f>n <plug>CtrlSFCwordPath
+
+"Prepare to search the word under cursor and add boundary to it
+"nmap     <c-f>p <plug>CtrlSFPwordPath
+
 nnoremap <c-f>o :CtrlSFOpen<cr>
 nnoremap <c-f>t :CtrlSFToggle<cr>
 inoremap <c-f>t <esc>:CtrlSFToggle<cr>
 
+" ------------ Notes and tips  ---------------
+call minpac#add('terryma/vim-multiple-cursors')
 
 
 " ------------ Notes and tips  ---------------
@@ -305,4 +315,5 @@ inoremap <c-f>t <esc>:CtrlSFToggle<cr>
 " <leader>g go to definition, includes declaration
 " <leader>d go to definition
 " <leader>n find all use in quickfix window
+" & to repeat last substitute command
 
