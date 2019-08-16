@@ -69,7 +69,7 @@ nmap <leader>mk [m
 nmap <leader>mj ]m
 
 " close buffer and quit all
-nmap <leader>bd :bd<cr>
+nmap <leader>bd sc
 nmap <leader>qq :qa<cr>
 nmap <leader>qQ :qa!<cr>
 nmap <leader>bp :bp<cr>
