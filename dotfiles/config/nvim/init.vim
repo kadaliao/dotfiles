@@ -1,14 +1,15 @@
 syntax on
 filetype plugin indent on
 
+set hidden
 set number
 set laststatus=2
 set backspace=2
 set modelines=5
 set visualbell
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 set incsearch
 set ignorecase
@@ -55,24 +56,25 @@ nnoremap <silent> <localleader> :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent> [ :<c-u>WhichKey '['<cr>
 nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
 " use <lt> as \<
-nnoremap <silent> <c-f> :<c-u>WhichKey '<lt>c-f>'<cr>
-vnoremap <silent> <c-f> :<c-u>WhichKeyVisual '<lt>c-f>'<cr>
 
 " don't use whichkey plugin on special keys
 
 " -----------  custom mapping  ---------------
-nnoremap <leader>fve :tabedit ~/.config/nvim/init.vim<cr>
-"nnoremap <leader>fvs :source ~/.config/nvim/init.vim<cr>
+nnoremap <leader>fve :edit ~/.config/nvim/init.vim<cr>
+nnoremap <leader>fvs :source ~/.config/nvim/init.vim<cr>
 nnoremap <leader>fs :w<cr>
 nmap <leader>mk [m
 nmap <leader>mj ]m
 
 " close buffer and quit all
-nmap <leader>bd :q<cr>
+nmap <leader>bd :bd<cr>
 nmap <leader>qq :qa<cr>
+nmap <leader>bp :bp<cr>
+nmap <leader>bn :bn<cr>
 
-nmap <silent> <leader>bp :tabp<cr>
-nmap <silent> <leader>bn :tabn<cr>
+" use cl instead of original s
+nmap s <c-w>
+nmap sd sc
 
 imap jk <esc>
 vmap jk <esc>
@@ -92,8 +94,8 @@ command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
 " Quit help window just by q
-autocmd FileType help noremap <buffer> q :q<cr>
-autocmd FileType qf noremap <buffer> q :q<cr>
+augroup EndHelpQ | au! FileType help noremap <buffer> q :q<cr> | augroup END
+augroup EndQuickFixQ | au! FileType qf noremap <buffer> q :q<cr> | augroup END
 
 " Automatically source the vimrc file on save
 augroup autosourcing
@@ -114,6 +116,8 @@ call minpac#add('Xuyuanp/nerdtree-git-plugin')
 
 nmap <F2> :NERDTreeToggle<cr>
 nmap <leader>ft :NERDTreeToggle<cr>
+
+" todo: if nerdtree is already open, close it
 nmap <leader>fo :NERDTreeFind<cr>
 
 let NERDTreeHijackNetrw = 1
@@ -127,10 +131,10 @@ augroup NerdEnter
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-augroup END
+autocmd StdinReadPre * let s:augroup END
 
 " Auto open for each tab if NerdTree exists, abnormal with quickfix window
-" autocmd BufWinEnter * NERDTreeMirror
+"autocmd BufWinEnter * NERDTreeMirror
 
 " Auto quit Vim when actual files are closed
 function! s:CheckLeftBuffers(quitpre)
@@ -154,6 +158,7 @@ function! s:CheckLeftBuffers(quitpre)
     endif
   endif
 endfunction
+
 augroup AutoQuit
   autocmd!
   if exists('##QuitPre')
@@ -163,37 +168,36 @@ augroup AutoQuit
   endif
 augroup END
 
-" --------------   jedi-vim  -----------------
-call minpac#add('davidhalter/jedi-vim')
-call minpac#add('ervandew/supertab')
 
+" --------------   vim-airline  -----------------
+call minpac#add('vim-airline/vim-airline')
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
  
 " --------------   quick fix -----------------
 noremap <leader>el :copen<cr>
 noremap <leader>eo :cclose<cr>
 noremap <leader>en :cnext<cr>
+noremap <leader>eN :clast<cr>
 noremap <leader>ep :cpre<cr>
+noremap <leader>eP :cfirst<cr>
 
 " -----------------   CtrlP --------------------
 call minpac#add('ctrlpvim/ctrlp.vim')
-nmap <leader>tji :CtrlPBufTagAll<cr>
-nmap <leader>tjs :CtrlPTag<cr>
-nmap <leader>fje :CtrlPMRUFiles<cr>
-nmap <leader>fjb :CtrlPBuffer<cr>
+nmap <leader>ji :CtrlPBufTagAll<cr>
+nmap <leader>jt :CtrlPTag<cr>
+
 nmap <leader>ff :CtrlPCurWD<cr>
 
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|venv\|env'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
+  \ 'file': '\v(tags)|\.(exe|so|dll)$',
   \ }
-
-
 
 " ------------   easy motion  ----------------
 call minpac#add('easymotion/vim-easymotion')
@@ -226,7 +230,7 @@ endif
 call minpac#add('kassio/neoterm')
 
 " 3<leader>tl will clear neoterm-3.
-nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+"nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
 
 " ---------------- vim-test ------------------
@@ -239,7 +243,7 @@ nmap <silent> t<c-s> :TestSuite<cr>
 nmap <silent> t<c-l> :TestLast<cr>
 nmap <silent> t<c-g> :TestVisit<cr>
 
-let test#strategy = "neoterm"
+let test#strategy = 'neoterm'
 
 " ------------------- ale --------------------
 call minpac#add('w0rp/ale')
@@ -251,7 +255,13 @@ nmap <silent> ]w <plug>(ale_next)
 nmap <silent> ]W <plug>(ale_last)
 nmap <leader>ts :ALEToggle<cr>
 
-let b:ale_linters = ['flake8']
+"let b:ale_linters = ['flake8']
+let b:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\}
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
 let b:ale_fixers = [
 \   'remove_trailing_lines',
 \   'isort',
@@ -259,14 +269,23 @@ let b:ale_fixers = [
 \   'yapf',
 \]
 
-nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<cr>
-
+"nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<cr>
 
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 0
+let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
-let g:ale_lint_on_filetype_changed = 0
+let g:ale_lint_on_filetype_changed = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 0
 
+" --------------   jedi-vim  -----------------
+call minpac#add('davidhalter/jedi-vim')
+call minpac#add('ervandew/supertab')
+
+" ---------------- Deoplete -------------------
+"call minpac#add('Shougo/deoplete.nvim')
+"let g:deoplete#enable_at_startup = 1
 
 " ---------------- Starify -------------------
 call minpac#add('mhinz/vim-startify')
@@ -280,6 +299,8 @@ let g:formatter_yapf_style = 'pep8'
 
 " ---------------   CtrlSF   -----------------
 call minpac#add('dyng/ctrlsf.vim')
+call minpac#add('terryma/vim-multiple-cursors')
+
 let g:ctrlsf_ackprg = '/usr/local/bin/rg'
 
 let g:ctrlsf_auto_focus = {
@@ -296,9 +317,9 @@ vmap     <c-f>f <plug>CtrlSFVwordPath
 "Immediately search visual selected word
 vmap     <c-f><c-f> <plug>CtrlSFVwordExec
 
-"Search the word under cursor
-nmap     <c-f>g <plug>CtrlSFCwordPath
-nmap     <c-f><c-g> <plug>CtrlSFCwordExec
+"Search the word under cursor, don't pass argument to CtrlSFprompt will do the same
+"nmap     <c-f>g <plug>CtrlSFCwordPath
+"nmap     <c-f><c-g> <plug>CtrlSFCwordExec
 
 "Prepare to search the word under cursor and add boundary to it
 nmap     <c-f>gb <plug>CtrlSFCCwordPath
@@ -310,10 +331,6 @@ nmap     <c-f><c-g>b <plug>CtrlSFCCwordExec
 
 nnoremap <c-f>t :CtrlSFToggle<cr>
 nnoremap <c-f><c-t> :CtrlSFToggle<cr>
-
-" ------------ Notes and tips  ---------------
-call minpac#add('terryma/vim-multiple-cursors')
-
 
 " ------------ Notes and tips  ---------------
 " C-] to go to the tag 

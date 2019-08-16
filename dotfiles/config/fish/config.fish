@@ -29,3 +29,6 @@ set -gx PIPENV_SKIP_LOCK 1
 set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
 set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
+
+# 使用trash替换rm命令
+alias rm trash
