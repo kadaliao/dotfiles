@@ -3,6 +3,7 @@ filetype plugin indent on
 
 set hidden
 set number
+set encoding=UTF-8
 set laststatus=2
 set backspace=2
 set modelines=5
@@ -18,6 +19,7 @@ set nojoinspaces
 set relativenumber
 set nospell
 set inccommand=nosplit
+set guifont=DroidSansMono_Nerd_Font:h11
 "set cursorline
 "set cursorcolumn
 
@@ -69,6 +71,7 @@ nmap <leader>mj ]m
 " close buffer and quit all
 nmap <leader>bd :bd<cr>
 nmap <leader>qq :qa<cr>
+nmap <leader>qQ :qa!<cr>
 nmap <leader>bp :bp<cr>
 nmap <leader>bn :bn<cr>
 
@@ -88,7 +91,7 @@ imap <c-k> <c-o>D
 imap <c-a> <c-o>I
 imap <c-e> <c-o>$
 
-" ----------- custom commands  ---------------
+" -----------    custom commands  ---------------
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
@@ -110,71 +113,27 @@ augroup DragQuickfixWindowDown
 augroup end
 
 
-" ---------------- NerdTree ------------------
-call minpac#add('scrooloose/nerdtree')
-call minpac#add('Xuyuanp/nerdtree-git-plugin')
+" ------------    ranger.vim   ------------------
+call minpac#add('francoiscabrol/ranger.vim')
+call minpac#add('rbgrouleff/bclose.vim')
 
-nmap <F2> :NERDTreeToggle<cr>
-nmap <leader>ft :NERDTreeToggle<cr>
+nmap <F2> :Ranger<cr>
+nmap <leader>ft :RangerCurrentDirectory<cr>
+nmap <leader>fo :RangerCurrentFile<cr>
 
-" todo: if nerdtree is already open, close it
-nmap <leader>fo :NERDTreeFind<cr>
+let g:ranger_replace_netrw = 1
 
-let NERDTreeHijackNetrw = 1
-let NERDTreeQuitOnOpen = 0
-let NERDTreeWinPos = 'right'
-let NERDTreeAutoDeleteBuffer = 1
-"let NERDTreeMinimalUI = 1
-"let NERDTreeDirArrows = 1
-
-augroup NerdEnter
-  autocmd!
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-autocmd StdinReadPre * let s:augroup END
-
-" Auto open for each tab if NerdTree exists, abnormal with quickfix window
-"autocmd BufWinEnter * NERDTreeMirror
-
-" Auto quit Vim when actual files are closed
-function! s:CheckLeftBuffers(quitpre)
-  if tabpagenr('$') == 1
-    let i = 1
-    while i <= winnr('$')
-      if a:quitpre && i == winnr()
-        let i += 1
-        continue
-      endif
-      let filetypes = ['help', 'qf', 'nerdtree', 'taglist']
-      if index(filetypes, getbufvar(winbufnr(i), '&filetype')) >= 0 ||
-            \ getwinvar(i, '&previewwindow')
-        let i += 1
-      else
-        break
-      endif
-    endwhile
-    if i == winnr('$') + 1
-      call feedkeys(":only\<CR>:q\<CR>", 'n')
-    endif
-  endif
-endfunction
-
-augroup AutoQuit
-  autocmd!
-  if exists('##QuitPre')
-    autocmd QuitPre * call s:CheckLeftBuffers(1)
-  else
-    autocmd BufEnter * call s:CheckLeftBuffers(0)
-  endif
-augroup END
-
+" --------------   vim-devicons  -----------------
+call minpac#add('ryanoasis/vim-devicons')
+let g:airline_powerline_fonts = 1
 
 " --------------   vim-airline  -----------------
 call minpac#add('vim-airline/vim-airline')
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
- 
-" --------------   quick fix -----------------
+
+
+" --------------   quick fix --------------------
 noremap <leader>el :copen<cr>
 noremap <leader>eo :cclose<cr>
 noremap <leader>en :cnext<cr>
@@ -196,7 +155,7 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
-  \ 'file': '\v(tags)|\.(exe|so|dll)$',
+  \ 'file': '\v(tags)|\.(exe|so|dll|pyc)$',
   \ }
 
 " ------------   easy motion  ----------------
@@ -222,12 +181,16 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 if has('nvim')
   tnoremap <esc> <c-\><c-n>
   tnoremap <a-[> <esc>
-  " switching between split windows
+  "let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 endif
+
+"augroup GitCommitNVR
+"  autocmd FileType gitcommit set bufhidden=delete
+"augroup END
 
 
 " ---------------  neoterm -------------------
-call minpac#add('kassio/neoterm')
+"call minpac#add('kassio/neoterm')
 
 " 3<leader>tl will clear neoterm-3.
 "nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
