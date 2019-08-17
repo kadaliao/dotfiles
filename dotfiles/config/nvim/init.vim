@@ -57,9 +57,10 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent> <localleader> :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent> [ :<c-u>WhichKey '['<cr>
 nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
-" use <lt> as \<
 
 " don't use whichkey plugin on special keys
+" use <lt> as \<
+"nnoremap <silent> <a-f> :<c-u>WhichKey '<lt>a-f>'<cr>
 
 " -----------  custom mapping  ---------------
 nnoremap <leader>fve :edit ~/.config/nvim/init.vim<cr>
@@ -69,7 +70,7 @@ nmap <leader>mk [m
 nmap <leader>mj ]m
 
 " close buffer and quit all
-nmap <leader>bd sc
+nmap <leader>bd :bd<cr>
 nmap <leader>qq :qa<cr>
 nmap <leader>qQ :qa!<cr>
 nmap <leader>bp :bp<cr>
@@ -78,6 +79,7 @@ nmap <leader>bn :bn<cr>
 " use cl instead of original s
 nmap s <c-w>
 nmap sd sc
+nmap sg ss
 
 imap jk <esc>
 vmap jk <esc>
@@ -179,8 +181,8 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 
 " --------------   terminal ------------------
 if has('nvim')
-  tnoremap <esc> <c-\><c-n>
-  tnoremap <a-[> <esc>
+  "tnoremap <esc> <c-\><c-n>
+  tnoremap <a-[> <c-\><c-n>
   "let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 endif
 
@@ -272,28 +274,29 @@ let g:ctrlsf_auto_focus = {
     \ }
 
 "Input :CtrlSF in command line for you
-nmap     <c-f>f <plug>CtrlSFPrompt
-nmap     <c-f><c-f> <plug>CtrlSFPrompt
+nmap     <a-f>f <plug>CtrlSFPrompt
+nmap     <a-f><a-f> <plug>CtrlSFPrompt
 
 "Prepare to search visual selected word
-vmap     <c-f>f <plug>CtrlSFVwordPath
+vmap     <a-f>f <plug>CtrlSFVwordPath
+vmap     <a-f><a-f> <plug>CtrlSFVwordExec
 "Immediately search visual selected word
-vmap     <c-f><c-f> <plug>CtrlSFVwordExec
+"vmap     <a-f><a-f> <plug>CtrlSFVwordExec
 
 "Search the word under cursor, don't pass argument to CtrlSFprompt will do the same
 "nmap     <c-f>g <plug>CtrlSFCwordPath
 "nmap     <c-f><c-g> <plug>CtrlSFCwordExec
 
 "Prepare to search the word under cursor and add boundary to it
-nmap     <c-f>gb <plug>CtrlSFCCwordPath
-nmap     <c-f><c-g>b <plug>CtrlSFCCwordExec
+nmap     <a-f>b <plug>CtrlSFCCwordPath
+nmap     <a-f><a-b> <plug>CtrlSFCCwordExec
 
 "Not working, don't know why
 "nmap     <c-f>p <plug>CtrlSFPwordPath
 "nmap     <c-f><c-p> <plug>CtrlSFPwordExec
 
-nnoremap <c-f>t :CtrlSFToggle<cr>
-nnoremap <c-f><c-t> :CtrlSFToggle<cr>
+nnoremap <a-f>t :CtrlSFToggle<cr>
+nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 
 " ------------ Notes and tips  ---------------
 " C-] to go to the tag 
