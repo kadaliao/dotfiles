@@ -33,4 +33,4 @@ set -gx RANGER_LOAD_DEFAULT_RC 0
 set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
 
 # 使用trash替换rm命令
-alias rm trash
+#alias rm trash

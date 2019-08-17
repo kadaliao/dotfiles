@@ -120,7 +120,7 @@ call minpac#add('francoiscabrol/ranger.vim')
 call minpac#add('rbgrouleff/bclose.vim')
 
 nmap <F2> :Ranger<cr>
-nmap <leader>ft :RangerCurrentDirectory<cr>
+nmap <leader>ft :RangerWorkingDirectory<cr>
 nmap <leader>fo :RangerCurrentFile<cr>
 
 let g:ranger_replace_netrw = 1
