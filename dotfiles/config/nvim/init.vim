@@ -330,12 +330,25 @@ let g:ale_set_quickfix = 1
 let g:ale_open_list = 0
 
 " --------------   jedi-vim  -----------------
-call minpac#add('davidhalter/jedi-vim')
-call minpac#add('ervandew/supertab')
+"call minpac#add('davidhalter/jedi-vim')
+"call minpac#add('ervandew/supertab')
 
-" ---------------- Deoplete -------------------
-"call minpac#add('Shougo/deoplete.nvim')
-"let g:deoplete#enable_at_startup = 1
+" ---------------- Deoplete ------------------
+call minpac#add('Shougo/deoplete.nvim')
+let g:deoplete#enable_at_startup = 1
+
+
+call minpac#add('deoplete-plugins/deoplete-jedi')
+
+" ------------- NerdCommenter ----------------
+call minpac#add('scrooloose/nerdcommenter')
+let g:NERDCreateDefaultMappings = 0
+
+nmap <leader>cl <plug>NERDCommenterInvert
+vmap <leader>cl <plug>NERDCommenterInvert
+nmap <leader>cp vip<plug>NERDCommenterInvert
+vmap <leader>cp vip<plug>NERDCommenterInvert
+
 
 " ---------------- Starify -------------------
 call minpac#add('mhinz/vim-startify')
