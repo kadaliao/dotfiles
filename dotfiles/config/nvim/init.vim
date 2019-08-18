@@ -5,6 +5,12 @@ set hidden
 set number
 set encoding=UTF-8
 set laststatus=2
+set termguicolors
+set mouse=a
+"set guifont=DroidSansMono_Nerd_Font:h11
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+          \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+          \,sm:block-blinkwait175-blinkoff150-blinkon175
 set backspace=2
 set modelines=5
 set visualbell
@@ -19,8 +25,7 @@ set nojoinspaces
 set relativenumber
 set nospell
 set inccommand=nosplit
-set guifont=DroidSansMono_Nerd_Font:h11
-"set cursorline
+set cursorline
 "set cursorcolumn
 
 packadd minpac
@@ -32,29 +37,32 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('lxhillwind/leader-clipboard')
 
+call minpac#add('tpope/vim-dispatch')
+call minpac#add('radenling/vim-dispatch-neovim')
+
 call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
 call minpac#add('tpope/vim-projectionist', {'type': 'opt'})
 call minpac#add('leafgarland/typescript-vim', {'type': 'opt'})
 call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-call minpac#add('tpope/vim-dispatch')
-call minpac#add('radenling/vim-dispatch-neovim')
+call minpac#add('lilydjwg/colorizer', {'type': 'opt'})
 
 "call minpac#add('gcmt/wildfire.vim')
 
+call minpac#add('dracula/vim', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
 colorscheme gruvbox
 
 
 " use \" here, \' won't work
-let g:mapleader = "\<space>"
-let g:maplocalleader = '\'
+let g:mapleader = "\\"
+
+nmap <space> \
+xmap <space> \
 
 " ---------------- whichkey ------------------
 call minpac#add('liuchengx/vim-which-key')
 
-nnoremap <silent> <leader>      :<c-u>WhichKey '<space>'<cr>
-nnoremap <silent> <localleader> :<c-u>WhichKey '<space>'<cr>
+nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
 nnoremap <silent> [ :<c-u>WhichKey '['<cr>
 nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
 
@@ -70,19 +78,27 @@ nmap <leader>mk [m
 nmap <leader>mj ]m
 
 " close buffer and quit all
-nmap <leader>bd :bd<cr>
-nmap <leader>qq :qa<cr>
-nmap <leader>qQ :qa!<cr>
-nmap <leader>bp :bp<cr>
-nmap <leader>bn :bn<cr>
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>qq :qa<cr>
+nnoremap <leader>qQ :qa!<cr>
+nnoremap <leader>bp :bp<cr>
+nnoremap <leader>bn :bn<cr>
+
+tnoremap <leader>qq <esc>
 
 " use cl instead of original s
-nmap s <c-w>
-nmap sd sc
-nmap sg ss
+nnoremap s <c-w>
+nnoremap sd <c-w>c
+nnoremap vs <c-w>v
 
-imap jk <esc>
-vmap jk <esc>
+nnoremap q <esc>
+nnoremap <leader>qr q
+
+
+imap jk <c-[>
+"vmap jk <c-[>
+"imap jk <esc>
+"vmap jk <esc>
 
 " just generate tags for python files
 nnoremap <leader>mgd :Dispatch! ctags -R -h=".py"<cr>
@@ -92,6 +108,24 @@ imap <c-d> <del>
 imap <c-k> <c-o>D
 imap <c-a> <c-o>I
 imap <c-e> <c-o>$
+
+" Deleting current buffer without losing the split
+nnoremap <silent> <c-x> :bp\|bd #<cr>
+
+" Fold file based on syntax
+nnoremap <leader>zs :setlocal foldmethod=syntax<cr>
+nnoremap <leader>zt :setlocal nofoldenable<cr>
+
+" Rename current file
+"nnoremap <leader>rn :Move <c-r>=expand("%")<cr> 
+
+" Replace word under cursor, globally, with confirmation
+nnoremap <Leader>rk :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+vnoremap <Leader>rk y :%s/<C-r>"//gc<Left><Left><Left>
+
+" Remove highlighting on escape
+map <silent> <esc> :nohlsearch<cr>
+
 
 " -----------    custom commands  ---------------
 
@@ -103,16 +137,27 @@ augroup EndHelpQ | au! FileType help noremap <buffer> q :q<cr> | augroup END
 augroup EndQuickFixQ | au! FileType qf noremap <buffer> q :q<cr> | augroup END
 
 " Automatically source the vimrc file on save
-augroup autosourcing
+augroup AutoSourcing
   autocmd! 
   autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
 augroup END
 
 " Put quick fix under main window
-augroup DragQuickfixWindowDown
-    autocmd!
-    autocmd FileType qf wincmd J
-augroup end
+"augroup DragQuickfixWindowDown
+"    autocmd!
+"    autocmd FileType qf wincmd J
+"augroup end
+
+" ---------------    tagbar   -------------------
+call minpac#add('majutsushi/tagbar')
+let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+let g:tagbar_compact = 1
+"let g:tagbar_autoshowtag = 1
+let g:tagbar_autopreview = 1
+
+nmap <F3> :TagbarToggle<CR>
 
 
 " ------------    ranger.vim   ------------------
@@ -148,13 +193,14 @@ call minpac#add('ctrlpvim/ctrlp.vim')
 nmap <leader>ji :CtrlPBufTagAll<cr>
 nmap <leader>jt :CtrlPTag<cr>
 
-nmap <leader>ff :CtrlPCurWD<cr>
+nmap <leader>ff :CtrlPCurFile<cr>
 
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 
+let g:ctrlp_match_window = 'results:30'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
   \ 'file': '\v(tags)|\.(exe|so|dll|pyc)$',
@@ -162,6 +208,8 @@ let g:ctrlp_custom_ignore = {
 
 " ------------   easy motion  ----------------
 call minpac#add('easymotion/vim-easymotion')
+
+let g:EasyMotion_do_mapping = 0
 
 " <Leader>f{char} to move to {char}
 " map  <Leader>f <plug>(easymotion-bd-f)
@@ -178,24 +226,61 @@ nmap <leader>jl <plug>(easymotion-overwin-line)
 map  <leader>jw <plug>(easymotion-bd-w)
 nmap <leader>jw <plug>(easymotion-overwin-w)
 
-
 " --------------   terminal ------------------
-if has('nvim')
-  "tnoremap <esc> <c-\><c-n>
-  tnoremap <a-[> <c-\><c-n>
-  "let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-endif
+"tnoremap <a-[> <esc>
+tnoremap <leader><esc> <c-\><c-n>
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+tnoremap <a-h> <C-\><C-N><C-w>h
+tnoremap <a-j> <C-\><C-N><C-w>j
+tnoremap <a-k> <C-\><C-N><C-w>k
+tnoremap <a-l> <C-\><C-N><C-w>l
+inoremap <a-h> <C-\><C-N><C-w>h
+inoremap <a-j> <C-\><C-N><C-w>j
+inoremap <a-k> <C-\><C-N><C-w>k
+inoremap <a-l> <C-\><C-N><C-w>l
+nnoremap <a-h> <C-w>h
+nnoremap <a-j> <C-w>j
+nnoremap <a-k> <C-w>k
+nnoremap <a-l> <C-w>l
 
-"augroup GitCommitNVR
-"  autocmd FileType gitcommit set bufhidden=delete
-"augroup END
-
+" do not quit entire vim
+augroup GitCommitNVR
+  "autocmd FileType gitcommit set bufhidden=delete
+  autocmd FileType gitcommit nmap <leader>qq :q<cr>
+augroup END
 
 " ---------------  neoterm -------------------
-"call minpac#add('kassio/neoterm')
+call minpac#add('kassio/neoterm')
+
+let g:neoterm_autoinsert = 1
+
+" quickly toggle terminal
+nnoremap <silent> <leader>o :rightbelow Ttoggle<cr>
+nnoremap <silent> <leader><leader> :rightbelow Ttoggle<cr>
+nnoremap <silent> <leader>O :vertical botright Ttoggle<cr>
+
+" close term
+tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
+tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
+
 
 " 3<leader>tl will clear neoterm-3.
-"nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+
+" ---------------  neoterm -------------------
+call minpac#add('mhinz/neovim-remote')
+
+let $VISUAL      = 'nvr -cc split --remote-wait +"setlocal bufhidden=delete"'
+let $GIT_EDITOR  = 'nvr -cc split --remote-wait +"setlocal bufhidden=delete"'
+let $EDITOR      = 'nvr -l'
+let $ECTO_EDITOR = 'nvr -l'
+
+" share data between nvim instances (registers etc)
+augroup SHADA
+  autocmd!
+  autocmd CursorHold,TextYankPost,FocusGained,FocusLost *
+        \ if exists(':rshada') | rshada | wshada | endif
+augroup END
 
 
 " ---------------- vim-test ------------------
@@ -298,6 +383,7 @@ nmap     <a-f><a-b> <plug>CtrlSFCCwordExec
 nnoremap <a-f>t :CtrlSFToggle<cr>
 nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 
+
 " ------------ Notes and tips  ---------------
 " C-] to go to the tag 
 " C-^ jump between the location
@@ -311,3 +397,9 @@ nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 " & to repeat last substitute command
 " in search mode, <c-n> to multiple select with plugin vim-multiple-cursors
 
+" xmap visual
+" vmap visula and select
+" omap operator pending
+" lmap Insert, Command-line, Lang-Arg
+" tmap Terminal-Job
+" cmap Command-line
