@@ -26,15 +26,15 @@ set relativenumber
 set nospell
 set inccommand=nosplit
 set cursorline
+set undofile
 "set cursorcolumn
+"set bufhidden=delete
 
 packadd minpac
 call minpac#init()
 
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
-
-call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('lxhillwind/leader-clipboard')
 
 call minpac#add('tpope/vim-dispatch')
@@ -48,7 +48,6 @@ call minpac#add('lilydjwg/colorizer', {'type': 'opt'})
 
 "call minpac#add('gcmt/wildfire.vim')
 
-call minpac#add('dracula/vim', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
 colorscheme gruvbox
 
@@ -74,11 +73,10 @@ nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
 nnoremap <leader>fve :edit ~/.config/nvim/init.vim<cr>
 nnoremap <leader>fvs :source ~/.config/nvim/init.vim<cr>
 nnoremap <leader>fs :w<cr>
-nmap <leader>mk [m
-nmap <leader>mj ]m
 
 " close buffer and quit all
 nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bD :q!<cr>
 nnoremap <leader>qq :qa<cr>
 nnoremap <leader>qQ :qa!<cr>
 nnoremap <leader>bp :bp<cr>
@@ -89,14 +87,16 @@ tnoremap <leader>qq <esc>
 " use cl instead of original s
 nnoremap s <c-w>
 nnoremap sd <c-w>c
+"nnoremap sv <c-w>v
+nnoremap sg <c-w>s
 nnoremap vs <c-w>v
-
 nnoremap q <esc>
+vnoremap q <esc>
 nnoremap <leader>qr q
 
 
-imap jk <c-[>
-"vmap jk <c-[>
+imap jk <esc>
+vmap jk <c-[>
 "imap jk <esc>
 "vmap jk <esc>
 
@@ -108,6 +108,10 @@ imap <c-d> <del>
 imap <c-k> <c-o>D
 imap <c-a> <c-o>I
 imap <c-e> <c-o>$
+imap <c-p> <up>
+imap <c-f> <right>
+imap <c-b> <left>
+imap <c-n> <down>
 
 " Deleting current buffer without losing the split
 nnoremap <silent> <c-x> :bp\|bd #<cr>
@@ -117,20 +121,20 @@ nnoremap <leader>zs :setlocal foldmethod=syntax<cr>
 nnoremap <leader>zt :setlocal nofoldenable<cr>
 
 " Rename current file
-"nnoremap <leader>rn :Move <c-r>=expand("%")<cr> 
+"nnoremap <leader>rn :Move <c-r>=expand("%")<cr>
 
 " Replace word under cursor, globally, with confirmation
 nnoremap <Leader>rk :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 vnoremap <Leader>rk y :%s/<C-r>"//gc<Left><Left><Left>
 
 " Remove highlighting on escape
-map <silent> <esc> :nohlsearch<cr>
+nmap <silent> <esc> :nohlsearch<cr>
 
 
 " -----------    custom commands  ---------------
-
-command! PackUpdate call minpac#update()
-command! PackClean call minpac#clean()
+command! PackUpdate call minpac#update('', {'do': 'call minpac#status()'})
+command! PackClean  call minpac#clean()
+command! PackStatus call minpac#status()
 
 " Quit help window just by q
 augroup EndHelpQ | au! FileType help noremap <buffer> q :q<cr> | augroup END
@@ -138,9 +142,11 @@ augroup EndQuickFixQ | au! FileType qf noremap <buffer> q :q<cr> | augroup END
 
 " Automatically source the vimrc file on save
 augroup AutoSourcing
-  autocmd! 
+  autocmd!
   autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
 augroup END
+
+
 
 " Put quick fix under main window
 "augroup DragQuickfixWindowDown
@@ -150,14 +156,40 @@ augroup END
 
 " ---------------    tagbar   -------------------
 call minpac#add('majutsushi/tagbar')
-let g:tagbar_left = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
-let g:tagbar_compact = 1
 "let g:tagbar_autoshowtag = 1
-let g:tagbar_autopreview = 1
+let g:tagbar_autoclose = 0
+let g:tagbar_autofocus = 1
+let g:tagbar_autopreview = 0
+let g:tagbar_compact = 1
+let g:tagbar_left = 1
 
 nmap <F3> :TagbarToggle<CR>
+
+" -------------    vim-gutter  ------------------
+call minpac#add('airblade/vim-gitgutter')
+let g:gitgutter_map_keys = 0
+
+nnoremap <leader>gp :silent! GitGutterPreviewHunk<cr>
+nnoremap <leader>go :pclose<cr>
+nnoremap <leader>tg :GitGutterToggle<cr>
+
+"nmap [c <Plug>GitGutterPrevHunk
+"nmap ]c <Plug>GitGutterNextHunk
+
+"function! PreviewWindowOpened()
+    "for nr in range(1, winnr('$'))
+        "if getwinvar(nr, '&pvw') == 1
+             "found a preview
+            "return 1
+        "endif
+    "endfor
+    "return 0
+"endfunction
+
+" --------------  vim.fugitive   ----------------
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-rhubarb')
+let g:github_enterprise_urls = ['https://github-fm.intra.douban.com']
 
 
 " ------------    ranger.vim   ------------------
@@ -167,12 +199,13 @@ call minpac#add('rbgrouleff/bclose.vim')
 nmap <F2> :Ranger<cr>
 nmap <leader>ft :RangerWorkingDirectory<cr>
 nmap <leader>fo :RangerCurrentFile<cr>
-
+let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
 
-" --------------   vim-devicons  -----------------
+" --------------   vim-devicons  ----------------
 call minpac#add('ryanoasis/vim-devicons')
 let g:airline_powerline_fonts = 1
+let g:codedark_conservative = 1
 
 " --------------   vim-airline  -----------------
 call minpac#add('vim-airline/vim-airline')
@@ -188,23 +221,28 @@ noremap <leader>eN :clast<cr>
 noremap <leader>ep :cpre<cr>
 noremap <leader>eP :cfirst<cr>
 
-" -----------------   CtrlP --------------------
-call minpac#add('ctrlpvim/ctrlp.vim')
-nmap <leader>ji :CtrlPBufTagAll<cr>
-nmap <leader>jt :CtrlPTag<cr>
-
-nmap <leader>ff :CtrlPCurFile<cr>
 
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+" ------------------  Denite  -------------------
+call minpac#add('Shougo/denite.nvim')
 
 
-let g:ctrlp_match_window = 'results:30'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
-  \ 'file': '\v(tags)|\.(exe|so|dll|pyc)$',
-  \ }
+" ------------------   CtrlP --------------------
+"call minpac#add('ctrlpvim/ctrlp.vim')
+"nmap <leader>ji :CtrlPBufTagAll<cr>
+"nmap <leader>jt :CtrlPTag<cr>
+
+"nmap <leader>ff :CtrlPCurFile<cr>
+
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+
+"let g:ctrlp_match_window = 'results:30'
+"let g:ctrlp_custom_ignore = {
+  "\ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
+  "\ 'file': '\v(tags)|\.(exe|so|dll|pyc)$',
+  "\ }
 
 " ------------   easy motion  ----------------
 call minpac#add('easymotion/vim-easymotion')
@@ -227,8 +265,10 @@ map  <leader>jw <plug>(easymotion-bd-w)
 nmap <leader>jw <plug>(easymotion-overwin-w)
 
 " --------------   terminal ------------------
-"tnoremap <a-[> <esc>
-tnoremap <leader><esc> <c-\><c-n>
+" <esc> will work as <esc> in terminal
+" this works well if you change the system input shortcut <c-space> to
+" something like <c-8>
+tnoremap <c-space> <c-\><c-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 tnoremap <a-h> <C-\><C-N><C-w>h
 tnoremap <a-j> <C-\><C-N><C-w>j
@@ -250,22 +290,23 @@ augroup GitCommitNVR
 augroup END
 
 " ---------------  neoterm -------------------
-call minpac#add('kassio/neoterm')
+" call minpac#add('kassio/neoterm')
 
-let g:neoterm_autoinsert = 1
+"let g:neoterm_autoinsert = 1
+"let g:neoterm_keep_term_open = 1
 
-" quickly toggle terminal
-nnoremap <silent> <leader>o :rightbelow Ttoggle<cr>
-nnoremap <silent> <leader><leader> :rightbelow Ttoggle<cr>
-nnoremap <silent> <leader>O :vertical botright Ttoggle<cr>
+"" quickly toggle terminal
+"nnoremap <silent> <leader>o :rightbelow Ttoggle<cr>
+"nnoremap <silent> <leader><leader> :rightbelow Ttoggle<cr>
+"nnoremap <silent> <leader>O :vertical botright Ttoggle<cr>
 
-" close term
-tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
-tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
+"" close term
+"tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
+"tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
 
 
-" 3<leader>tl will clear neoterm-3.
-nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+"" 3<leader>tl will clear neoterm-3.
+"nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
 " ---------------  neoterm -------------------
 call minpac#add('mhinz/neovim-remote')
@@ -282,7 +323,6 @@ augroup SHADA
         \ if exists(':rshada') | rshada | wshada | endif
 augroup END
 
-
 " ---------------- vim-test ------------------
 call minpac#add('janko/vim-test')
 
@@ -293,52 +333,125 @@ nmap <silent> t<c-s> :TestSuite<cr>
 nmap <silent> t<c-l> :TestLast<cr>
 nmap <silent> t<c-g> :TestVisit<cr>
 
-let test#strategy = 'neoterm'
+"let test#strategy = 'neoterm'
 
-" ------------------- ale --------------------
-call minpac#add('w0rp/ale')
+" ---------------- LSP ------------------
+call minpac#add('prabirshrestha/async.vim')
+call minpac#add('prabirshrestha/vim-lsp')
+call minpac#add('neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'})
 
-" Mappings in the style of unimpaired-next
-nmap <silent> [W <plug>(ale_first)
-nmap <silent> [w <plug>(ale_previous)
-nmap <silent> ]w <plug>(ale_next)
-nmap <silent> ]W <plug>(ale_last)
-nmap <leader>ts :ALEToggle<cr>
+" if hidden is not set, TextEdit might fail.
+"set hidden
 
-"let b:ale_linters = ['flake8']
-let b:ale_linters = {
-\   'javascript': ['eslint'],
-\   'python': ['flake8'],
-\}
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-let b:ale_fixers = [
-\   'remove_trailing_lines',
-\   'isort',
-\   'ale#fixers#generic_python#BreakUpLongLines',
-\   'yapf',
-\]
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
 
-"nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<cr>
+" Better display for messages
+set cmdheight=2
 
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_filetype_changed = 1
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 0
+" Smaller updatetime for CursorHold & CursorHoldI
+"set updatetime=300
 
-" --------------   jedi-vim  -----------------
-"call minpac#add('davidhalter/jedi-vim')
-"call minpac#add('ervandew/supertab')
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-" ---------------- Deoplete ------------------
-call minpac#add('Shougo/deoplete.nvim')
-let g:deoplete#enable_at_startup = 1
+" always show signcolumns
+set signcolumn=yes
 
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-call minpac#add('deoplete-plugins/deoplete-jedi')
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+"inoremap <silent><expr> <c-space> coc#refresh()
+
+"Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+"Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+ "Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+"" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>bf  <Plug>(coc-format)
+nmap <leader>bf  <Plug>(coc-format)
+
+augroup CocFormat
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+ "Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
+
+" Using CocList
+" Show all diagnostics
+"nnoremap <silent> <leader>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <leader>ji  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>jt  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+"nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
+
+nnoremap <silent> <leader>ay  :<C-u>CocList -A --normal yank<cr>
 
 " ------------- NerdCommenter ----------------
 call minpac#add('scrooloose/nerdcommenter')
@@ -349,16 +462,24 @@ vmap <leader>cl <plug>NERDCommenterInvert
 nmap <leader>cp vip<plug>NERDCommenterInvert
 vmap <leader>cp vip<plug>NERDCommenterInvert
 
+nmap <leader>cL <plug>NERDCommenterNested
+vmap <leader>cL <plug>NERDCommenterNested
+nmap <leader>cP vip<plug>NERDCommenterNested
+vmap <leader>cP vip<plug>NERDCommenterNested
+
+nmap <leader>cul <plug>NERDCommenterUncomment
+vmap <leader>cul <plug>NERDCommenterUncomment
+nmap <leader>cup vip<plug>NERDCommenterUncomment
+vmap <leader>cup vip<plug>NERDCommenterUncomment
+
+" ------------ better-whitespace -------------
+call minpac#add('ntpeters/vim-better-whitespace')
+let g:better_whitespace_enabled = 1
 
 " ---------------- Starify -------------------
 call minpac#add('mhinz/vim-startify')
 " forbid to change directory
 let g:startify_change_to_dir = 1
-
-
-" -------------- AutoFormat  -----------------
-call minpac#add('Chiel92/vim-autoformat')
-let g:formatter_yapf_style = 'pep8'
 
 " ---------------   CtrlSF   -----------------
 call minpac#add('dyng/ctrlsf.vim')
@@ -398,12 +519,12 @@ nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 
 
 " ------------ Notes and tips  ---------------
-" C-] to go to the tag 
+" C-] to go to the tag
 " C-^ jump between the location
 " C-t jump to previous tag
 " []q to go to previous and next quick fix item
 " []w to go to the syntax warnings
-" 
+"
 " <leader>g go to definition, includes declaration
 " <leader>d go to definition
 " <leader>n find all use in quickfix window
