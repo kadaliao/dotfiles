@@ -38,7 +38,19 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/neovim-remote'
 Plug 'easymotion/vim-easymotion'
+Plug 'kshenoy/vim-signature'
 Plug 'davidhalter/jedi-vim'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'dense-analysis/ale'
+"Plug 'othree/csscomplete.vim'
+"Plug 'ncm2/ncm2-neoinclude'
+"Plug 'Shougo/neoinclude.vim'
 "Plug 'Shougo/denite.nvim'
 "Plug 'junegunn/vim-emoji'
 "Plug 'pocari/vim-denite-emoji'
@@ -60,6 +72,9 @@ colorscheme gruvbox
 nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
 nnoremap <silent> [ :<c-u>WhichKey '['<cr>
 nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
+nnoremap <silent> <leader>hm :<c-u>WhichKey 'm'<cr>
 
 " don't use whichkey plugin on special keys
 " use <lt> as \<
@@ -88,7 +103,7 @@ nmap ]g <Plug>GitGutterNextHunk
 function! PreviewWindowOpened()
     for nr in range(1, winnr('$'))
         if getwinvar(nr, '&pvw') == 1
-             found a preview
+            "found a preview
             return 1
         endif
     endfor
@@ -292,11 +307,11 @@ tnoremap <leader>qq <esc>
 " use cl instead of original s
 nnoremap s <c-w>
 nnoremap sd <c-w>c
-"nnoremap sv <c-w>v
+nnoremap sv <c-w>v
 nnoremap sg <c-w>s
 nnoremap vs <c-w>v
 nnoremap q <esc>
-vnoremap q <esc>
+nnoremap q <esc>
 nnoremap <leader>qr q
 
 imap jk <esc>
@@ -338,7 +353,7 @@ augroup EndQuickFixQ | au! FileType qf noremap <buffer> q :q<cr> | augroup END
 " Automatically source the vimrc file on save
 augroup AutoSourcing
   autocmd!
-  autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
+  autocmd BufWritePost ~/.config/nvim/init.vim source $MYVIMRC
 augroup END
 
 " Put quick fix under main window
@@ -348,12 +363,21 @@ augroup END
 "augroup end
 
 " --------------   quick fix --------------------
-noremap <leader>el :copen<cr>
-noremap <leader>eo :cclose<cr>
-noremap <leader>en :cnext<cr>
-noremap <leader>eN :clast<cr>
-noremap <leader>ep :cpre<cr>
-noremap <leader>eP :cfirst<cr>
+noremap <leader>ql :copen<cr>
+noremap <leader>qo :cclose<cr>
+noremap <leader>qn :cnext<cr>
+noremap <leader>qN :clast<cr>
+noremap <leader>qp :cpre<cr>
+noremap <leader>qP :cfirst<cr>
+
+" --------------   localtion list ---------------
+noremap <leader>el :lopen<cr>
+noremap <leader>eo :lclose<cr>
+noremap <leader>en :lnext<cr>
+noremap <leader>eN :llast<cr>
+noremap <leader>ep :lpre<cr>
+noremap <leader>eP :lfirst<cr>
+
 
 " --------------   terminal ------------------
 " <esc> will work as <esc> in terminal
@@ -382,6 +406,90 @@ augroup END
 
 " just generate tags for python files
 nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
+
+" ncm2 settings
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=menuone,noselect,noinsert
+
+" make it fast
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+" Use new fuzzy based matches
+let g:ncm2#matcher = 'substrfuzzy'
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" wrap existing omnifunc
+" Note that omnifunc does not run in background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+" au User Ncm2Plugin call ncm2#register_source({
+"         \ 'name' : 'css',
+"         \ 'priority': 9,
+"         \ 'subscope_enable': 1,
+"         \ 'scope': ['css','scss'],
+"         \ 'mark': 'css',
+"         \ 'word_pattern': '[\w\-]+',
+"         \ 'complete_pattern': ':\s*',
+"         \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+"         \ })
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+" c-j c-k for moving in snippet
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+" Disable Jedi-vim autocompletion and enable call-signatures options
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+let g:jedi#use_splits_not_buffers = "left"
+
+" --------------- ALE  ------------------
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'json': ['jq'],
+\   'python': ['autopep8', 'isort', 'yapf'],
+\}
+
+let g:ale_fix_on_save = 0
+let g:ale_completion_enabled = 0
+let g:ale_sign_column_always = 0
+let g:airline#extensions#ale#enabled = 1
+
+" use localtion list navigate key
+"nmap <silent> <leader><C-k> <Plug>(ale_previous_wrap)
+"nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
+nnoremap <leader>ts :ALEToggle<cr>
+nnoremap <leader>bf :ALEFix<cr>
+
 
 " ------------ Notes and tips  ---------------
 " C-] to go to the tag
