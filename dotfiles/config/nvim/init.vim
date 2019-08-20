@@ -11,7 +11,9 @@ endif
 call plug#begin($VIMCONFIG . '/plugged')
 " Additional plugins here.
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
 Plug 'lxhillwind/leader-clipboard'
 Plug 'tpope/vim-dispatch'
@@ -35,7 +37,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/neovim-remote'
-Plug 'scrooloose/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 Plug 'davidhalter/jedi-vim'
 "Plug 'Shougo/denite.nvim'
@@ -164,26 +165,6 @@ nmap     <a-f><a-b> <plug>CtrlSFCCwordExec
 nnoremap <a-f>t :CtrlSFToggle<cr>
 nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 
-" ------------- NerdCommenter ----------------
-let g:NERDCreateDefaultMappings = 0
-
-nmap <leader>cl <plug>NERDCommenterInvert
-vmap <leader>cl <plug>NERDCommenterInvert
-nmap <leader>cp vip<plug>NERDCommenterInvert
-vmap <leader>cp vip<plug>NERDCommenterInvert
-
-nmap <leader>cL <plug>NERDCommenterNested
-vmap <leader>cL <plug>NERDCommenterNested
-nmap <leader>cP vip<plug>NERDCommenterNested
-vmap <leader>cP vip<plug>NERDCommenterNested
-
-nmap <leader>cul <plug>NERDCommenterUncomment
-vmap <leader>cul <plug>NERDCommenterUncomment
-nmap <leader>cup vip<plug>NERDCommenterUncomment
-vmap <leader>cup vip<plug>NERDCommenterUncomment
-
-" just generate tags for python files
-nnoremap <leader>mgd :Dispatch! ctags -R -h=".py"<cr>
 
 " ---------------  neoterm -------------------
 " Plug 'kassio/neoterm')
@@ -399,6 +380,8 @@ augroup GitCommitNVR
   autocmd FileType gitcommit nmap <leader>qq :q<cr>
 augroup END
 
+" just generate tags for python files
+nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
 
 " ------------ Notes and tips  ---------------
 " C-] to go to the tag
