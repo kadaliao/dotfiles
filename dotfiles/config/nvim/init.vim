@@ -8,14 +8,15 @@ if empty(glob($VIMCONFIG . '/autoload/plug.vim'))
 endif
 
 
+" === === === Plugins === === ===
 call plug#begin($VIMCONFIG . '/plugged')
-" Additional plugins here.
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
-Plug 'machakann/vim-highlightedyank'
 Plug 'lxhillwind/leader-clipboard'
+Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-scriptease'
@@ -48,33 +49,25 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
 Plug 'dense-analysis/ale'
-"Plug 'othree/csscomplete.vim'
-"Plug 'ncm2/ncm2-neoinclude'
-"Plug 'Shougo/neoinclude.vim'
-"Plug 'Shougo/denite.nvim'
-"Plug 'junegunn/vim-emoji'
-"Plug 'pocari/vim-denite-emoji'
-"Plug 'chemzqm/unite-location'
-"Plug 'Shougo/defx.nvim'
-"Plug 'ozelentok/denite-gtags'
-"Plug 'gcmt/wildfire.vim'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
 
-" Plugin settings and mappings
+" === === === Plugin settings and mappings === === ===
 colorscheme gruvbox
 
 " ---------------- whichkey ------------------
-nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
-nnoremap <silent> [ :<c-u>WhichKey '['<cr>
-nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
-nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+"nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
+"nnoremap <silent> [ :<c-u>WhichKey '['<cr>
+"nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+"nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
 nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
 nnoremap <silent> <leader>hm :<c-u>WhichKey 'm'<cr>
+nnoremap <silent> <leader>h[ :<c-u>WhichKey '['<cr>
+nnoremap <silent> <leader>h] :<c-u>WhichKey ']'<cr>
+nnoremap <silent> <leader>hy :<c-u>WhichKey 'y'<cr>
+nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
+nnoremap <silent> <leader>h<leader> :<c-u>WhichKey '<leader>'<cr>
 
 " don't use whichkey plugin on special keys
 " use <lt> as \<
@@ -100,19 +93,18 @@ nnoremap <leader>tg :GitGutterToggle<cr>
 nmap [g <Plug>GitGutterPrevHunk
 nmap ]g <Plug>GitGutterNextHunk
 
-function! PreviewWindowOpened()
-    for nr in range(1, winnr('$'))
-        if getwinvar(nr, '&pvw') == 1
-            "found a preview
-            return 1
-        endif
-    endfor
-    return 0
-endfunction
+"function! PreviewWindowOpened()
+"    for nr in range(1, winnr('$'))
+"        if getwinvar(nr, '&pvw') == 1
+"            "found a preview
+"            " return 1
+"        endif
+"    endfor
+"    return 0
+"endfunction
 
 " --------------  vim.fugitive   ----------------
 let g:github_enterprise_urls = ['https://github-fm.intra.douban.com']
-
 
 " ------------    ranger.vim   ------------------
 
@@ -133,7 +125,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " ------------------   CtrlP --------------------
 nmap <leader>ji :CtrlPBufTagAll<cr>
 nmap <leader>jt :CtrlPTag<cr>
-
 nmap <leader>ff :CtrlPCurFile<cr>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -147,8 +138,10 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 " ---------------   CtrlSF   -----------------
-
 let g:ctrlsf_ackprg = '/usr/local/bin/rg'
+let g:ctrlsf_default_root = 'project+fw'
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_follow_symlinks = 0
 
 let g:ctrlsf_auto_focus = {
     \ 'at' : 'start',
@@ -176,10 +169,8 @@ nmap     <a-f><a-b> <plug>CtrlSFCCwordExec
 "Not working, don't know why
 "nmap     <c-f>p <plug>CtrlSFPwordPath
 "nmap     <c-f><c-p> <plug>CtrlSFPwordExec
-
 nnoremap <a-f>t :CtrlSFToggle<cr>
 nnoremap <a-f><a-t> :CtrlSFToggle<cr>
-
 
 " ---------------  neoterm -------------------
 " Plug 'kassio/neoterm')
@@ -294,6 +285,9 @@ nnoremap <leader>fve :edit $MYVIMRC<cr>
 nnoremap <leader>fvs :source $MYVIMRC<cr>
 nnoremap <leader>fs :w<cr>
 
+noremap Zz <c-w>_ \| <c-w>\|
+noremap Zo <c-w>=
+
 " close buffer and quit all
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>bD :q!<cr>
@@ -340,8 +334,8 @@ nnoremap <leader>zt :setlocal nofoldenable<cr>
 "nnoremap <leader>rn :Move <c-r>=expand("%")<cr>
 
 " Replace word under cursor, globally, with confirmation
-nnoremap <Leader>rk :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-vnoremap <Leader>rk y :%s/<C-r>"//gc<Left><Left><Left>
+"nnoremap <Leader>rk :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+"vnoremap <Leader>rk y :%s/<C-r>"//gc<Left><Left><Left>
 
 " Remove highlighting on escape
 nmap <silent> <esc> :nohlsearch<cr>
@@ -467,9 +461,18 @@ let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-let g:jedi#use_splits_not_buffers = "left"
+let g:jedi#completions_command = ''
+let g:jedi#show_call_signatures = 1
+
+"let g:jedi#use_splits_not_buffers = ""
+"let g:jedi#completions_command = "<C-N>"
+let g:jedi#goto_command = '<leader>ge'
+let g:jedi#goto_assignments_command  = '<leader>gg'
+let g:jedi#goto_definitions_command  = '<leader>gd'
+let g:jedi#documentation_command = '<s-k>'
+let g:jedi#rename_command = '<leader>gr'
+let g:jedi#usages_command  = '<leader>gn'
+let jedi#goto_stubs_command = '<leader>gs'
 
 " --------------- ALE  ------------------
 let g:ale_fixers = {
@@ -490,6 +493,9 @@ let g:airline#extensions#ale#enabled = 1
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
 
+
+" transparent background
+" hi Normal guibg=NONE ctermbg=NONE
 
 " ------------ Notes and tips  ---------------
 " C-] to go to the tag
