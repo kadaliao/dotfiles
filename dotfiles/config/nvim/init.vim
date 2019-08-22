@@ -48,6 +48,7 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'dense-analysis/ale'
 
 call plug#end()
@@ -445,9 +446,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "         \ })
 " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
-" Press enter key to trigger snippet expansion
+" Press <c-l> to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+inoremap <silent> <expr> <c-l> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " c-j c-k for moving in snippet
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
