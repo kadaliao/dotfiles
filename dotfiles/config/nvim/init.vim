@@ -41,6 +41,7 @@ Plug 'mhinz/neovim-remote'
 Plug 'easymotion/vim-easymotion'
 Plug 'kshenoy/vim-signature'
 Plug 'davidhalter/jedi-vim'
+Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-jedi'
@@ -90,6 +91,7 @@ let g:gitgutter_map_keys = 0
 nnoremap <leader>gp :silent! GitGutterPreviewHunk<cr>
 nnoremap <leader>go :pclose<cr>
 nnoremap <leader>tg :GitGutterToggle<cr>
+autocmd BufWritePost * GitGutter
 
 nmap [g <Plug>GitGutterPrevHunk
 nmap ]g <Plug>GitGutterNextHunk
@@ -493,7 +495,6 @@ let g:airline#extensions#ale#enabled = 1
 "nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
-
 
 " transparent background
 " hi Normal guibg=NONE ctermbg=NONE
