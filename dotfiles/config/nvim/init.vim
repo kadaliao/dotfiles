@@ -7,8 +7,10 @@ if empty(glob($VIMCONFIG . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Plugins                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" === === === Plugins === === ===
 call plug#begin($VIMCONFIG . '/plugged')
 
 Plug 'tpope/vim-surround'
@@ -50,19 +52,26 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'janko/vim-test'
 Plug 'dense-analysis/ale'
 
 call plug#end()
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                        Plugin settings and mappings                        "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" === === === Plugin settings and mappings === === ===
+"""""""""""
+"  theme  "
+"""""""""""
+
 colorscheme gruvbox
 
-" ---------------- whichkey ------------------
-"nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
-"nnoremap <silent> [ :<c-u>WhichKey '['<cr>
-"nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
-"nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+
+""""""""""""""
+"  whichkey  "
+""""""""""""""
+
 nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
 nnoremap <silent> <leader>hm :<c-u>WhichKey 'm'<cr>
 nnoremap <silent> <leader>h[ :<c-u>WhichKey '['<cr>
@@ -70,22 +79,33 @@ nnoremap <silent> <leader>h] :<c-u>WhichKey ']'<cr>
 nnoremap <silent> <leader>hy :<c-u>WhichKey 'y'<cr>
 nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
 nnoremap <silent> <leader>h<leader> :<c-u>WhichKey '<leader>'<cr>
+"nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
+"nnoremap <silent> [ :<c-u>WhichKey '['<cr>
+"nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
+"nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
 
 " don't use whichkey plugin on special keys
 " use <lt> as \<
 "nnoremap <silent> <a-f> :<c-u>WhichKey '<lt>a-f>'<cr>
 
-" ---------------    tagbar   -------------------
-"let g:tagbar_autoshowtag = 1
+
+""""""""""""
+"  tagbar  "
+""""""""""""
+
 let g:tagbar_autoclose = 0
 let g:tagbar_autofocus = 1
 let g:tagbar_autopreview = 0
 let g:tagbar_compact = 1
 let g:tagbar_left = 1
+"let g:tagbar_autoshowtag = 1
 
 nmap <F3> :TagbarToggle<CR>
 
-" -------------    vim-gutter  ------------------
+"""""""""""""""
+"  gitgutter  "
+"""""""""""""""
+
 let g:gitgutter_map_keys = 0
 
 nnoremap <leader>gp :silent! GitGutterPreviewHunk<cr>
@@ -106,10 +126,17 @@ nmap ]g <Plug>GitGutterNextHunk
 "    return 0
 "endfunction
 
-" --------------  vim.fugitive   ----------------
+
+""""""""""""""
+"  fugitive  "
+""""""""""""""
+
 let g:github_enterprise_urls = ['https://github-fm.intra.douban.com']
 
-" ------------    ranger.vim   ------------------
+
+""""""""""""
+"  ranger  "
+""""""""""""
 
 nmap <F2> :Ranger<cr>
 nmap <leader>ft :RangerWorkingDirectory<cr>
@@ -117,15 +144,27 @@ nmap <leader>fo :RangerCurrentFile<cr>
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
 
-" --------------   vim-devicons  ----------------
+
+""""""""""""""
+"  devicons  "
+""""""""""""""
+
 let g:airline_powerline_fonts = 1
 let g:codedark_conservative = 1
 
-" --------------   vim-airline  -----------------
+
+"""""""""""""
+"  tabline  "
+"""""""""""""
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-" ------------------   CtrlP --------------------
+
+"""""""""""
+"  ctrlP  "
+"""""""""""
+
 nmap <leader>ji :CtrlPBufTagAll<cr>
 nmap <leader>jt :CtrlPTag<cr>
 nmap <leader>ff :CtrlPCurFile<cr>
@@ -140,7 +179,11 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v(tags)|\.(exe|so|dll|pyc)$',
   \ }
 
-" ---------------   CtrlSF   -----------------
+
+""""""""""""
+"  ctrlsf  "
+""""""""""""
+
 let g:ctrlsf_ackprg = '/usr/local/bin/rg'
 let g:ctrlsf_default_root = 'project+fw'
 let g:ctrlsf_default_view_mode = 'compact'
@@ -175,7 +218,11 @@ nmap     <a-f><a-b> <plug>CtrlSFCCwordExec
 nnoremap <a-f>t :CtrlSFToggle<cr>
 nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 
-" ---------------  neoterm -------------------
+
+"""""""""""""
+"  neoterm  "
+"""""""""""""
+
 " Plug 'kassio/neoterm')
 
 "let g:neoterm_autoinsert = 1
@@ -194,7 +241,10 @@ nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 "" 3<leader>tl will clear neoterm-3.
 "nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 
-" ---------------  neoremote -------------------
+
+"""""""""""""""
+"  neoremote  "
+"""""""""""""""
 
 let $VISUAL      = 'nvr -cc split --remote-wait +"setlocal bufhidden=delete"'
 let $GIT_EDITOR  = 'nvr -cc split --remote-wait +"setlocal bufhidden=delete"'
@@ -208,8 +258,10 @@ augroup SHADA
         \ if exists(':rshada') | rshada | wshada | endif
 augroup END
 
-" ---------------- vim-test ------------------
-Plug 'janko/vim-test'
+
+""""""""""""""
+"  vim-test  "
+""""""""""""""
 
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
 nmap <silent> t<c-n> :TestNearest<cr>
@@ -220,32 +272,150 @@ nmap <silent> t<c-g> :TestVisit<cr>
 
 "let test#strategy = 'neoterm'
 
-" ------------ better-whitespace -------------
+"""""""""""""""""""""""
+"  better-whitespace  "
+"""""""""""""""""""""""
+
 let g:better_whitespace_enabled = 1
 
-" ---------------- Starify -------------------
+
+"""""""""""""
+"  starify  "
+"""""""""""""
+
 " forbid to change directory
 let g:startify_change_to_dir = 1
 
-" ------------   easy motion  ----------------
+
+""""""""""""""""
+"  easymotion  "
+""""""""""""""""
+
 let g:EasyMotion_do_mapping = 0
 
-" <Leader>f{char} to move to {char}
-" map  <Leader>f <plug>(easymotion-bd-f)
-" nmap <Leader>f <plug>(easymotion-overwin-f)
-
-" s{char}{char} to move to {char}{char}
-" nmap <Leader>s <plug>(easymotion-overwin-f2)
-
-" Movesymotion-overwin-w) to line
 map <leader>jl <plug>(easymotion-bd-jk)
 nmap <leader>jl <plug>(easymotion-overwin-line)
-
-" Move to word
 map  <leader>jw <plug>(easymotion-bd-w)
 nmap <leader>jw <plug>(easymotion-overwin-w)
 
-" Common settings here.
+
+""""""""""
+"  ncm2  "
+""""""""""
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=menuone,noselect,noinsert
+
+" make it fast
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+" Use new fuzzy based matches
+let g:ncm2#matcher = 'substrfuzzy'
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" wrap existing omnifunc
+" Note that omnifunc does not run in background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+" au User Ncm2Plugin call ncm2#register_source({
+"         \ 'name' : 'css',
+"         \ 'priority': 9,
+"         \ 'subscope_enable': 1,
+"         \ 'scope': ['css','scss'],
+"         \ 'mark': 'css',
+"         \ 'word_pattern': '[\w\-]+',
+"         \ 'complete_pattern': ':\s*',
+"         \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+"         \ })
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+
+" Press <c-l> to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <c-l> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+"""""""""""""""
+"  ultisnips  "
+"""""""""""""""
+
+" c-j c-k for moving in snippet
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+
+""""""""""""""
+"  jedi-vim  "
+""""""""""""""
+
+" Disable Jedi-vim autocompletion and enable call-signatures options
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ''
+let g:jedi#show_call_signatures = 1
+
+"let g:jedi#use_splits_not_buffers = ""
+"let g:jedi#completions_command = "<C-N>"
+let g:jedi#goto_command = '<leader>ge'
+let g:jedi#goto_assignments_command  = '<leader>gg'
+let g:jedi#goto_definitions_command  = '<leader>gd'
+let g:jedi#documentation_command = '<s-k>'
+let g:jedi#rename_command = '<leader>gr'
+let g:jedi#usages_command  = '<leader>gn'
+let g:jedi#goto_stubs_command = '<leader>gs'
+
+
+"""""""""
+"  ale  "
+"""""""""
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'json': ['jq'],
+\   'python': ['autopep8', 'isort', 'yapf'],
+\}
+
+let g:ale_fix_on_save = 0
+let g:ale_completion_enabled = 0
+let g:ale_sign_column_always = 0
+let g:airline#extensions#ale#enabled = 1
+
+" use localtion list navigate key
+"nmap <silent> <leader><C-k> <Plug>(ale_previous_wrap)
+"nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
+nnoremap <leader>ts :ALEToggle<cr>
+nnoremap <leader>bf :ALEFix<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Common Settings                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" transparent background
+" hi Normal guibg=NONE ctermbg=NONE
+
+
 syntax on
 filetype plugin indent on
 set hidden
@@ -277,13 +447,13 @@ set undofile
 "set cursorcolumn
 "set bufhidden=delete
 
+
 " use \" here, \' won't work
 let g:mapleader = "\\"
 
 nmap <space> \
 xmap <space> \
 
-" -----------  custom mapping  ---------------
 nnoremap <leader>fve :edit $MYVIMRC<cr>
 nnoremap <leader>fvs :source $MYVIMRC<cr>
 nnoremap <leader>fs :w<cr>
@@ -359,7 +529,11 @@ augroup END
 "    autocmd FileType qf wincmd J
 "augroup end
 
-" --------------   quick fix --------------------
+
+""""""""""""""
+"  quickfix  "
+""""""""""""""
+
 noremap <leader>ql :copen<cr>
 noremap <leader>qo :cclose<cr>
 noremap <leader>qn :cnext<cr>
@@ -367,7 +541,10 @@ noremap <leader>qN :clast<cr>
 noremap <leader>qp :cpre<cr>
 noremap <leader>qP :cfirst<cr>
 
-" --------------   localtion list ---------------
+"""""""""""""""""""
+"  location list  "
+"""""""""""""""""""
+
 noremap <leader>el :lopen<cr>
 noremap <leader>eo :lclose<cr>
 noremap <leader>en :lnext<cr>
@@ -376,7 +553,10 @@ noremap <leader>ep :lpre<cr>
 noremap <leader>eP :lfirst<cr>
 
 
-" --------------   terminal ------------------
+""""""""""""""
+"  terminal  "
+""""""""""""""
+
 " <esc> will work as <esc> in terminal
 " this works well if you change the system input shortcut <c-space> to
 " something like <c-8>
@@ -404,102 +584,11 @@ augroup END
 " just generate tags for python files
 nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
 
-" ncm2 settings
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=menuone,noselect,noinsert
 
-" make it fast
-let ncm2#popup_delay = 5
-let ncm2#complete_length = [[1, 1]]
-" Use new fuzzy based matches
-let g:ncm2#matcher = 'substrfuzzy'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Notes and tips                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-" au User Ncm2Plugin call ncm2#register_source({
-"         \ 'name' : 'css',
-"         \ 'priority': 9,
-"         \ 'subscope_enable': 1,
-"         \ 'scope': ['css','scss'],
-"         \ 'mark': 'css',
-"         \ 'word_pattern': '[\w\-]+',
-"         \ 'complete_pattern': ':\s*',
-"         \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-"         \ })
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-
-" Press <c-l> to trigger snippet expansion
-" The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <c-l> ncm2_ultisnips#expand_or("\<CR>", 'n')
-
-" c-j c-k for moving in snippet
-let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
-
-" Disable Jedi-vim autocompletion and enable call-signatures options
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ''
-let g:jedi#show_call_signatures = 1
-
-"let g:jedi#use_splits_not_buffers = ""
-"let g:jedi#completions_command = "<C-N>"
-let g:jedi#goto_command = '<leader>ge'
-let g:jedi#goto_assignments_command  = '<leader>gg'
-let g:jedi#goto_definitions_command  = '<leader>gd'
-let g:jedi#documentation_command = '<s-k>'
-let g:jedi#rename_command = '<leader>gr'
-let g:jedi#usages_command  = '<leader>gn'
-let jedi#goto_stubs_command = '<leader>gs'
-
-" --------------- ALE  ------------------
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'json': ['jq'],
-\   'python': ['autopep8', 'isort', 'yapf'],
-\}
-
-let g:ale_fix_on_save = 0
-let g:ale_completion_enabled = 0
-let g:ale_sign_column_always = 0
-let g:airline#extensions#ale#enabled = 1
-
-" use localtion list navigate key
-"nmap <silent> <leader><C-k> <Plug>(ale_previous_wrap)
-"nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
-nnoremap <leader>ts :ALEToggle<cr>
-nnoremap <leader>bf :ALEFix<cr>
-
-" transparent background
-" hi Normal guibg=NONE ctermbg=NONE
-
-" ------------ Notes and tips  ---------------
 " C-] to go to the tag
 " C-^ jump between the location
 " C-t jump to previous tag
