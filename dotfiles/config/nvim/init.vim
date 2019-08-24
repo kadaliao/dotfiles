@@ -169,7 +169,7 @@ nmap <leader>ji :CtrlPBufTagAll<cr>
 nmap <leader>jt :CtrlPTag<cr>
 nmap <leader>ff :CtrlPCurFile<cr>
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/tags     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 
