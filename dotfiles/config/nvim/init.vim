@@ -13,6 +13,7 @@ endif
 
 call plug#begin($VIMCONFIG . '/plugged')
 
+Plug 'vim-scripts/LargeFile'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
@@ -388,6 +389,11 @@ let g:jedi#goto_stubs_command = '<leader>gs'
 """""""""
 "  ale  "
 """""""""
+let g:ale_linters = {
+\   'python': ['pylint'],
+\   'vim':  ['vint'],
+\   'markdown': ['markdownlint']
+\}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -397,6 +403,7 @@ let g:ale_fixers = {
 \}
 
 let g:ale_fix_on_save = 0
+let g:ale_set_highlights = 0
 let g:ale_completion_enabled = 0
 let g:ale_sign_column_always = 0
 let g:airline#extensions#ale#enabled = 1
@@ -529,6 +536,10 @@ augroup END
 "    autocmd FileType qf wincmd J
 "augroup end
 
+"""""""""""""""
+"  LargeFile  "
+"""""""""""""""
+let g:LargeFile = 5
 
 """"""""""""""
 "  quickfix  "
