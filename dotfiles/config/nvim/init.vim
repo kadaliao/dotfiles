@@ -426,7 +426,7 @@ nnoremap <leader>bf :ALEFix<cr>
 
 let g:textobj_python_no_default_key_mappings = 1
 
-call textobj#user#map('python', {
+autocmd BufEnter *.py call textobj#user#map('python', {
       \   'class': {
       \     'select-a': '<buffer>ac',
       \     'select-i': '<buffer>ic',
