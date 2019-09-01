@@ -22,6 +22,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
+Plug 'bps/vim-textobj-python'
 Plug 'lxhillwind/leader-clipboard'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-dispatch'
@@ -417,6 +418,27 @@ let g:airline#extensions#ale#enabled = 1
 "nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
+
+"""""""""""""""""""""""
+"  textobject-python  "
+"""""""""""""""""""""""
+
+let g:textobj_python_no_default_key_mappings = 1
+
+call textobj#user#map('python', {
+      \   'class': {
+      \     'select-a': '<buffer>ac',
+      \     'select-i': '<buffer>ic',
+      \     'move-n': '<buffer>]c',
+      \     'move-p': '<buffer>[c',
+      \   },
+      \   'function': {
+      \     'select-a': '<buffer>af',
+      \     'select-i': '<buffer>if',
+      \     'move-n': '<buffer>]f',
+      \     'move-p': '<buffer>[f',
+      \   }
+      \ })
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
