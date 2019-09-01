@@ -14,6 +14,7 @@ endif
 call plug#begin($VIMCONFIG . '/plugged')
 
 Plug 'vim-scripts/LargeFile'
+Plug 'danro/rename.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
