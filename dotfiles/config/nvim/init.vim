@@ -61,6 +61,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'janko/vim-test'
 Plug 'dense-analysis/ale'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 call plug#end()
 
@@ -441,6 +442,12 @@ autocmd BufEnter *.py call textobj#user#map('python', {
       \   }
       \ })
 
+""""""""""""""""""""""
+"  markdown-preview  "
+""""""""""""""""""""""
+
+nmap <F4> <Plug>MarkdownPreviewToggle
+let g:mkdp_auto_start = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Common Settings                               "
@@ -596,9 +603,7 @@ noremap <leader>eP :lfirst<cr>
 """"""""""""""
 
 " <esc> will work as <esc> in terminal
-" this works well if you change the system input shortcut <c-space> to
-" something like <c-8>
-tnoremap <c-space> <c-\><c-n>
+tnoremap <a-8> <c-\><c-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 tnoremap <a-h> <C-\><C-N><C-w>h
 tnoremap <a-j> <C-\><C-N><C-w>j
