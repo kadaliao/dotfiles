@@ -522,7 +522,7 @@ nnoremap q <esc>
 nnoremap q <esc>
 nnoremap <leader>qr q
 
-imap jk <esc>
+inoremap jk <esc>
 "vmap jk <c-[>
 "imap jk <esc>
 "vmap jk <esc>
