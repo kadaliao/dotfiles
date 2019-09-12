@@ -36,6 +36,9 @@ dotfiles:
   f_autojump.py:
     src: config/ranger/plugins/autojump.py
     dst: ~/.config/ranger/plugins/autojump.py
+  f_ripgreprc:
+    src: ripgreprc
+    dst: ~/.ripgreprc
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
@@ -50,3 +53,4 @@ profiles:
     - f_devicons.py
     - f_devicons_linemode.py
     - f_autojump.py
+    - f_ripgreprc
