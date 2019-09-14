@@ -62,6 +62,7 @@ Plug 'honza/vim-snippets'
 Plug 'janko/vim-test'
 Plug 'dense-analysis/ale'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'wellle/tmux-complete.vim'
 
 call plug#end()
 
