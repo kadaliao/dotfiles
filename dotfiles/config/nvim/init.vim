@@ -73,7 +73,7 @@ call plug#end()
 """""""""""
 "  theme  "
 """""""""""
-
+set background=dark
 colorscheme gruvbox
 
 
