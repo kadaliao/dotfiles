@@ -15,9 +15,6 @@ dotfiles:
   d_powerline:
     src: config/powerline
     dst: ~/.config/powerline
-  f_config:
-    src: usr/local/etc/privoxy/config
-    dst: /usr/local/etc/privoxy/config
   f_init.vim:
     src: config/nvim/init.vim
     dst: ~/.config/nvim/init.vim
@@ -46,7 +43,6 @@ profiles:
     - f_ankdown-conf.yaml
     - d_fish
     - d_powerline
-    - f_config
     - f_init.vim
     - f_rc.conf
     - f_commands.py
