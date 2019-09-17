@@ -10,6 +10,10 @@ web:*.{html,css,js}*
 --glob=!node_modules/*
 --glob=!git/*
 --glob=!tags
+--glob=!venv/*
+--glob=!.venv/*
+--glob=!.env/*
+--glob=!env/*
 
 # Because who cares about case!?
 --smart-case
