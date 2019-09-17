@@ -1,5 +1,5 @@
 function pon --description 'Set rallets proxy'
-  echo 'rallets proxy on'
+  echo 'v2ray proxy on'
   set -gx all_proxy http://127.0.0.1:8118
   set -gx ftp_proxy http://127.0.0.1:8118
   set -gx http_proxy http://127.0.0.1:8118

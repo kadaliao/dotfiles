@@ -1,5 +1,5 @@
 function poff --description 'Unset rallets proxy'
-  echo 'rallets proxy off'
+  echo 'v2ray proxy off'
   set -e all_proxy
   set -e ftp_proxy
   set -e http_proxy
