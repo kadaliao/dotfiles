@@ -511,6 +511,9 @@ nnoremap <leader>qQ :qa!<cr>
 nnoremap <leader>bp :bp<cr>
 nnoremap <leader>bn :bn<cr>
 
+nnoremap <leader>tp :tabp<cr>
+nnoremap <leader>tn :tabn<cr>
+
 tnoremap <leader>qq <esc>
 
 " use cl instead of original s

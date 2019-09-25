@@ -24,7 +24,7 @@ set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
 
 # pipenv
-set -gx PIPENV_VENV_IN_PROJECT 1
+set -e PIPENV_VENV_IN_PROJECT
 set -gx PIPENV_SKIP_LOCK 1
 set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
@@ -49,3 +49,8 @@ set -g fish_user_paths "$HOME/bin" $fish_user_paths
 
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
+set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
+
+# cargo
+set -g fish_user_paths "/Users/liaoxingyi/.cargo/bin" $fish_user_paths
+
