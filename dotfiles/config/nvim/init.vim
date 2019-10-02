@@ -63,6 +63,7 @@ Plug 'janko/vim-test'
 Plug 'dense-analysis/ale'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'wellle/tmux-complete.vim'
+Plug 'plytophogy/vim-virtualenv'
 
 call plug#end()
 
@@ -394,11 +395,12 @@ let g:jedi#usages_command  = '<leader>gn'
 let g:jedi#goto_stubs_command = '<leader>gs'
 
 
+
 """""""""
 "  ale  "
 """""""""
 let g:ale_linters = {
-\   'python': ['pylint'],
+\   'python': ['flake8'],
 \   'vim':  ['vint'],
 \   'markdown': ['markdownlint']
 \}
@@ -421,6 +423,8 @@ let g:airline#extensions#ale#enabled = 1
 "nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
+
+
 
 """""""""""""""""""""""
 "  textobject-python  "
@@ -513,6 +517,8 @@ nnoremap <leader>bn :bn<cr>
 
 nnoremap <leader>tp :tabp<cr>
 nnoremap <leader>tn :tabn<cr>
+nnoremap <leader>td :tabclose<cr>
+nnoremap <leader>tD :tabclose!<cr>
 
 tnoremap <leader>qq <esc>
 

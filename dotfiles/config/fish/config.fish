@@ -24,6 +24,7 @@ set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
 
 # pipenv
+# set -gx PIPENV_VENV_IN_PROJECT 1
 set -e PIPENV_VENV_IN_PROJECT
 set -gx PIPENV_SKIP_LOCK 1
 set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
@@ -44,7 +45,7 @@ set -g fish_user_paths "$HOME/.gem/ruby/2.6.0/bin" $fish_user_paths
 set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
 
 # /usr/loca/bin and ~/bin
-set -g fish_user_paths "/usr/local/bin" $fish_user_paths
+# set -g fish_user_paths "/usr/local/bin" $fish_user_paths
 set -g fish_user_paths "$HOME/bin" $fish_user_paths
 
 # rg configuration
