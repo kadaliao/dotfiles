@@ -36,6 +36,9 @@ dotfiles:
   f_ripgreprc:
     src: ripgreprc
     dst: ~/.ripgreprc
+  f_pomo_normal.aac:
+    src: Applications/TickTick.app/Contents/Resources/pomo_normal.aac
+    dst: /Applications/TickTick.app/Contents/Resources/pomo_normal.aac
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
@@ -50,3 +53,4 @@ profiles:
     - f_devicons_linemode.py
     - f_autojump.py
     - f_ripgreprc
+    - f_pomo_normal.aac
