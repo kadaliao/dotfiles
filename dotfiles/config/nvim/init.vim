@@ -395,6 +395,13 @@ let g:jedi#usages_command  = '<leader>gn'
 let g:jedi#goto_stubs_command = '<leader>gs'
 
 
+""""""""""""
+"  semshi  "
+""""""""""""
+nnoremap <leader>ti :Semshi toggle<cr>
+
+
+
 
 """""""""
 "  ale  "
