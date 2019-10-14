@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 '''
 按照上下位置，交换主屏幕
 外部调用，可以eval这个脚本
