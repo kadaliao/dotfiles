@@ -36,9 +36,6 @@ dotfiles:
   f_ripgreprc:
     src: ripgreprc
     dst: ~/.ripgreprc
-  f_pomo_normal.aac:
-    src: Applications/TickTick.app/Contents/Resources/pomo_normal.aac
-    dst: /Applications/TickTick.app/Contents/Resources/pomo_normal.aac
   f_hmscreens:
     src: bin/hmscreens
     dst: ~/bin/hmscreens
@@ -59,6 +56,5 @@ profiles:
     - f_devicons_linemode.py
     - f_autojump.py
     - f_ripgreprc
-    - f_pomo_normal.aac
     - f_hmscreens
     - f_smp.py
