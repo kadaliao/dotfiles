@@ -1,0 +1,21 @@
+[user]
+	name = Kada Liao
+	email = kadaliao@gmail.com
+[core]
+	excludesfile = /Users/liaoxingyi/.gitignore_global
+	editor = vim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[commit]
+	template = /Users/liaoxingyi/.stCommitMsg
+[alias]
+	co = checkout
+	ci = commit
+	br = branch
+	st = status
+	unstage = reset HEAD --
+[github]
+	user = kadaliao

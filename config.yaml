@@ -42,6 +42,9 @@ dotfiles:
   f_smp.py:
     src: bin/smp.py
     dst: ~/bin/smp.py
+  f_gitconfig:
+    src: gitconfig
+    dst: ~/.gitconfig
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
@@ -58,3 +61,4 @@ profiles:
     - f_ripgreprc
     - f_hmscreens
     - f_smp.py
+    - f_gitconfig
