@@ -16,3 +16,5 @@ Need to install the dependent softwares, including but not limited to:
 - fishshell
 - psutils
 - true color fonts
+
+Please run ./install.sh first
