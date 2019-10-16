@@ -45,6 +45,9 @@ dotfiles:
   f_gitconfig:
     src: gitconfig
     dst: ~/.gitconfig
+  f_pip.conf:
+    src: pip/pip.conf
+    dst: ~/.pip/pip.conf
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
@@ -62,3 +65,6 @@ profiles:
     - f_hmscreens
     - f_smp.py
     - f_gitconfig
+  localhost:
+    dotfiles:
+    - f_pip.conf
