@@ -19,3 +19,5 @@
 	unstage = reset HEAD --
 [github]
 	user = kadaliao
+[http]
+	sslVerify = false
