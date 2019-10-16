@@ -20,6 +20,7 @@ SETUVAR _fish_abbr_dpr:dae\x20pre\x20remove\x20\x2d\x2dpre
 SETUVAR _fish_abbr_dpu:dae\x20pre\x20update\x20\x2d\x2dpre
 SETUVAR _fish_abbr_drs:dae\x20runscript\x20\x2du\x20liaoxingyi_vf
 SETUVAR _fish_abbr_ds:docker\x2dcompose
+SETUVAR _fish_abbr_f:fuck
 SETUVAR _fish_abbr_gcm:git\x20checkout\x20master
 SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_glp:git\x20log\x20\x2d\x2dpretty\x3doneline
