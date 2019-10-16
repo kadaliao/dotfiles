@@ -64,6 +64,7 @@ Plug 'dense-analysis/ale'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'wellle/tmux-complete.vim'
 Plug 'plytophogy/vim-virtualenv'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -400,7 +401,16 @@ let g:jedi#goto_stubs_command = '<leader>gs'
 """"""""""""
 nnoremap <leader>ti :Semshi toggle<cr>
 
+""""""""""""""""""""
+"  tmux-navigator  "
+""""""""""""""""""""
+let g:tmux_navigator_no_mappings = 1
 
+nnoremap <silent> <a-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <a-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <a-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <a-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <a-o> :TmuxNavigatePrevious<cr>
 
 
 """""""""
@@ -536,7 +546,6 @@ nnoremap sv <c-w>v
 nnoremap sg <c-w>s
 nnoremap vs <c-w>v
 nnoremap q <esc>
-nnoremap q <esc>
 nnoremap <leader>qr q
 
 inoremap jk <esc>
@@ -622,18 +631,19 @@ noremap <leader>eP :lfirst<cr>
 " <esc> will work as <esc> in terminal
 tnoremap <a-8> <c-\><c-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-tnoremap <a-h> <C-\><C-N><C-w>h
-tnoremap <a-j> <C-\><C-N><C-w>j
-tnoremap <a-k> <C-\><C-N><C-w>k
-tnoremap <a-l> <C-\><C-N><C-w>l
-inoremap <a-h> <C-\><C-N><C-w>h
-inoremap <a-j> <C-\><C-N><C-w>j
-inoremap <a-k> <C-\><C-N><C-w>k
-inoremap <a-l> <C-\><C-N><C-w>l
-nnoremap <a-h> <C-w>h
-nnoremap <a-j> <C-w>j
-nnoremap <a-k> <C-w>k
-nnoremap <a-l> <C-w>l
+" no need if use with tmux-navigator
+" tnoremap <a-h> <C-\><C-N><C-w>h
+" tnoremap <a-j> <C-\><C-N><C-w>j
+" tnoremap <a-k> <C-\><C-N><C-w>k
+" tnoremap <a-l> <C-\><C-N><C-w>l
+" inoremap <a-h> <C-\><C-N><C-w>h
+" inoremap <a-j> <C-\><C-N><C-w>j
+" inoremap <a-k> <C-\><C-N><C-w>k
+" inoremap <a-l> <C-\><C-N><C-w>l
+" nnoremap <a-h> <C-w>h
+" nnoremap <a-j> <C-w>j
+" nnoremap <a-k> <C-w>k
+" nnoremap <a-l> <C-w>l
 
 " do not quit entire vim
 augroup GitCommitNVR
