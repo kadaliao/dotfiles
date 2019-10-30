@@ -11,7 +11,11 @@ def swap_main_display():
     pos_key = 'OTHER_DISPLAY_POS'
     pos = os.environ.get(pos_key) or 'top'
 
-    if pos == 'top':
+    if pos == 'left':
+        pos = 'right'
+    elif pos == 'right':
+        pos = 'left'
+    elif pos == 'top':
         pos = 'bottom'
     else:
         pos = 'top'
