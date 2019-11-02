@@ -521,8 +521,9 @@ nnoremap <leader>fve :edit $MYVIMRC<cr>
 nnoremap <leader>fvs :source $MYVIMRC<cr>
 nnoremap <leader>fs :w<cr>
 
-noremap Zz <c-w>_ \| <c-w>\|
-noremap Zo <c-w>=
+noremap sz <c-w>_ \| <c-w>\|
+" open current split into a new tab
+noremap sc :tabnew %<CR>
 
 " close buffer and quit all
 nnoremap <leader>bd :bd<cr>

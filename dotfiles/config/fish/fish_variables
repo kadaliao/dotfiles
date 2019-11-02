@@ -26,7 +26,8 @@ SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_glp:git\x20log\x20\x2d\x2dpretty\x3doneline
 SETUVAR _fish_abbr_gp:git\x20push
 SETUVAR _fish_abbr_gpoh:git\x20push\x20\x2du\x20origin\x20HEAD
-SETUVAR _fish_abbr_gpum:git\x20pull\x20upstream\x20master
+SETUVAR _fish_abbr_gpom:git\x20pull\x20origin\x20master\x20\x2dr
+SETUVAR _fish_abbr_gpum:git\x20pull\x20upstream\x20master\x20\x2dr
 SETUVAR _fish_abbr_gs:git\x20status
 SETUVAR _fish_abbr_jpt:jupyter\x20lab
 SETUVAR _fish_abbr_nv:nvim
