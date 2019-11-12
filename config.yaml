@@ -48,6 +48,9 @@ dotfiles:
   f_pip.conf:
     src: pip/pip.conf
     dst: ~/.pip/pip.conf
+  f_dpo:
+    src: bin/dpo
+    dst: ~/bin/dpo
 profiles:
   liaoxingyi-mbp13-dbfm:
     dotfiles:
@@ -65,6 +68,7 @@ profiles:
     - f_hmscreens
     - f_smp.py
     - f_gitconfig
+    - f_dpo
   localhost:
     dotfiles:
     - f_pip.conf
