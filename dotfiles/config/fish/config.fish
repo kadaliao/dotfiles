@@ -32,7 +32,7 @@ set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 set -gx RANGER_LOAD_DEFAULT_RC 0
 
 # node
-set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
+# set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
 
 # 使用trash替换rm命令
 alias rm trash
