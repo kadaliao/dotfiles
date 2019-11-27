@@ -565,7 +565,7 @@ imap <c-b> <left>
 imap <c-n> <down>
 
 " Deleting current buffer without losing the split
-nnoremap <silent> <c-x> :bp\|bd #<cr>
+" nnoremap <silent> <c-x> :bp\|bd #<cr>
 
 " Fold file based on syntax
 nnoremap <leader>zs :setlocal foldmethod=syntax<cr>
