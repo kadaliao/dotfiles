@@ -31,9 +31,6 @@ set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
 set -gx RANGER_LOAD_DEFAULT_RC 0
 
-# node
-# set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
-
 # 使用trash替换rm命令
 alias rm trash
 
@@ -52,6 +49,7 @@ set -g fish_user_paths "$HOME/bin" $fish_user_paths
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 
-# cargo
-set -g fish_user_paths "/Users/liaoxingyi/.cargo/bin" $fish_user_paths
-
+# n configuration
+set -gx N_PREFIX "$HOME/.n"
+set -gx fish_user_paths "$N_PREFIX/bin" $fish_user_paths
+set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
