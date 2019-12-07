@@ -7,6 +7,7 @@ if empty(glob($VIMCONFIG . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Plugins                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -314,6 +315,17 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 "  ncm2  "
 """"""""""
 
+" Install neovim in specified virtualenv
+"
+" if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
+"   !virtualenv ~/.cache/vim/venv/neovim3
+"   !~/.cache/vim/venv/neovim3/bin/pip install neovim jedi
+" endif
+
+" Python host for neovim
+" let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
 
@@ -360,6 +372,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Press <c-l> to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
 inoremap <silent> <expr> <c-l> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
 
 """""""""""""""
 "  ultisnips  "

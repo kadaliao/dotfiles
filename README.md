@@ -4,6 +4,7 @@ My personal dotfiles managed by [deadc0de6/dotdrop](https://github.com/deadc0de6
 
 Need to install the dependent softwares, including but not limited to:
 - nodejs
+- pipenv
 - npm
 - yarn
 - curl

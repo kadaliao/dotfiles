@@ -5,13 +5,9 @@
 
 brew install git wget htop tmux pipenv python2 python3 vim neovim coreutils psutils ranger fish nodejs npm yarn powerline fzf rg ctags autojump
 
-
 # nerdfont
 brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
-
-
-pip2 install powerline-status
 
 # pip
 pip3 install autopep8 flake8 pylint jedi neovim
