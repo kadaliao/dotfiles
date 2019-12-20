@@ -37,6 +37,7 @@ SETUVAR _fish_abbr_ppr:pipenv\x20run
 SETUVAR _fish_abbr_pps:pipenv\x20shell
 SETUVAR _fish_abbr_ppu:pipenv\x20uninstall
 SETUVAR _fish_abbr_r:ranger
+SETUVAR _fish_abbr_ro:ranger\x2dcd
 SETUVAR _fish_abbr_taa:tmux\x20new\x20\x2dA\x20\x2ds\x20Playground
 SETUVAR _fish_abbr_vi:nvim
 SETUVAR _fish_abbr_vim:nvim
