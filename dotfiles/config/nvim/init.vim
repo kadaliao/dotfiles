@@ -66,6 +66,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'wellle/tmux-complete.vim'
 Plug 'plytophogy/vim-virtualenv'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'kadaliao/InstantRst'
 
 call plug#end()
 
