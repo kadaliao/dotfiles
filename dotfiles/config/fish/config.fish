@@ -42,14 +42,13 @@ set -g fish_user_paths "$HOME/.gem/ruby/2.6.0/bin" $fish_user_paths
 set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
 
 # /usr/loca/bin and ~/bin
-# set -g fish_user_paths "/usr/local/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/bin" $fish_user_paths
 set -g fish_user_paths "$HOME/bin" $fish_user_paths
 
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
-set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 
 # n configuration
-set -gx N_PREFIX "$HOME/.n"
-set -gx fish_user_paths "$N_PREFIX/bin" $fish_user_paths
-set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
+# set -gx N_PREFIX "$HOME/.n"
+# set -gx fish_user_paths "$N_PREFIX/bin" $fish_user_paths
+# set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"

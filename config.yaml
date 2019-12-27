@@ -51,8 +51,14 @@ dotfiles:
   f_dpo:
     src: bin/dpo
     dst: ~/bin/dpo
+  f_tmux-session-playground.yaml:
+    src: tmux-session-playground.yaml
+    dst: ~/.tmux-session-playground.yaml
+  f_tmux-session-work.yaml:
+    src: tmux-session-work.yaml
+    dst: ~/.tmux-session-work.yaml
 profiles:
-  liaoxingyi-mbp13-dbfm:
+  localhost:
     dotfiles:
     - f_tmux.conf
     - f_ankdown-conf.yaml
@@ -69,6 +75,6 @@ profiles:
     - f_smp.py
     - f_gitconfig
     - f_dpo
-  localhost:
-    dotfiles:
-    - f_pip.conf
+    - f_mdvlog
+    - f_tmux-session-playground.yaml
+    - f_tmux-session-work.yaml

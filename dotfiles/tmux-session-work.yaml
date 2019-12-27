@@ -1,0 +1,10 @@
+session_name: Work
+windows:
+- window_name: FM
+  panes:
+    - shell_command:
+      - j fm
+      - ls -lh
+- window_name: Test
+  panes:
+    - cd ~/Desktop
