@@ -13,9 +13,10 @@ Need to install the dependent softwares, including but not limited to:
 - tmux
 - neovim >= v0.3.8
 - ranger
-- powerline-status
 - fishshell
 - psutils
 - true color fonts
+- powerline-status
+- tmuxp
 
 Please run ./install.sh first
