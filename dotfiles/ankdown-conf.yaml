@@ -1,6 +1,6 @@
 pkg_arg: ~/Desktop/anki.apkg
 recur_dir: ~/ankdown-cards
-version_log: ~/.mdvlog
+version_log: "~/Library/Mobile Documents/com~apple~CloudDocs/mdvlog"
 card_model_name: Ankdown
 updated_only: true
 dollar: false
