@@ -75,6 +75,5 @@ profiles:
     - f_smp.py
     - f_gitconfig
     - f_dpo
-    - f_mdvlog
     - f_tmux-session-playground.yaml
     - f_tmux-session-work.yaml
