@@ -561,6 +561,8 @@ nnoremap sv <c-w>v
 nnoremap sg <c-w>s
 nnoremap vs <c-w>v
 nnoremap q <esc>
+nnoremap q: q:
+nnoremap q/ q/
 nnoremap <leader>qr q
 
 inoremap jk <esc>
