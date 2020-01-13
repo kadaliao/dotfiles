@@ -38,7 +38,7 @@ SETUVAR _fish_abbr_pps:pipenv\x20shell
 SETUVAR _fish_abbr_ppu:pipenv\x20uninstall
 SETUVAR _fish_abbr_r:ranger
 SETUVAR _fish_abbr_ro:ranger\x2dcd
-SETUVAR _fish_abbr_taa:tmuxp\x20load\x20\x7e/\x2etmux\x2dsession\x2dplayground\x2eyaml
+SETUVAR _fish_abbr_taa:tmux\x20a
 SETUVAR _fish_abbr_tap:tmuxp\x20load\x20/Users/liaoxingyi/\x2etmux\x2dsession\x2dplayground\x2eyaml
 SETUVAR _fish_abbr_taw:tmuxp\x20load\x20/Users/liaoxingyi/\x2etmux\x2dsession\x2dwork\x2eyaml
 SETUVAR _fish_abbr_vi:nvim
