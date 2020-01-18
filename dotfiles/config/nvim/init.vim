@@ -67,6 +67,9 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'plytophogy/vim-virtualenv'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'kadaliao/InstantRst'
+Plug 'kana/vim-textobj-lastpat'
+Plug 'bronson/vim-visual-star-search'
+Plug 'tpope/vim-abolish'
 
 call plug#end()
 
@@ -560,10 +563,6 @@ nnoremap sd <c-w>c
 nnoremap sv <c-w>v
 nnoremap sg <c-w>s
 nnoremap vs <c-w>v
-nnoremap q <esc>
-nnoremap q: q:
-nnoremap q/ q/
-nnoremap <leader>qr q
 
 inoremap jk <esc>
 "vmap jk <c-[>
