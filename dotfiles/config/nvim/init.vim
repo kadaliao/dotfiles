@@ -375,7 +375,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Press <c-l> to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <c-l> ncm2_ultisnips#expand_or("\<CR>", 'n')
+inoremap <silent> <expr> <c-y> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 
 """""""""""""""
