@@ -234,6 +234,12 @@ nmap     <a-f><a-b> <plug>CtrlSFCCwordExec
 nnoremap <a-f>t :CtrlSFToggle<cr>
 nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 
+""""""""""""""""""""""""""""
+"  scroll the other split  "
+""""""""""""""""""""""""""""
+nnoremap <a-u>  <C-w>p<C-u><C-w>p
+nnoremap <a-d>  <C-w>p<C-d><C-w>p
+
 
 """""""""""""
 "  neoterm  "
