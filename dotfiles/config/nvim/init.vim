@@ -404,10 +404,10 @@ let g:jedi#show_call_signatures = 1
 
 "let g:jedi#use_splits_not_buffers = ""
 "let g:jedi#completions_command = "<C-N>"
+"let g:jedi#documentation_command = '<s-k>'
 let g:jedi#goto_command = '<leader>ge'
 let g:jedi#goto_assignments_command  = '<leader>gg'
 let g:jedi#goto_definitions_command  = '<leader>gd'
-let g:jedi#documentation_command = '<s-k>'
 let g:jedi#rename_command = '<leader>gr'
 let g:jedi#usages_command  = '<leader>gn'
 let g:jedi#goto_stubs_command = '<leader>gs'
