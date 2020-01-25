@@ -7,16 +7,17 @@ windows:
   panes:
     - cd ~/ankdown-cards
 - window_name: Blog
-  layout: main-horizontal
-  options:
+  # layout: main-horizontal
+  # options:
     # main-pane-height: 50
-    automatic-rename: off
-  start_directory: ~/workspace/kadaliao.github.io
+    # automatic-rename: off
+  # start_directory: ~/workspace/kadaliao.github.io
   panes:
-    - shell_command:
-        - nvim _posts
-      focus: true
-    - blank
+    - cd ~/workspace/kadaliao.github.io
+    # - shell_command:
+    #     - nvim _posts
+      # focus: true
+    # - blank
 - window_name: Test
   panes:
     - cd ~/Desktop
