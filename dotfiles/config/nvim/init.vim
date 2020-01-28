@@ -379,7 +379,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "         \ })
 " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
-" Press <c-l> to trigger snippet expansion
+" Press <c-y> to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
 inoremap <silent> <expr> <c-y> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
@@ -575,15 +575,15 @@ inoremap jk <esc>
 "imap jk <esc>
 "vmap jk <esc>
 
-imap <c-h> <bs>
-imap <c-d> <del>
-imap <c-k> <c-o>D
-imap <c-a> <c-o>I
-imap <c-e> <c-o>$
-imap <c-p> <up>
-imap <c-f> <right>
-imap <c-b> <left>
-imap <c-n> <down>
+inoremap <c-h> <bs>
+inoremap <c-d> <del>
+inoremap <c-k> <c-o>D
+inoremap <c-a> <c-o>I
+inoremap <expr> <c-e> pumvisible() ? "\<C-e>" : "\<C-o>$"
+inoremap <c-p> <up>
+inoremap <c-f> <right>
+inoremap <c-b> <left>
+inoremap <c-n> <down>
 
 " Deleting current buffer without losing the split
 " nnoremap <silent> <c-x> :bp\|bd #<cr>
