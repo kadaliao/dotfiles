@@ -18,6 +18,9 @@ windows:
     #     - nvim _posts
       # focus: true
     # - blank
+- window_name: Leetcode
+  panes:
+    - cd ~/workspace/leetcode
 - window_name: Test
   panes:
     - cd ~/Desktop
