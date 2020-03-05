@@ -10,7 +10,7 @@ brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
 
 # pip
-pip3 install autopep8 flake8 pylint jedi neovim
+pip3 install autopep8 flake8 pylint jedi neovim docopt
 
 # lastpass
 sudo cpan install Capture::Tiny
