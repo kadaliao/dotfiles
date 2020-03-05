@@ -3,7 +3,7 @@ recur_dir: ~/ankdown-cards
 version_log: "~/Library/Mobile Documents/com~apple~CloudDocs/mdvlog"
 card_model_name: Ankdown
 updated_only: true
-dollar: false
+dollar: true
 highlight: true
 card_model_css: ".card {font-family: 'Crimson Pro', 'Crimson Text', 'Cardo', 'Times', 'serif';text-align: left; color: black; background-color: white; }"
 card_model_fields:
