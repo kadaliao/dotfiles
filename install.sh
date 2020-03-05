@@ -10,7 +10,7 @@ brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
 
 # pip
-pip3 install powerline-status autopep8 flake8 pylint jedi neovim docopt
+pip3 install powerline-status autopep8 flake8 pylint jedi neovim docopt tmuxp
 
 # lastpass
 sudo cpan install Capture::Tiny
