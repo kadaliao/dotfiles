@@ -575,7 +575,8 @@ inoremap jk <esc>
 "imap jk <esc>
 "vmap jk <esc>
 
-inoremap <c-h> <bs>
+" inoremap <c-h> <bs>
+inoremap <expr> <c-h> pumvisible() ? "\<C-h>" : "<bs>"
 inoremap <c-d> <del>
 inoremap <c-k> <c-o>D
 inoremap <c-a> <c-o>I
