@@ -482,10 +482,10 @@ autocmd BufEnter *.py call textobj#user#map('python', {
       \   'function': {
       \     'select-a': '<buffer>af',
       \     'select-i': '<buffer>if',
-      \     'move-n': '<buffer>]f',
-      \     'move-p': '<buffer>[f',
       \   }
       \ })
+      " \     'move-n': '<buffer>]f',
+      " \     'move-p': '<buffer>[f',
 
 """"""""""""""""""""""
 "  markdown-preview  "
@@ -529,6 +529,7 @@ set nospell
 set inccommand=nosplit
 set cursorline
 set undofile
+" set foldmethod=indent
 "set guifont=DroidSansMono_Nerd_Font:h11
 "set cursorcolumn
 "set bufhidden=delete
