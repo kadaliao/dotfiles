@@ -24,7 +24,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
-Plug 'bps/vim-textobj-python'
+Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'lxhillwind/leader-clipboard'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-dispatch'
@@ -37,7 +37,7 @@ Plug 'morhetz/gruvbox'
 Plug 'liuchengxu/vim-which-key'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive' " 不离开vim情况下进行git操作
 Plug 'tpope/vim-rhubarb'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
@@ -50,7 +50,7 @@ Plug 'mhinz/vim-startify'
 Plug 'mhinz/neovim-remote'
 Plug 'easymotion/vim-easymotion'
 Plug 'kshenoy/vim-signature'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -70,6 +70,8 @@ Plug 'kadaliao/InstantRst'
 Plug 'kana/vim-textobj-lastpat'
 Plug 'bronson/vim-visual-star-search'
 Plug 'tpope/vim-abolish'
+Plug 'mbbill/undotree'
+Plug 'iberianpig/tig-explorer.vim'
 
 call plug#end()
 
@@ -118,6 +120,33 @@ let g:tagbar_left = 1
 
 nmap <F3> :TagbarToggle<CR>
 
+
+""""""""""""""""""
+"  tig-explorer  "
+""""""""""""""""""
+
+" open tig with current file
+nnoremap <Leader>gf :TigOpenCurrentFile<CR>
+
+" open tig with Project root path
+nnoremap <Leader>gt :TigOpenProjectRootDir<CR>
+
+" open tig grep
+nnoremap <Leader>gg :TigGrep<CR>
+
+" resume from last grep
+nnoremap <Leader>gr :TigGrepResume<CR>
+
+" open tig grep with the selected word
+vnoremap <Leader>gs y:TigGrep<Space><C-R>"<CR>
+
+" open tig grep with the word under the cursor
+nnoremap <Leader>gw :<C-u>:TigGrep<Space><C-R><C-W><CR>
+
+" open tig blame with current file
+nnoremap <Leader>gb :TigBlame<CR>
+
+
 """""""""""""""
 "  gitgutter  "
 """""""""""""""
@@ -125,7 +154,7 @@ nmap <F3> :TagbarToggle<CR>
 let g:gitgutter_map_keys = 0
 
 nnoremap <leader>gp :silent! GitGutterPreviewHunk<cr>
-nnoremap <leader>go :pclose<cr>
+nnoremap <leader>gd :pclose<cr>
 nnoremap <leader>tg :GitGutterToggle<cr>
 autocmd BufWritePost * GitGutter
 
@@ -147,7 +176,7 @@ nmap ]g <Plug>GitGutterNextHunk
 "  fugitive  "
 """"""""""""""
 
-let g:github_enterprise_urls = ['https://github-fm.intra.douban.com']
+" let g:github_enterprise_urls = ['https://github-fm.intra.douban.com']
 
 
 """"""""""""
@@ -493,6 +522,13 @@ autocmd BufEnter *.py call textobj#user#map('python', {
 
 nmap <F4> <Plug>MarkdownPreviewToggle
 let g:mkdp_auto_start = 0
+
+""""""""""""""""""""""
+"       UndoTree     "
+""""""""""""""""""""""
+
+nnoremap <F5> :UndotreeToggle<cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Common Settings                               "
