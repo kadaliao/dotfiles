@@ -37,7 +37,6 @@ Plug 'morhetz/gruvbox'
 Plug 'liuchengxu/vim-which-key'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
-" Plug 'tpope/vim-fugitive' " 不离开vim情况下进行git操作
 Plug 'tpope/vim-rhubarb'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
@@ -172,13 +171,6 @@ nmap ]g <Plug>GitGutterNextHunk
 "endfunction
 
 
-""""""""""""""
-"  fugitive  "
-""""""""""""""
-
-" let g:github_enterprise_urls = ['https://github-fm.intra.douban.com']
-
-
 """"""""""""
 "  ranger  "
 """"""""""""
@@ -274,7 +266,7 @@ nnoremap <a-d>  <C-w>p<C-d><C-w>p
 "  neoterm  "
 """""""""""""
 
-" Plug 'kassio/neoterm')
+" Plug 'kassio/neoterm'
 
 "let g:neoterm_autoinsert = 1
 "let g:neoterm_keep_term_open = 1

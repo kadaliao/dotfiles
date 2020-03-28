@@ -57,6 +57,9 @@ dotfiles:
   f_tmux-session-work.yaml:
     src: tmux-session-work.yaml
     dst: ~/.tmux-session-work.yaml
+  f_proximac.conf:
+    src: proximac.conf
+    dst: ~/.proximac.conf
 profiles:
   localhost:
     dotfiles:
@@ -77,3 +80,4 @@ profiles:
     - f_dpo
     - f_tmux-session-playground.yaml
     - f_tmux-session-work.yaml
+    - f_proximac.conf
