@@ -20,5 +20,7 @@ Need to install the dependent softwares, including but not limited to:
 - tmuxp
 - proximac
 - lazygit
+- fx
+- fpp
 
 Please run ./install.sh first
