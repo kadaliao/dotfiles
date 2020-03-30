@@ -5,10 +5,6 @@
 
 brew install git wget htop tmux pipenv python3 vim neovim coreutils psutils ranger fish nodejs npm yarn fzf rg ctags autojump fx fpp
 
-
-# proximac
-curl -fsSL https://raw.githubusercontent.com/proximac-org/proximac-install/master/install.py | sudo python
-
 # nerdfont
 brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
