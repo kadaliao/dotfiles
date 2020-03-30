@@ -705,27 +705,3 @@ augroup END
 
 " just generate tags for python files
 nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Notes and tips                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" C-] to go to the tag
-" C-^ jump between the location
-" C-t jump to previous tag
-" []q to go to previous and next quick fix item
-" []w to go to the syntax warnings
-"
-" <leader>g go to definition, includes declaration
-" <leader>d go to definition
-" <leader>n find all use in quickfix window
-" & to repeat last substitute command
-" in search mode, <c-n> to multiple select with plugin vim-multiple-cursors
-
-" xmap visual
-" vmap visula and select
-" omap operator pending
-" lmap Insert, Command-line, Lang-Arg
-" tmap Terminal-Job
-" cmap Command-line
