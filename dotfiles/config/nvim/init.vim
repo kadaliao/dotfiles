@@ -24,7 +24,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
-Plug 'bps/vim-textobj-python', { 'for': 'python' }
+Plug 'bps/vim-textobj-python'
 Plug 'lxhillwind/leader-clipboard'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-dispatch'
@@ -49,7 +49,7 @@ Plug 'mhinz/vim-startify'
 Plug 'mhinz/neovim-remote'
 Plug 'easymotion/vim-easymotion'
 Plug 'kshenoy/vim-signature'
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim'
 Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
