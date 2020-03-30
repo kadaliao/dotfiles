@@ -18,7 +18,6 @@ Need to install the dependent softwares, including but not limited to:
 - true color fonts
 - powerline-status
 - tmuxp
-- proximac
 - lazygit
 - fx
 - fpp
