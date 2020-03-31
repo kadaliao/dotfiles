@@ -21,5 +21,6 @@ Need to install the dependent softwares, including but not limited to:
 - lazygit
 - fx
 - fpp
+- pistol
 
 Please run ./install.sh first
