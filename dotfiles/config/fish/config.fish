@@ -13,6 +13,7 @@ set -gx GTAGSLABEL pygments
 
 # fzf
 set -gx FZF_DEFAULT_COMMAND "rg --files"
+set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
 set -gx LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
@@ -52,3 +53,6 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 # set -gx N_PREFIX "$HOME/.n"
 # set -gx fish_user_paths "$N_PREFIX/bin" $fish_user_paths
 # set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
+
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
