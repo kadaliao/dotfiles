@@ -71,6 +71,7 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'tpope/vim-abolish'
 Plug 'mbbill/undotree'
 Plug 'iberianpig/tig-explorer.vim'
+Plug 'jpalardy/vim-slime'
 
 call plug#end()
 
@@ -104,6 +105,14 @@ nnoremap <silent> <leader>h<leader> :<c-u>WhichKey '<leader>'<cr>
 " don't use whichkey plugin on special keys
 " use <lt> as \<
 "nnoremap <silent> <a-f> :<c-u>WhichKey '<lt>a-f>'<cr>
+
+"""""""""""""""
+"  vim-slime  "
+"""""""""""""""
+
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
+let g:slime_python_ipython = 1
 
 
 """"""""""""
