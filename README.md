@@ -15,6 +15,7 @@ Need to install the dependent softwares, including but not limited to:
 - ranger
 - fishshell
 - psutils
+- libmagic
 - true color fonts
 - powerline-status
 - tmuxp
