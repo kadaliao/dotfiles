@@ -115,6 +115,12 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-o
 let g:slime_python_ipython = 1
 
 
+""""""""""""""""
+"  instantRst  "
+""""""""""""""""
+
+let g:instant_rst_browser = 'Google Chrome'
+
 """"""""""""
 "  tagbar  "
 """"""""""""
