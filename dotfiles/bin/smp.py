@@ -9,7 +9,7 @@ import os
 
 def swap_main_display():
     pos_key = 'OTHER_DISPLAY_POS'
-    pos = os.environ.get(pos_key) or 'bottom'
+    pos = os.environ.get(pos_key) or 'left'
 
     if pos == 'left':
         pos = 'right'
