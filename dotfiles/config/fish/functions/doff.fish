@@ -1,5 +1,5 @@
-function poff --description 'Unset v2ray proxy'
-  echo 'v2ray proxy off'
+function doff --description 'Unset douban proxy'
+  echo 'douban proxy off'
   set -e all_proxy
   set -e ftp_proxy
   set -e http_proxy
