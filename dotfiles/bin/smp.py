@@ -7,24 +7,18 @@
 import os
 
 
-def swap_main_display():
-    pos_key = 'OTHER_DISPLAY_POS'
-    pos = os.environ.get(pos_key) or 'left'
+def swap_main_display(pos=None):
+    pos_d = {'left': 'right', 'right': 'left', 'up': 'bottom',
+             'top': 'bottom', 'bottom': 'top', 'down': 'top'}
+    pos = pos_d.get(pos, 'top')
 
-    if pos == 'left':
-        pos = 'right'
-    elif pos == 'right':
-        pos = 'left'
-    elif pos == 'top':
-        pos = 'bottom'
-    else:
-        pos = 'top'
-
-    cmd = 'hmscreens -setMainID `hmscreens -info | grep "Screen ID:" | head -2 | tail -1 | sed "s/[^0-9]*//g"`'
+    cmd = 'hmscreens -setMainID `hmscreens -info | grep "Screen ID:"' \
+        '| head -2 | tail -1 | sed "s/[^0-9]*//g"`'
     cmd += ' -othersStartingPosition ' + pos
     os.system(cmd)
-    print('export %s=%s' % (pos_key, pos))
 
 
 if __name__ == '__main__':
-    swap_main_display()
+    import sys
+    target_pos = sys.argv[1] if len(sys.argv) > 1 else None
+    swap_main_display(target_pos)
