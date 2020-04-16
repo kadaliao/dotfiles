@@ -619,6 +619,9 @@ inoremap jk <esc>
 "imap jk <esc>
 "vmap jk <esc>
 
+" shit-tab to unindent
+inoremap <S-Tab> <C-o><<
+
 " inoremap <c-h> <bs>
 inoremap <expr> <c-h> pumvisible() ? "\<C-h>" : "<bs>"
 inoremap <c-d> <del>
