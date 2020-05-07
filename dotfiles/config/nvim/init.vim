@@ -72,7 +72,7 @@ Plug 'tpope/vim-abolish'
 Plug 'mbbill/undotree'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'jpalardy/vim-slime'
-
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

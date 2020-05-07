@@ -19,7 +19,7 @@ SETUVAR _fish_abbr_dpl:dae\x20pre\x20log\x20\x2d\x2dpre
 SETUVAR _fish_abbr_dpll:dae\x20pre\x20list
 SETUVAR _fish_abbr_dpr:dae\x20pre\x20remove\x20\x2d\x2dpre
 SETUVAR _fish_abbr_dpu:dae\x20pre\x20update\x20\x2d\x2dpre
-SETUVAR _fish_abbr_drs:dae\x20runscript\x20\x2du\x20liaoxingyi_vf
+SETUVAR _fish_abbr_drs:dae\x20runscript\x20\x2du\x20liaoxingyi
 SETUVAR _fish_abbr_drsh:dae\x20remoteshell
 SETUVAR _fish_abbr_ds:docker\x2dcompose
 SETUVAR _fish_abbr_f:fuck
