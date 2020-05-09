@@ -25,7 +25,6 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'bps/vim-textobj-python'
-Plug 'lxhillwind/leader-clipboard'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
@@ -105,6 +104,22 @@ nnoremap <silent> <leader>h<leader> :<c-u>WhichKey '<leader>'<cr>
 " don't use whichkey plugin on special keys
 " use <lt> as \<
 "nnoremap <silent> <a-f> :<c-u>WhichKey '<lt>a-f>'<cr>
+
+
+""""""""""""""""""""""
+"  Leader clipboard  "
+""""""""""""""""""""""
+vnoremap <Leader>y "+y
+vnoremap <Leader>x "+x
+vnoremap <Leader>d "+d
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
+nnoremap <Leader>Y "+Y
+nnoremap <Leader>yy "+yy
+nnoremap <Leader>x "+x
+nnoremap <Leader>dd "+dd
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
 
 """""""""""""""
 "  vim-slime  "
