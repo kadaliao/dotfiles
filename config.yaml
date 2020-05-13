@@ -57,6 +57,9 @@ dotfiles:
   f_tmux-session-work.yaml:
     src: tmux-session-work.yaml
     dst: ~/.tmux-session-work.yaml
+  f_flake8:
+    src: config/flake8
+    dst: ~/.config/flake8
 profiles:
   localhost:
     dotfiles:
@@ -77,3 +80,4 @@ profiles:
     - f_dpo
     - f_tmux-session-playground.yaml
     - f_tmux-session-work.yaml
+    - f_flake8
