@@ -1,0 +1,32 @@
+# /etc/skel/.bashrc
+#
+# This file is sourced by all *interactive* bash shells on startup,
+# including some apparently interactive shells such as scp and rcp
+# that can't tolerate any output.  So make sure this doesn't display
+# anything or bad things will happen !
+
+
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
+
+
+# Put your fun stuff here.
+export PATH=$PATH:$HOME/.local/bin
+
+# go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.local/go/bin
+
+alias don='echo douban proxy on;export http_proxy=http://tunnel.douban.com:8118;export https_proxy=http://tunnel.douban.com:8118;'
+alias doff='echo douban proxy off;export http_proxy=;export https_proxy=;'
+
+# libnsl
+export LDFLAGS=-L/data/home/liaoxingyi/.linuxbrew/opt/libnsl/lib
+export CPPFLAGS=-I/data/home/liaoxingyi/.linuxbrew/opt/libnsl/include
+export PKG_CONFIG_PATH=/data/home/liaoxingyi/.linuxbrew/opt/libnsl/lib/pkgconfig

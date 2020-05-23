@@ -60,6 +60,12 @@ dotfiles:
   f_flake8:
     src: config/flake8
     dst: ~/.config/flake8
+  f_bashrc:
+    src: bashrc
+    dst: ~/.bashrc
+  f_bash_profile:
+    src: bash_profile
+    dst: ~/.bash_profile
 profiles:
   localhost:
     dotfiles:
@@ -81,3 +87,7 @@ profiles:
     - f_tmux-session-playground.yaml
     - f_tmux-session-work.yaml
     - f_flake8
+  balrog2:
+    dotfiles:
+    - f_bashrc
+    - f_bash_profile
