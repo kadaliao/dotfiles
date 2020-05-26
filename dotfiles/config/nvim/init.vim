@@ -71,7 +71,7 @@ Plug 'tpope/vim-abolish'
 Plug 'mbbill/undotree'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'jpalardy/vim-slime'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,7 +251,7 @@ let g:ctrlp_custom_ignore = {
 "  ctrlsf  "
 """"""""""""
 
-let g:ctrlsf_ackprg = '/usr/local/bin/rg'
+let g:ctrlsf_ackprg = 'rg'
 let g:ctrlsf_default_root = 'project+fw'
 let g:ctrlsf_default_view_mode = 'compact'
 let g:ctrlsf_follow_symlinks = 0
@@ -378,14 +378,14 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 
 " Install neovim in specified virtualenv
 "
-" if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
-"   !virtualenv ~/.cache/vim/venv/neovim3
-"   !~/.cache/vim/venv/neovim3/bin/pip install neovim jedi
-" endif
+if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
+  !virtualenv ~/.cache/vim/venv/neovim3
+  !~/.cache/vim/venv/neovim3/bin/pip install neovim jedi
+endif
 
 " Python host for neovim
-" let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
+" let g:python3_host_prog = 'python3'
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
