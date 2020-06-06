@@ -21,6 +21,7 @@ end
 
     complete -f -c dae -n "__fish_dae_needs_command" -a pre
         complete -f -c dae -n "__fish_dae_using_command pre" -a switch_shire -d "switch shire repo branch"
+        complete -f -c dae -n "__fish_dae_using_command pre" -a execute -d "excute script in pre"
         complete -f -c dae -n "__fish_dae_using_command pre" -a log -d "tail pre logs"
         complete -f -c dae -n "__fish_dae_using_command pre" -a edit -d "edit pre"
         complete -f -c dae -n "__fish_dae_using_command pre" -a create -d "create dae app prelase(web, thrift or pidl)"
@@ -45,11 +46,12 @@ end
         complete -f -c dae -n "__fish_dae_using_command sync" -a --mysql-user -d "mysql user, default is %(default)s"
         complete -f -c dae -n "__fish_dae_using_command sync" -a -h -d "show this help message and exit"
         complete -f -c dae -n "__fish_dae_using_command sync" -a --mysql-db -d "default is application name"
+        complete -f -c dae -n "__fish_dae_using_command sync" -a --use-latest-pip -d "Upgrade venv/bin/pip to latest version[default %(default)s]"
         complete -f -c dae -n "__fish_dae_using_command sync" -a --quiet-pip -d "Tell pip to give less output. [default %(default)s]"
         complete -f -c dae -n "__fish_dae_using_command sync" -a -v -d "enable additional output"
-        complete -f -c dae -n "__fish_dae_using_command sync" -a --use-latest-pip -d "Upgrade venv/bin/pip to latest version[default %(default)s]"
-        complete -f -c dae -n "__fish_dae_using_command sync" -a --mysql-port -d "mysql port, default is %(default)s"
         complete -f -c dae -n "__fish_dae_using_command sync" -a --repo-update -d "Update repo version or not. [default %(default)s]"
+        complete -f -c dae -n "__fish_dae_using_command sync" -a --mysql-port -d "mysql port, default is %(default)s"
+        complete -f -c dae -n "__fish_dae_using_command sync" -a --skip-python-version-check -d "skip python version check"
         complete -f -c dae -n "__fish_dae_using_command sync" -a --only-update-svc -d "only update svc files"
     complete -f -c dae -n "__fish_dae_needs_command" -a freeze
         complete -f -c dae -n "__fish_dae_using_command freeze" -a -v -d "enable additional output"
@@ -114,12 +116,14 @@ end
         complete -f -c dae -n "__fish_dae_using_command stub" -a -h -d "show this help message and exit"
         complete -f -c dae -n "__fish_dae_using_command stub" -a -d -d "deactivate stubs"
     complete -f -c dae -n "__fish_dae_needs_command" -a dbshell
+        complete -f -c dae -n "__fish_dae_using_command dbshell" -a --mycli -d "use mycli instead of mysql-cli(RECOMMEND)"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a -h -d "show this help message and exit"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a --ldap -d "Same as -u/--username"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a --user -d "Same as -u/--username"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a -u -d "LDAP username"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a -v -d "enable additional output"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a -r -d "connect to the offline database in production environment"
+        complete -f -c dae -n "__fish_dae_using_command dbshell" -a --shire -d "connect to shire database"
         complete -f -c dae -n "__fish_dae_using_command dbshell" -a --online -d "connect to the **online** database in production environment (DANGEROURS!)"
     complete -f -c dae -n "__fish_dae_needs_command" -a update_pidl_use_svc
         complete -f -c dae -n "__fish_dae_using_command update_pidl_use_svc" -a -h -d "show this help message and exit"
@@ -206,16 +210,6 @@ end
         complete -f -c dae -n "__fish_dae_using_command plugin" -a -v -d "enable additional output"
         complete -f -c dae -n "__fish_dae_using_command plugin" -a list -d "list all installed plugins"
         complete -f -c dae -n "__fish_dae_using_command plugin" -a -h -d "show this help message and exit"
-    complete -f -c dae -n "__fish_dae_needs_command" -a sandbox
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a create -d "create dae app sandbox(web)"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a list -d "list sandbox"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a -h -d "show this help message and exit"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a --ldap -d "Same as -u/--username"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a --user -d "Same as -u/--username"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a -u -d "LDAP username"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a -v -d "enable additional output"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a update -d "update sandbox"
-        complete -f -c dae -n "__fish_dae_using_command sandbox" -a delete -d "delete sandbox"
     complete -f -c dae -n "__fish_dae_needs_command" -a install
         complete -f -c dae -n "__fish_dae_using_command install" -a -h -d "show this help message and exit"
     complete -f -c dae -n "__fish_dae_needs_command" -a docker
