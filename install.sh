@@ -22,14 +22,14 @@ else
 	echo 'eval $(~/.linuxbrew/bin/brew shellenv)' >> ~/.bashrc
 fi
 
-brew install git wget htop tmux pipenv python3 go vim neovim coreutils psutils ranger fish nodejs npm yarn fzf rg ctags autojump fx fpp libmagic
+brew install git wget htop tmux pipenv python3 go vim neovim coreutils psutils ranger fish nodejs npm yarn fzf rg ctags autojump fx fpp libmagic glibc
 
 
 # lazygit
 brew install jesseduffield/lazygit/lazygit
 brew install lazygit
 
-python3 -m pip install powerline-status autopep8 flake8 pylint jedi neovim docopt tmuxp
+python3 -m pip install powerline-status autopep8 flake8 pylint jedi neovim docopt tmuxp ruamel.yaml jinja2
 
 # pistol
 env GO111MODULE=on go get -u github.com/doronbehar/pistol/cmd/pistol
