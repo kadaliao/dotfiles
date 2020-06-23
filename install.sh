@@ -22,7 +22,7 @@ else
 	echo 'eval $(~/.linuxbrew/bin/brew shellenv)' >> ~/.bashrc
 fi
 
-brew install git wget htop tmux pipenv python3 go vim neovim coreutils psutils ranger fish nodejs npm yarn fzf rg ctags autojump fx fpp libmagic glibc
+brew install git wget htop tmux pipenv python3 go vim neovim coreutils psutils ranger fish nodejs npm yarn fzf rg ctags autojump fx fpp libmagic glibc tig
 
 
 # lazygit

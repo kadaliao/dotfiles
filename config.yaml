@@ -91,3 +91,6 @@ profiles:
     dotfiles:
     - f_bashrc
     - f_bash_profile
+  server:
+    dotfiles:
+    - f_bashrc
