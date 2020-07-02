@@ -71,6 +71,7 @@ Plug 'tpope/vim-abolish'
 Plug 'mbbill/undotree'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'jpalardy/vim-slime'
+Plug 'lepture/vim-jinja'
 " Plug 'sheerun/vim-polyglot'
 call plug#end()
 
@@ -498,7 +499,7 @@ nnoremap <silent> <a-o> :TmuxNavigatePrevious<cr>
 let g:ale_linters = {
 \   'python': ['flake8'],
 \   'vim':  ['vint'],
-\   'markdown': ['markdownlint']
+\   'markdown': ['markdownlint'],
 \}
 
 let g:ale_fixers = {
