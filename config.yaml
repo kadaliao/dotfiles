@@ -3,9 +3,6 @@ config:
   create: true
   dotpath: dotfiles
 dotfiles:
-  d_fish:
-    dst: ~/.config/fish
-    src: config/fish
   f_ankdown-conf.yaml:
     dst: ~/.ankdown-conf.yaml
     src: ankdown-conf.yaml
@@ -66,12 +63,17 @@ dotfiles:
   f_bash_profile:
     src: bash_profile
     dst: ~/.bash_profile
+  f_fish_variables:
+    src: config/fish/fish_variables
+    dst: ~/.config/fish/fish_variables
+  f_config.fish:
+    src: config/fish/config.fish
+    dst: ~/.config/fish/config.fish
 profiles:
   localhost:
     dotfiles:
     - f_tmux.conf
     - f_ankdown-conf.yaml
-    - d_fish
     - d_powerline
     - f_init.vim
     - f_rc.conf
@@ -94,3 +96,7 @@ profiles:
   server:
     dotfiles:
     - f_bashrc
+  liaoxingyi-imac:
+    dotfiles:
+    - f_fish_variables
+    - f_config.fish
