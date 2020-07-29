@@ -1,5 +1,5 @@
 {
-	"common": {
+  "common": {
     "log_file": "/tmp/powerline.log"
-	}
+  }
 }
