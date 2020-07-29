@@ -69,6 +69,9 @@ dotfiles:
   f_config.fish:
     src: config/fish/config.fish
     dst: ~/.config/fish/config.fish
+  d_functions:
+    src: config/fish/functions
+    dst: ~/.config/fish/functions
 profiles:
   localhost:
     dotfiles:
@@ -100,3 +103,4 @@ profiles:
     dotfiles:
     - f_fish_variables
     - f_config.fish
+    - d_functions
