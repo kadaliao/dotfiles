@@ -72,7 +72,8 @@ Plug 'mbbill/undotree'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'jpalardy/vim-slime'
 Plug 'lepture/vim-jinja'
-" Plug 'sheerun/vim-polyglot'
+Plug 'craigemery/vim-autotag'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -382,6 +383,7 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
   !python3 -m venv ~/.cache/vim/venv/neovim3
   !~/.cache/vim/venv/neovim3/bin/pip install neovim
+  !~/.cache/vim/venv/neovim3/bin/pip install jedi
 endif
 
 " Python host for neovim
@@ -739,4 +741,5 @@ augroup GitCommitNVR
 augroup END
 
 " just generate tags for python files
-nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
+" nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
+nnoremap <leader>mgd :Dispatch! ctags -R .<cr>

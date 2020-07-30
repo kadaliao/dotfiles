@@ -72,6 +72,12 @@ dotfiles:
   d_functions:
     src: config/fish/functions
     dst: ~/.config/fish/functions
+  f_global_ignore:
+    src: global_ignore
+    dst: ~/.global_ignore
+  f_ctags:
+    src: ctags
+    dst: ~/.ctags
 profiles:
   localhost:
     dotfiles:
@@ -104,3 +110,5 @@ profiles:
     - f_fish_variables
     - f_config.fish
     - d_functions
+    - f_global_ignore
+    - f_ctags
