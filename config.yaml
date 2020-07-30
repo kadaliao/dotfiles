@@ -78,6 +78,9 @@ dotfiles:
   f_ctags:
     src: ctags
     dst: ~/.ctags
+  f_vimrc:
+    src: vimrc
+    dst: ~/.vimrc
 profiles:
   localhost:
     dotfiles:
@@ -103,6 +106,7 @@ profiles:
     - f_tmux-session-playground.yaml
     - f_tmux-session-work.yaml
     - f_flake8
+    - f_vimrc
   balrog2:
     dotfiles:
     - f_bashrc
