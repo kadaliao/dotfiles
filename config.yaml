@@ -82,6 +82,11 @@ profiles:
   localhost:
     dotfiles:
     - f_tmux.conf
+    - f_fish_variables
+    - f_config.fish
+    - d_functions
+    - f_global_ignore
+    - f_ctags
     - f_ankdown-conf.yaml
     - d_powerline
     - f_init.vim
@@ -105,10 +110,3 @@ profiles:
   server:
     dotfiles:
     - f_bashrc
-  liaoxingyi-imac:
-    dotfiles:
-    - f_fish_variables
-    - f_config.fish
-    - d_functions
-    - f_global_ignore
-    - f_ctags
