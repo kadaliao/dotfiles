@@ -33,7 +33,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'morhetz/gruvbox'
-" Plug 'liuchengxu/vim-which-key'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
@@ -74,7 +73,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'lepture/vim-jinja'
 Plug 'craigemery/vim-autotag'
 Plug 'sheerun/vim-polyglot'
-Plug 'mhartington/oceanic-next'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -85,29 +84,8 @@ call plug#end()
 "  theme  "
 """""""""""
 set background=dark
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+colorscheme gruvbox
 
-""""""""""""""
-"  whichkey  "
-""""""""""""""
-
-"nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
-"nnoremap <silent> <leader>hm :<c-u>WhichKey 'm'<cr>
-"nnoremap <silent> <leader>h[ :<c-u>WhichKey '['<cr>
-"nnoremap <silent> <leader>h] :<c-u>WhichKey ']'<cr>
-"nnoremap <silent> <leader>hy :<c-u>WhichKey 'y'<cr>
-"nnoremap <silent> <leader>hg :<c-u>WhichKey 'g'<cr>
-"nnoremap <silent> <leader>h<leader> :<c-u>WhichKey '<leader>'<cr>
-""nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<cr>
-""nnoremap <silent> [ :<c-u>WhichKey '['<cr>
-""nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
-""nnoremap <silent> ] :<c-u>WhichKey ']'<cr>
-
-"" don't use whichkey plugin on special keys
-"" use <lt> as \<
-""nnoremap <silent> <a-f> :<c-u>WhichKey '<lt>a-f>'<cr>
 
 
 """"""""""""""""""""""
@@ -222,6 +200,7 @@ let g:ranger_replace_netrw = 1
 
 let g:airline_powerline_fonts = 1
 let g:codedark_conservative = 1
+
 
 
 """""""""""""
