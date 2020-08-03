@@ -62,7 +62,7 @@ python3 -m pip install autopep8
 python3 -m pip install flake8
 python3 -m pip install pylint
 python3 -m pip install jedi
-python3 -m pip install neovim
+python3 -m pip install pyvim
 python3 -m pip install psutil
 python3 -m pip install docopt
 python3 -m pip install tmuxp
