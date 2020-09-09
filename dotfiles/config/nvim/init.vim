@@ -361,13 +361,13 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 
 " Install neovim in specified virtualenv
 "
-" if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
-"   !python3 -m venv ~/.cache/vim/venv/neovim3
-"   !~/.cache/vim/venv/neovim3/bin/pip install neovim
-" endif
+if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
+   !python3 -m venv ~/.cache/vim/venv/neovim3
+   !~/.cache/vim/venv/neovim3/bin/pip install neovim
+endif
 
 " Python host for neovim
-" let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
+let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
 " let g:python3_host_prog = '/usr/local/bin/python3'
 
 autocmd BufEnter * call ncm2#enable_for_buffer()

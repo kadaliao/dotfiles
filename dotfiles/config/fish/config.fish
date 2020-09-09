@@ -24,10 +24,14 @@ set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
 
+# pyenv
+source (pyenv init - | psub)
+
 # pipenv
 set -gx PIPENV_VENV_IN_PROJECT 1
 # set -e PIPENV_VENV_IN_PROJECT
 set -gx PIPENV_SKIP_LOCK 1
+set -gx PIPENV_VERBOSITY -1
 set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
 set -gx RANGER_LOAD_DEFAULT_RC 0
