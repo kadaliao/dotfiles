@@ -21,18 +21,23 @@ set -gx CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
 set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 
 # openssl
+set -gx fish_user_paths "/usr/local/opt/openssl/bin" $fish_user_paths
 set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
+set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
-# pyenv
-source (pyenv init - | psub)
+# set -gx fish_user_paths "/usr/local/opt/openssl@1.0/bin" $fish_user_paths
+# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
+# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
+
 
 # pipenv
-set -gx PIPENV_VENV_IN_PROJECT 1
+set -gx WORKON_HOME ~/.venvs
 # set -e PIPENV_VENV_IN_PROJECT
 set -gx PIPENV_SKIP_LOCK 1
 set -gx PIPENV_VERBOSITY -1
-set -gx PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
+set -gx PIPENV_PYPI_MIRROR https://pypi.douban.com/simple
 
 set -gx RANGER_LOAD_DEFAULT_RC 0
 
@@ -47,7 +52,7 @@ set -g fish_user_paths "$HOME/.gem/ruby/2.6.0/bin" $fish_user_paths
 set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
 
 # /usr/loca/bin and ~/bin
-set -g fish_user_paths "/usr/local/bin" $fish_user_paths
+# set -g fish_user_paths "/usr/local/bin" $fish_user_paths
 set -g fish_user_paths "$HOME/bin" $fish_user_paths
 
 # rg configuration
@@ -58,5 +63,7 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 # set -gx fish_user_paths "$N_PREFIX/bin" $fish_user_paths
 # set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
 
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+# pyenv
+source (pyenv init - | psub)
 
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
