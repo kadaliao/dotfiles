@@ -61,7 +61,6 @@ Plug 'janko/vim-test'
 Plug 'dense-analysis/ale'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'wellle/tmux-complete.vim'
-Plug 'plytophogy/vim-virtualenv'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'kadaliao/InstantRst'
 Plug 'kana/vim-textobj-lastpat'
@@ -362,13 +361,13 @@ nmap <leader>jw <plug>(easymotion-overwin-w)
 " Install neovim in specified virtualenv
 "
 if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
-   !python3 -m venv ~/.cache/vim/venv/neovim3
-   !~/.cache/vim/venv/neovim3/bin/pip install neovim
+	!python3 -m venv ~/.cache/vim/venv/neovim3
+	!~/.cache/vim/venv/neovim3/bin/pip install neovim jedi
 endif
 
 " Python host for neovim
 let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
-" let g:python3_host_prog = '/usr/local/bin/python3'
+" let g:python3_host_prog = ''
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
@@ -474,16 +473,18 @@ nnoremap <silent> <a-o> :TmuxNavigatePrevious<cr>
 "  ale  "
 """""""""
 let g:ale_linters = {
-\   'python': ['flake8'],
+\   'python': ['flake8', 'pylint'],
 \   'vim':  ['vint'],
 \   'markdown': ['markdownlint'],
+\   'sh': ['shellcheck'],
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
 \   'json': ['jq'],
-\   'python': ['autopep8', 'isort', 'yapf'],
+\   'python': ['black', 'isort'],
+\   'sh': ['shfmt'],
 \}
 
 let g:ale_fix_on_save = 0
@@ -572,7 +573,7 @@ set nospell
 set inccommand=nosplit
 set cursorline
 set undofile
-" set foldmethod=indent
+set foldmethod=marker
 "set guifont=DroidSansMono_Nerd_Font:h11
 "set cursorcolumn
 "set bufhidden=delete
@@ -637,8 +638,8 @@ inoremap <c-n> <down>
 " nnoremap <silent> <c-x> :bp\|bd #<cr>
 
 " Fold file based on syntax
-nnoremap <leader>zs :setlocal foldmethod=syntax<cr>
-nnoremap <leader>zt :setlocal nofoldenable<cr>
+" nnoremap <leader>zs :setlocal foldmethod=syntax<cr>
+" nnoremap <leader>zt :setlocal nofoldenable<cr>
 
 " Rename current file
 "nnoremap <leader>rn :Move <c-r>=expand("%")<cr>
