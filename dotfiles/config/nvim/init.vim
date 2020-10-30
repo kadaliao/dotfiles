@@ -14,64 +14,157 @@ endif
 
 call plug#begin($VIMCONFIG . '/plugged')
 
-" Plug 'vim-scripts/LargeFile'
+" Rename the current file in the vim buffer + retain relative path.
 Plug 'danro/rename.vim'
+
+" Quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
+
+" enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat'
+
+" Pairs of handy bracket mappings, [f [[
 Plug 'tpope/vim-unimpaired'
+
+" comment stuff out, gcc, gcap
 Plug 'tpope/vim-commentary'
+
+" A Vim plugin for Vim plugins; PP, :Vedit
+Plug 'tpope/vim-scriptease'
+
+" Asynchronous build and test dispatcher
+Plug 'tpope/vim-dispatch'
+
+" Granular project configuration; jump to test file
+" Plug 'tpope/vim-projectionist'
+
+" GitHub extension for fugitive.vim; GBrowse
+" Plug 'tpope/vim-rhubarb'
+
+" Easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/vim-abolish'
+
+" Create your own text objects
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'bps/vim-textobj-python'
+" Text objects for the last searched pattern; i/
+Plug 'kana/vim-textobj-lastpat'
+
+" Make the yanked region apparent!
 Plug 'machakann/vim-highlightedyank'
-Plug 'tpope/vim-dispatch'
+
+" Adds neovim support to vim-dispatch
 Plug 'radenling/vim-dispatch-neovim'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-projectionist'
+
+" Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'ctrlpvim/ctrlp.vim'
+
+" A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'lilydjwg/colorizer'
+
+" Theme
 Plug 'morhetz/gruvbox'
+
+" Vim plugin that displays tags in a window, ordered by scope
 Plug 'majutsushi/tagbar'
+
+" A Vim plugin which shows git diff markers in the sign column and stages/previews/undoes hunks and partial hunks.
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-rhubarb'
+
+" Ranger integration in vim and neovim, with dependency bclose
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
+
+" Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more
 Plug 'ryanoasis/vim-devicons'
+
+" Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
+
+" An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'dyng/ctrlsf.vim'
-Plug 'terryma/vim-multiple-cursors'
+
+" Multiple cursors plugin for vim/neovim
+Plug 'mg979/vim-visual-multi'
+
+" Better whitespace highlighting for Vim
 Plug 'ntpeters/vim-better-whitespace'
+
+" The fancy start screen for Vim.
 Plug 'mhinz/vim-startify'
+
+" Provides an executable called nvr, Controlling nvim processes from the shell. E.g. opening files in another terminal window, Opening files from within :terminal without starting a nested nvim process.
 Plug 'mhinz/neovim-remote'
+
+" Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
+
+" Plugin to toggle, display and navigate marks
 Plug 'kshenoy/vim-signature'
+
+" Awesome Python autocompletion with VIM
 Plug 'davidhalter/jedi-vim'
+
+" Semantic Highlighting for Python in Neovim
 Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
+
+" Remote Plugin Framework for Neovim; 
 Plug 'roxma/nvim-yarp'
+
+" Slim, Fast and Hackable Completion Framework for Neovim
 Plug 'ncm2/ncm2'
+
+" Python completion for ncm2 via the great jedi library.
 Plug 'ncm2/ncm2-jedi'
+
+" completion words from current buffer
 Plug 'ncm2/ncm2-bufword'
+
+" Completion words from path
 Plug 'ncm2/ncm2-path'
+
+" UltiSnips integration for ncm2.
 Plug 'ncm2/ncm2-ultisnips'
+
+" Ultimate solution for snippets in Vim.
 Plug 'SirVer/ultisnips'
+
+" Vim-snipmate default snippets
 Plug 'honza/vim-snippets'
+
+" A Vim wrapper for running tests on different granularities.
 Plug 'janko/vim-test'
+
+" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
+" Vim plugin for insert mode completion of words in adjacent tmux panes
 Plug 'wellle/tmux-complete.vim'
+
+" Seamless navigation between tmux panes and vim splits
 Plug 'christoomey/vim-tmux-navigator'
+
+" Rst preview
 Plug 'kadaliao/InstantRst'
-Plug 'kana/vim-textobj-lastpat'
+
+" Start a * or # search from a visual block
 Plug 'bronson/vim-visual-star-search'
-Plug 'tpope/vim-abolish'
-Plug 'mbbill/undotree'
-Plug 'iberianpig/tig-explorer.vim'
+
+" send code to a live REPL
 Plug 'jpalardy/vim-slime'
-Plug 'lepture/vim-jinja'
+
+" re-run ctags on a source file when you save it
 Plug 'craigemery/vim-autotag'
+
+" A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
+
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
@@ -126,7 +219,7 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autopreview = 0
 let g:tagbar_compact = 1
 let g:tagbar_left = 1
-"let g:tagbar_autoshowtag = 1
+let g:tagbar_autoshowtag = 1
 
 nmap <F3> :TagbarToggle<CR>
 
@@ -171,15 +264,15 @@ autocmd BufWritePost * GitGutter
 nmap [g <Plug>GitGutterPrevHunk
 nmap ]g <Plug>GitGutterNextHunk
 
-"function! PreviewWindowOpened()
-"    for nr in range(1, winnr('$'))
-"        if getwinvar(nr, '&pvw') == 1
-"            "found a preview
-"            " return 1
-"        endif
-"    endfor
-"    return 0
-"endfunction
+function! PreviewWindowOpened()
+    for nr in range(1, winnr('$'))
+        if getwinvar(nr, '&pvw') == 1
+            "found a preview
+            " return 1
+        endif
+    endfor
+    return 0
+endfunction
 
 
 """"""""""""
@@ -367,7 +460,6 @@ endif
 
 " Python host for neovim
 let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
-" let g:python3_host_prog = ''
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
@@ -667,10 +759,6 @@ augroup END
 "    autocmd FileType qf wincmd J
 "augroup end
 
-"""""""""""""""
-"  LargeFile  "
-"""""""""""""""
-let g:LargeFile = 5
 
 """"""""""""""
 "  quickfix  "
@@ -724,4 +812,4 @@ augroup END
 
 " just generate tags for python files
 " nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
-nnoremap <leader>mgd :Dispatch! ctags -R .<cr>
+" nnoremap <leader>mgd :Dispatch! ctags -R .<cr>
