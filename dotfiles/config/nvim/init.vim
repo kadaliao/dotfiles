@@ -66,7 +66,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'lilydjwg/colorizer'
 
 " Theme
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+" Plug 'crusoexia/vim-dracula'
+Plug 'arcticicestudio/nord-vim'
 
 " Vim plugin that displays tags in a window, ordered by scope
 Plug 'majutsushi/tagbar'
@@ -176,7 +178,8 @@ call plug#end()
 "  theme  "
 """""""""""
 set background=dark
-colorscheme gruvbox
+" colorscheme dracula
+colorscheme nord
 
 
 
