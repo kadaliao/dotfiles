@@ -53,19 +53,20 @@ set -gx PIPENV_PYPI_MIRROR https://pypi.douban.com/simple
 set -gx RANGER_LOAD_DEFAULT_RC 0
 
 # 使用trash替换rm命令
-alias rm trash
-
-# /usr/loca/bin and ~/bin
-set -g fish_user_paths "$HOME/go/bin $fish_user_paths"
-set -g fish_user_paths "$HOME/bin $fish_user_paths"
+# not working on bigsur yet
+# alias rm trash
 
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
 # n configuration
 # set -gx N_PREFIX "$HOME/.n"
-# set -gx fish_user_paths "$N_PREFIX/bin" $fish_user_paths
+# set -gx fish_user_paths "$HOME/.n/bin $fish_user_paths"
 # set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
+
+# /usr/loca/bin and ~/bin
+set -g fish_user_paths "$HOME/go/bin $fish_user_paths"
+set -g fish_user_paths "$HOME/bin $fish_user_paths"
 
 # pyenv
 source (pyenv init - | psub)
