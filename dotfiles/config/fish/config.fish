@@ -11,26 +11,37 @@ set -gx VISUAL nvim
 
 set -gx GTAGSLABEL pygments
 
+set -e fish_user_paths
+set -e CPPFLAGS
+set -e LDFLAGS
+
+# ruby
+set -g fish_user_paths "/usr/local/opt/ruby/bin $fish_user_paths"
+set -g fish_user_paths "$HOME/.gem/ruby/2.6.0/bin $fish_user_paths"
+
 # fzf
 set -gx FZF_DEFAULT_COMMAND "rg --files"
 set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
-set -gx LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
-set -gx CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
-set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
+set -gx LDFLAGS "-L/usr/local/opt/mysql@5.7/lib $LDFLAGS"
+set -gx CPPFLAGS "-I/usr/local/opt/mysql@5.7/include $CPPFLAGS"
+set -gx fish_user_paths "/usr/local/opt/mysql@5.7/bin $fish_user_paths"
 
 # openssl
-set -gx fish_user_paths "/usr/local/opt/openssl/bin" $fish_user_paths
-set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
-set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
+set -gx fish_user_paths "/usr/local/opt/openssl/bin $fish_user_paths"
+
+set -gx LDFLAGS "-L/usr/local/opt/openssl/lib $LDFLAGS"
+set -gx CPPFLAGS "-I/usr/local/opt/openssl/include $CPPFLAGS"
 set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
-# set -gx fish_user_paths "/usr/local/opt/openssl@1.0/bin" $fish_user_paths
-# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
-# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
+# zlib
+set -gx LDFLAGS "-L/usr/local/opt/zlib/lib $LDFLAGS"
+set -gx CPPFLAGS "-I/usr/local/opt/zlib/include $CPPFLAGS"
 
+# bzip2
+set -gx LDFLAGS "-L/usr/local/opt/bzip2/lib $LDFLAGS"
+set -gx CPPFLAGS "-I/usr/local/opt/bzip2/include $CPPFLAGS"
 
 # pipenv
 set -gx WORKON_HOME ~/.venvs
@@ -44,16 +55,9 @@ set -gx RANGER_LOAD_DEFAULT_RC 0
 # 使用trash替换rm命令
 alias rm trash
 
-# ruby
-set -g fish_user_paths "/usr/local/opt/ruby/bin" $fish_user_paths
-set -g fish_user_paths "$HOME/.gem/ruby/2.6.0/bin" $fish_user_paths
-
-# go-bin
-set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
-
 # /usr/loca/bin and ~/bin
-# set -g fish_user_paths "/usr/local/bin" $fish_user_paths
-set -g fish_user_paths "$HOME/bin" $fish_user_paths
+set -g fish_user_paths "$HOME/go/bin $fish_user_paths"
+set -g fish_user_paths "$HOME/bin $fish_user_paths"
 
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
