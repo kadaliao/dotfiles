@@ -11,6 +11,9 @@ set -gx VISUAL nvim
 
 set -gx GTAGSLABEL pygments
 
+# for devicon in vim to work
+set -gx LANG "en_US.UTF-8"
+
 set -e fish_user_paths
 set -e CPPFLAGS
 set -e LDFLAGS
@@ -24,9 +27,9 @@ set -gx FZF_DEFAULT_COMMAND "rg --files"
 set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
-set -gx LDFLAGS "-L/usr/local/opt/mysql@5.7/lib $LDFLAGS"
-set -gx CPPFLAGS "-I/usr/local/opt/mysql@5.7/include $CPPFLAGS"
-set -gx fish_user_paths "/usr/local/opt/mysql@5.7/bin $fish_user_paths"
+set -gx LDFLAGS "-L/usr/local/opt/mysql/lib $LDFLAGS"
+set -gx CPPFLAGS "-I/usr/local/opt/mysql/include $CPPFLAGS"
+set -gx fish_user_paths "/usr/local/opt/mysql/bin $fish_user_paths"
 
 # openssl
 set -gx fish_user_paths "/usr/local/opt/openssl/bin $fish_user_paths"
@@ -64,8 +67,8 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 # set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
 
 # /usr/loca/bin and ~/bin
-set -g fish_user_paths "$HOME/go/bin $fish_user_paths"
-set -g fish_user_paths "$HOME/bin $fish_user_paths"
+set -gx fish_user_paths "$HOME/go/bin $fish_user_paths"
+set -gx fish_user_paths "$HOME/bin $fish_user_paths"
 
 # pyenv
 source (pyenv init - | psub)
