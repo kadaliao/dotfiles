@@ -53,8 +53,7 @@ set -gx PIPENV_PYPI_MIRROR https://pypi.douban.com/simple
 set -gx RANGER_LOAD_DEFAULT_RC 0
 
 # 使用trash替换rm命令
-# not working on bigsur yet
-# alias rm trash
+alias rm trash
 
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
