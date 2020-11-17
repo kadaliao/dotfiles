@@ -1,6 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export FZF_DEFAULT_COMMAND:rg\x20\x2d\x2dfiles
+SETUVAR --export FZF_DEFAULT_COMMAND:rg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles\x1erg\x20\x2d\x2dfiles
 SETUVAR --export PIPENV_PYPI_MIRROR:https\x3a//pypi\x2etuna\x2etsinghua\x2eedu\x2ecn/simple
 SETUVAR --export PIPENV_SKIP_LOCK:1
 SETUVAR THEME_EDEN_PROMPT_CHAR:\u00bb

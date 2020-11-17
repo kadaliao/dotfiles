@@ -19,32 +19,32 @@ set -e CPPFLAGS
 set -e LDFLAGS
 
 # ruby
-set -g fish_user_paths "/usr/local/opt/ruby/bin $fish_user_paths"
-set -g fish_user_paths "$HOME/.gem/ruby/2.6.0/bin $fish_user_paths"
+set -p fish_user_paths "/usr/local/opt/ruby/bin"
+set -p fish_user_paths "$HOME/.gem/ruby/2.6.0/bin"
 
 # fzf
-set -gx FZF_DEFAULT_COMMAND "rg --files"
-set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
+set -p FZF_DEFAULT_COMMAND "rg --files"
+set -p FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
-set -gx LDFLAGS "-L/usr/local/opt/mysql/lib $LDFLAGS"
-set -gx CPPFLAGS "-I/usr/local/opt/mysql/include $CPPFLAGS"
-set -gx fish_user_paths "/usr/local/opt/mysql/bin $fish_user_paths"
+set -p LDFLAGS "-L/usr/local/opt/mysql/lib"
+set -p CPPFLAGS "-I/usr/local/opt/mysql/include"
+set -p fish_user_paths "/usr/local/opt/mysql/bin"
 
 # openssl
-set -gx fish_user_paths "/usr/local/opt/openssl/bin $fish_user_paths"
+set -p fish_user_paths "/usr/local/opt/openssl/bin"
 
-set -gx LDFLAGS "-L/usr/local/opt/openssl/lib $LDFLAGS"
-set -gx CPPFLAGS "-I/usr/local/opt/openssl/include $CPPFLAGS"
-set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
+set -p LDFLAGS "-L/usr/local/opt/openssl/lib"
+set -p CPPFLAGS "-I/usr/local/opt/openssl/include"
+set -p PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
 # zlib
-set -gx LDFLAGS "-L/usr/local/opt/zlib/lib $LDFLAGS"
-set -gx CPPFLAGS "-I/usr/local/opt/zlib/include $CPPFLAGS"
+set -p LDFLAGS "-L/usr/local/opt/zlib/lib"
+set -p CPPFLAGS "-I/usr/local/opt/zlib/include"
 
-# bzip2
-set -gx LDFLAGS "-L/usr/local/opt/bzip2/lib $LDFLAGS"
-set -gx CPPFLAGS "-I/usr/local/opt/bzip2/include $CPPFLAGS"
+# bzip
+set -p LDFLAGS "-L/usr/local/opt/bzip2/lib"
+set -p CPPFLAGS "-I/usr/local/opt/bzip2/include"
 
 # pipenv
 set -gx WORKON_HOME ~/.venvs
@@ -67,10 +67,10 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 # set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
 
 # /usr/loca/bin and ~/bin
-set -gx fish_user_paths "$HOME/go/bin $fish_user_paths"
-set -gx fish_user_paths "$HOME/bin $fish_user_paths"
+set -p fish_user_paths "$HOME/go/bin"
+set -p fish_user_paths "$HOME/bin"
 
 # pyenv
-source (pyenv init - | psub)
+pyenv init - | source
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
