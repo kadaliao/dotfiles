@@ -48,7 +48,7 @@ set -gx CPPFLAGS "-I/usr/local/opt/bzip2/include $CPPFLAGS"
 
 # pipenv
 set -gx WORKON_HOME ~/.venvs
-# set -e PIPENV_VENV_IN_PROJECT
+set -e PIPENV_VENV_IN_PROJECT
 set -gx PIPENV_SKIP_LOCK 1
 set -gx PIPENV_VERBOSITY -1
 set -gx PIPENV_PYPI_MIRROR https://pypi.douban.com/simple

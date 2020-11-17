@@ -168,6 +168,11 @@ Plug 'craigemery/vim-autotag'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+
+" Editing Jupyter ipynb files via jupytext
+Plug 'goerz/jupytext.vim'
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
