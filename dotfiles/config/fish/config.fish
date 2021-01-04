@@ -38,8 +38,8 @@ set -p LDFLAGS "-L/usr/local/opt/openssl/lib"
 set -p CPPFLAGS "-I/usr/local/opt/openssl/include"
 set -p PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
-set -gx LDFLAGS "-L"(brew --prefix zlib)/lib "-L"(brew --prefix bzip2)"/lib"
-set -gx LDFLAGS "-L"(brew --prefix zlib)/lib -L"(brew --prefix bzip2)/lib"
+set -gx LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
+# set -gx LDFLAGS "-L"(brew --prefix zlib)/lib "-L"(brew --prefix bzip2)"/lib"
 
 # pipenv
 set -gx WORKON_HOME ~/.venvs
