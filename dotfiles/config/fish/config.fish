@@ -27,19 +27,17 @@ set -p FZF_DEFAULT_COMMAND "rg --files"
 set -p FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
-set -p LDFLAGS "-L/usr/local/opt/mysql/lib"
-set -p CPPFLAGS "-I/usr/local/opt/mysql/include"
-set -p fish_user_paths "/usr/local/opt/mysql/bin"
+set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
+set -p CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
+set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
 
-# openssl
-set -p fish_user_paths "/usr/local/opt/openssl/bin"
 
-set -p LDFLAGS "-L/usr/local/opt/openssl/lib"
-set -p CPPFLAGS "-I/usr/local/opt/openssl/include"
-set -p PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
+# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
+# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
 
-set -gx LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
-# set -gx LDFLAGS "-L"(brew --prefix zlib)/lib "-L"(brew --prefix bzip2)"/lib"
+# zlib and bzip2
+set -p LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
 
 # pipenv
 set -gx WORKON_HOME ~/.venvs
@@ -66,6 +64,24 @@ set -p fish_user_paths "$HOME/go/bin"
 set -p fish_user_paths "$HOME/bin"
 
 # pyenv
-pyenv init - | source
+set -e PYENV_VERSION
+status --is-interactive; and source (pyenv init -|psub)
+
+# openssl
+set -p fish_user_paths "/usr/local/opt/openssl@1.1/bin"
+
+set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
+set -gx CFLAGS "-I/usr/local/opt/openssl@1.1/include"
+set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
+set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
+
+
+# ffi
+# set -gx LDFLAGS "-L/usr/local/opt/libffi/lib"
+# set -gx CPPFLAGS "-I/usr/local/opt/libffi/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
+
+
+
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
