@@ -80,6 +80,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
+
+" Vim plugin to use Tig as a git client.
+Plug 'iberianpig/tig-explorer.vim'
+
 " Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more
 Plug 'ryanoasis/vim-devicons'
 
@@ -113,7 +117,7 @@ Plug 'davidhalter/jedi-vim'
 " Semantic Highlighting for Python in Neovim
 Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
 
-" Remote Plugin Framework for Neovim; 
+" Remote Plugin Framework for Neovim;
 Plug 'roxma/nvim-yarp'
 
 " Slim, Fast and Hackable Completion Framework for Neovim
