@@ -27,9 +27,9 @@ set -p FZF_DEFAULT_COMMAND "rg --files"
 set -p FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
-set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
-set -p CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
-set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
+# set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
+# set -p CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
+# set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
 
 
 # set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
@@ -37,7 +37,7 @@ set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
 # set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
 
 # zlib and bzip2
-set -p LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
+# set -p LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
 
 # pipenv
 set -gx WORKON_HOME ~/.venvs
