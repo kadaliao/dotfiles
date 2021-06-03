@@ -32,10 +32,6 @@ set -p FZF_DEFAULT_OPTS "--preview='pistol {}'"
 # set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
 
 
-# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
-# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
-
 # zlib and bzip2
 # set -p LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
 
@@ -64,16 +60,19 @@ set -p fish_user_paths "$HOME/go/bin"
 set -p fish_user_paths "$HOME/bin"
 
 # pyenv
-set -e PYENV_VERSION
-status --is-interactive; and source (pyenv init -|psub)
+set -Ux PYENV_ROOT $HOME/.pyenv
+set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+
+status is-login; and pyenv init --path | source
+pyenv init - | source
 
 # openssl
-set -p fish_user_paths "/usr/local/opt/openssl@1.1/bin"
+set -p fish_user_paths "/usr/local/opt/openssl@1.0/bin"
 
-set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
-set -gx CFLAGS "-I/usr/local/opt/openssl@1.1/include"
-set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
-set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
+# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
+# set -gx CFLAGS "-I/usr/local/opt/openssl@1.0/include"
+# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
 
 
 # ffi
