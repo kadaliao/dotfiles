@@ -66,9 +66,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'lilydjwg/colorizer'
 
 " Theme
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 " Plug 'crusoexia/vim-dracula'
-Plug 'arcticicestudio/nord-vim'
+" Plug 'arcticicestudio/nord-vim'
 
 " Vim plugin that displays tags in a window, ordered by scope
 Plug 'majutsushi/tagbar'
@@ -188,7 +188,7 @@ call plug#end()
 """""""""""
 set background=dark
 " colorscheme dracula
-colorscheme nord
+colorscheme gruvbox
 
 
 
@@ -332,6 +332,7 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](node_modules|target|dist|venv|env)|(\.(swp|ico|git|svn|env|venv))$',
   \ 'file': '\v(tags)|\.(exe|so|dll|pyc)$',
   \ }
+let g:ctrlp_use_caching = 0
 
 
 """"""""""""
@@ -823,5 +824,5 @@ augroup GitCommitNVR
 augroup END
 
 " just generate tags for python files
-" nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
+nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
 " nnoremap <leader>mgd :Dispatch! ctags -R .<cr>
