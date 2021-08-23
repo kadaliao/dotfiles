@@ -63,16 +63,17 @@ set -p fish_user_paths "$HOME/bin"
 set -Ux PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
-status is-login; and pyenv init --path | source
 pyenv init - | source
+status is-login; and pyenv init --path | source
+status --is-interactive; and . (pyenv virtualenv-init -|psub)
 
 # openssl
 set -p fish_user_paths "/usr/local/opt/openssl@1.0/bin"
 
-# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
-# set -gx CFLAGS "-I/usr/local/opt/openssl@1.0/include"
-# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
+set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
+set -gx CFLAGS "-I/usr/local/opt/openssl@1.0/include"
+set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
+set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
 
 
 # ffi
@@ -81,6 +82,7 @@ set -p fish_user_paths "/usr/local/opt/openssl@1.0/bin"
 # set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
 
 
-
+# poetry
+set -p fish_user_paths "$HOME/.local/bin"
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
