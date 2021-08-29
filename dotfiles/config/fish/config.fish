@@ -26,10 +26,10 @@ set -p fish_user_paths "$HOME/.gem/ruby/2.6.0/bin"
 set -p FZF_DEFAULT_COMMAND "rg --files"
 set -p FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
-# mysql5.7
-# set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
-# set -p CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
-# set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
+#mysql5.7
+#set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
+#set -p CPPFLAGS "-I/usr/local/opt/mysql@5.7/include"
+#set -p fish_user_paths "/usr/local/opt/mysql@5.7/bin"
 
 
 # zlib and bzip2
@@ -68,18 +68,18 @@ status is-login; and pyenv init --path | source
 status --is-interactive; and . (pyenv virtualenv-init -|psub)
 
 # openssl
+# set -p fish_user_paths "/usr/local/opt/openssl@1.0/bin"
 set -p fish_user_paths "/usr/local/opt/openssl@1.0/bin"
 
-set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
-set -gx CFLAGS "-I/usr/local/opt/openssl@1.0/include"
-set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
-set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
-
+# set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
+# set -gx CFLAGS "-I/usr/local/opt/openssl@1.1/include"
+# set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig"
 
 # ffi
-# set -gx LDFLAGS "-L/usr/local/opt/libffi/lib"
-# set -gx CPPFLAGS "-I/usr/local/opt/libffi/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
+# set -p LDFLAGS "-L/usr/local/opt/libffi/lib"
+# set -p CPPFLAGS "-I/usr/local/opt/libffi/include"
+# set -p PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
 
 
 # poetry
