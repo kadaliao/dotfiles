@@ -23,8 +23,8 @@ set -p fish_user_paths "/usr/local/opt/ruby/bin"
 set -p fish_user_paths "$HOME/.gem/ruby/2.6.0/bin"
 
 # fzf
-set -p FZF_DEFAULT_COMMAND "rg --files"
-set -p FZF_DEFAULT_OPTS "--preview='pistol {}'"
+set -gx FZF_DEFAULT_COMMAND "rg --files"
+set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 #mysql5.7
 #set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
