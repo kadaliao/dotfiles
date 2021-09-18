@@ -57,6 +57,7 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
 # go configuration
 set -gx GOPATH (go env GOPATH)
+set -gx GOBIN "$GOPATH/bin"
 
 # /usr/loca/bin and ~/bin
 set -p fish_user_paths "$HOME/go/bin"
