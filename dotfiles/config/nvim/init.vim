@@ -1,4 +1,4 @@
-let $VIMCONFIG = '~/.config/nvim'
+let $VIMCONFIG = $HOME .'/.config/nvim'
 let $MYVIMRC = $VIMCONFIG . '/init.vim'
 
 if empty(glob($VIMCONFIG . '/autoload/plug.vim'))
@@ -7,6 +7,11 @@ if empty(glob($VIMCONFIG . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+  \| endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Plugins                                   "
@@ -30,16 +35,20 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 
 " A Vim plugin for Vim plugins; PP, :Vedit
-Plug 'tpope/vim-scriptease'
+" Plug 'tpope/vim-scriptease'
 
 " Asynchronous build and test dispatcher
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
+
+" Adds neovim support to vim-dispatch
+" Plug 'radenling/vim-dispatch-neovim'
 
 " Granular project configuration; jump to test file
-" Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'
 
 " GitHub extension for fugitive.vim; GBrowse
-" Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " Easily search for, substitute, and abbreviate multiple variants of a word
 Plug 'tpope/vim-abolish'
@@ -56,8 +65,6 @@ Plug 'kana/vim-textobj-lastpat'
 " Make the yanked region apparent!
 Plug 'machakann/vim-highlightedyank'
 
-" Adds neovim support to vim-dispatch
-Plug 'radenling/vim-dispatch-neovim'
 
 " Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'ctrlpvim/ctrlp.vim'
@@ -73,6 +80,9 @@ Plug 'morhetz/gruvbox'
 " Vim plugin that displays tags in a window, ordered by scope
 Plug 'majutsushi/tagbar'
 
+" View and search LSP symbols, tags in Vim/NeoVim.
+Plug 'liuchengxu/vista.vim'
+
 " A Vim plugin which shows git diff markers in the sign column and stages/previews/undoes hunks and partial hunks.
 Plug 'airblade/vim-gitgutter'
 
@@ -80,12 +90,16 @@ Plug 'airblade/vim-gitgutter'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
-
 " Vim plugin to use Tig as a git client.
 Plug 'iberianpig/tig-explorer.vim'
 
 " Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more
 Plug 'ryanoasis/vim-devicons'
+
+" A file system explorer for the Vim editor
+Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
@@ -111,29 +125,14 @@ Plug 'easymotion/vim-easymotion'
 " Plugin to toggle, display and navigate marks
 Plug 'kshenoy/vim-signature'
 
+" Make your Vim/Neovim as smart as VSCode.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Awesome Python autocompletion with VIM
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 
 " Semantic Highlighting for Python in Neovim
 Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
-
-" Remote Plugin Framework for Neovim;
-Plug 'roxma/nvim-yarp'
-
-" Slim, Fast and Hackable Completion Framework for Neovim
-Plug 'ncm2/ncm2'
-
-" Python completion for ncm2 via the great jedi library.
-Plug 'ncm2/ncm2-jedi'
-
-" completion words from current buffer
-Plug 'ncm2/ncm2-bufword'
-
-" Completion words from path
-Plug 'ncm2/ncm2-path'
-
-" UltiSnips integration for ncm2.
-Plug 'ncm2/ncm2-ultisnips'
 
 " Ultimate solution for snippets in Vim.
 Plug 'SirVer/ultisnips'
@@ -147,8 +146,10 @@ Plug 'janko/vim-test'
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
 
-" Markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+if has('mac')
+  Plug 'junegunn/vim-xmark'
+endif
+
 
 " Vim plugin for insert mode completion of words in adjacent tmux panes
 Plug 'wellle/tmux-complete.vim'
@@ -166,18 +167,30 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'jpalardy/vim-slime'
 
 " re-run ctags on a source file when you save it
-Plug 'craigemery/vim-autotag'
+" Plug 'craigemery/vim-autotag'
 
 " A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-
 " Editing Jupyter ipynb files via jupytext
-Plug 'goerz/jupytext.vim'
+" Plug 'goerz/jupytext.vim'
 
 call plug#end()
+
+
+" Install neovim in specified virtualenv
+"
+if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
+	!python3 -m venv ~/.cache/vim/venv/neovim3
+	!~/.cache/vim/venv/neovim3/bin/pip install neovim jedi
+endif
+
+" Python host for neovim
+let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Plugin settings and mappings                        "
@@ -187,9 +200,8 @@ call plug#end()
 "  theme  "
 """""""""""
 set background=dark
-" colorscheme dracula
 colorscheme gruvbox
-
+" colorscheme dracula
 
 
 """"""""""""""""""""""
@@ -226,12 +238,12 @@ let g:instant_rst_browser = 'Google Chrome'
 "  tagbar  "
 """"""""""""
 
-let g:tagbar_autoclose = 0
-let g:tagbar_autofocus = 1
-let g:tagbar_autopreview = 0
-let g:tagbar_compact = 1
-let g:tagbar_left = 1
-let g:tagbar_autoshowtag = 1
+" let g:tagbar_autoclose = 0
+" let g:tagbar_autofocus = 1
+" let g:tagbar_autopreview = 0
+" let g:tagbar_compact = 1
+" let g:tagbar_left = 1
+" let g:tagbar_autoshowtag = 1
 
 nmap <F3> :TagbarToggle<CR>
 
@@ -379,30 +391,6 @@ nnoremap <a-f><a-t> :CtrlSFToggle<cr>
 nnoremap <a-u>  <C-w>p<C-u><C-w>p
 nnoremap <a-d>  <C-w>p<C-d><C-w>p
 
-
-"""""""""""""
-"  neoterm  "
-"""""""""""""
-
-" Plug 'kassio/neoterm'
-
-"let g:neoterm_autoinsert = 1
-"let g:neoterm_keep_term_open = 1
-
-"" quickly toggle terminal
-"nnoremap <silent> <leader>o :rightbelow Ttoggle<cr>
-"nnoremap <silent> <leader><leader> :rightbelow Ttoggle<cr>
-"nnoremap <silent> <leader>O :vertical botright Ttoggle<cr>
-
-"" close term
-"tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
-"tnoremap <silent> <leader><leader> <c-\><c-n>:Ttoggle<cr>
-
-
-"" 3<leader>tl will clear neoterm-3.
-"nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
-
-
 """""""""""""""
 "  neoremote  "
 """""""""""""""
@@ -446,6 +434,7 @@ let g:better_whitespace_enabled = 1
 
 " forbid to change directory
 let g:startify_change_to_dir = 1
+let NERDTreeHijackNetrw = 0
 
 
 """"""""""""""""
@@ -460,35 +449,9 @@ map  <leader>jw <plug>(easymotion-bd-w)
 nmap <leader>jw <plug>(easymotion-overwin-w)
 
 
-""""""""""
-"  ncm2  "
-""""""""""
-
-" Install neovim in specified virtualenv
-"
-if empty(glob('~/.cache/vim/venv/neovim3/bin/python'))
-	!python3 -m venv ~/.cache/vim/venv/neovim3
-	!~/.cache/vim/venv/neovim3/bin/pip install neovim jedi
-endif
-
-" Python host for neovim
-let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=menuone,noselect,noinsert
-
-" make it fast
-let ncm2#popup_delay = 5
-let ncm2#complete_length = [[1, 1]]
-" Use new fuzzy based matches
-let g:ncm2#matcher = 'substrfuzzy'
-
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
+"""""""""""""""
+"  ultisnips  "
+"""""""""""""""
 
 " When the <Enter> key is pressed while the popup menu is visible, it only
 " hides the menu. Use this mapping to close the menu and also start a new
@@ -499,32 +462,7 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-" au User Ncm2Plugin call ncm2#register_source({
-"         \ 'name' : 'css',
-"         \ 'priority': 9,
-"         \ 'subscope_enable': 1,
-"         \ 'scope': ['css','scss'],
-"         \ 'mark': 'css',
-"         \ 'word_pattern': '[\w\-]+',
-"         \ 'complete_pattern': ':\s*',
-"         \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-"         \ })
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
-" Press <c-y> to trigger snippet expansion
-" The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <c-y> ncm2_ultisnips#expand_or("\<CR>", 'n')
-
-
-"""""""""""""""
-"  ultisnips  "
-"""""""""""""""
 
 " c-j c-k for moving in snippet
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
@@ -538,23 +476,25 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 """"""""""""""
 
 " Disable Jedi-vim autocompletion and enable call-signatures options
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ''
-let g:jedi#show_call_signatures = 1
+
+" let g:jedi#auto_initialization = 1
+" let g:jedi#completions_enabled = 0
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#smart_auto_mappings = 0
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#completions_command = ''
+" let g:jedi#show_call_signatures = 1
 
 "let g:jedi#use_splits_not_buffers = ""
 "let g:jedi#completions_command = "<C-N>"
 "let g:jedi#documentation_command = '<s-k>'
-let g:jedi#goto_command = '<leader>ge'
-let g:jedi#goto_assignments_command  = '<leader>gg'
-let g:jedi#goto_definitions_command  = '<leader>gd'
-let g:jedi#rename_command = '<leader>gr'
-let g:jedi#usages_command  = '<leader>gn'
-let g:jedi#goto_stubs_command = '<leader>gs'
+
+" let g:jedi#goto_command = '<leader>ge'
+" let g:jedi#goto_assignments_command  = '<leader>gg'
+" let g:jedi#goto_definitions_command  = '<leader>gd'
+" let g:jedi#rename_command = '<leader>gr'
+" let g:jedi#usages_command  = '<leader>gn'
+" let g:jedi#goto_stubs_command = '<leader>gs'
 
 
 """"""""""""
@@ -577,21 +517,28 @@ nnoremap <silent> <a-o> :TmuxNavigatePrevious<cr>
 """""""""
 "  ale  "
 """""""""
+
+let g:ale_linter_aliases = {
+\  'vue': ['vue', 'javascript'],
+\}
+
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
 \   'vim':  ['vint'],
+\   'python': ['flake8'],
 \   'markdown': ['markdownlint'],
 \   'sh': ['shellcheck'],
+\   'vue': ['eslint', 'vls']
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort'],
 \   'javascript': ['eslint'],
 \   'json': ['jq'],
-\   'python': ['black', 'isort'],
 \   'sh': ['shfmt'],
 \}
 
+let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 0
 let g:ale_set_highlights = 0
 let g:ale_completion_enabled = 0
@@ -599,11 +546,31 @@ let g:ale_sign_column_always = 0
 let g:airline#extensions#ale#enabled = 1
 
 " use localtion list navigate key
-"nmap <silent> <leader><C-k> <Plug>(ale_previous_wrap)
-"nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
-vnoremap <leader>bf :'<,'>!autopep8 -<cr>
+
+
+
+"""""""""""""""""""
+"      coc      """
+"""""""""""""""""""
+
+" set rootPatterns for python porject
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <leader>rn <Plug>(coc-rename)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 
 
@@ -629,18 +596,23 @@ autocmd BufEnter *.py call textobj#user#map('python', {
       " \     'move-n': '<buffer>]f',
       " \     'move-p': '<buffer>[f',
 
-""""""""""""""""""""""
-"  markdown-preview  "
-""""""""""""""""""""""
 
-nmap <F4> <Plug>MarkdownPreviewToggle
-let g:mkdp_auto_start = 0
-
-""""""""""""""""""""""
-"       UndoTree     "
-""""""""""""""""""""""
-
-nnoremap <F5> :UndotreeToggle<cr>
+""""""""""""""
+"  nerdtree  "
+""""""""""""""
+let g:nerdtree_open = 0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeMinimalUI = 1
+map <F2> :call NERDTreeToggle()<CR>
+function NERDTreeToggle()
+    NERDTreeTabsToggle
+    if g:nerdtree_open == 1
+        let g:nerdtree_open = 0
+    else
+        let g:nerdtree_open = 1
+        wincmd p
+    endif
+endfunction
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -649,7 +621,6 @@ nnoremap <F5> :UndotreeToggle<cr>
 
 " transparent background
 " hi Normal guibg=NONE ctermbg=NONE
-
 
 syntax on
 filetype plugin indent on
@@ -690,11 +661,12 @@ let g:mapleader = "\\"
 nmap <space> \
 xmap <space> \
 
-nnoremap <leader>fve :edit $MYVIMRC<cr>
+noremap <leader>fve :edit $MYVIMRC<cr>
 nnoremap <leader>fvs :source $MYVIMRC<cr>
 nnoremap <leader>fs :w<cr>
 
-noremap sz <c-w>_ \| <c-w>\|
+noremap <c-w>z <c-w>_ \| <c-w>\|
+
 " open current split into a new tab
 noremap sc :tabnew %<CR>
 
@@ -712,13 +684,6 @@ nnoremap <leader>td :tabclose<cr>
 nnoremap <leader>tD :tabclose!<cr>
 
 tnoremap <leader>qq <esc>
-
-" use cl instead of original s
-nnoremap s <c-w>
-nnoremap sd <c-w>c
-nnoremap sv <c-w>v
-nnoremap sg <c-w>s
-nnoremap vs <c-w>v
 
 inoremap jk <esc>
 "vmap jk <c-[>
@@ -796,27 +761,6 @@ noremap <leader>ep :lpre<cr>
 noremap <leader>eP :lfirst<cr>
 
 
-""""""""""""""
-"  terminal  "
-""""""""""""""
-
-" <esc> will work as <esc> in terminal
-tnoremap <a-8> <c-\><c-n>
-tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-" no need if use with tmux-navigator
-" tnoremap <a-h> <C-\><C-N><C-w>h
-" tnoremap <a-j> <C-\><C-N><C-w>j
-" tnoremap <a-k> <C-\><C-N><C-w>k
-" tnoremap <a-l> <C-\><C-N><C-w>l
-" inoremap <a-h> <C-\><C-N><C-w>h
-" inoremap <a-j> <C-\><C-N><C-w>j
-" inoremap <a-k> <C-\><C-N><C-w>k
-" inoremap <a-l> <C-\><C-N><C-w>l
-" nnoremap <a-h> <C-w>h
-" nnoremap <a-j> <C-w>j
-" nnoremap <a-k> <C-w>k
-" nnoremap <a-l> <C-w>l
-
 " do not quit entire vim
 augroup GitCommitNVR
   "autocmd FileType gitcommit set bufhidden=delete
@@ -824,5 +768,5 @@ augroup GitCommitNVR
 augroup END
 
 " just generate tags for python files
-nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
+" nnoremap <leader>mgd :Dispatch! ctags (find . -type f -iname "*.py")<cr>
 " nnoremap <leader>mgd :Dispatch! ctags -R .<cr>
