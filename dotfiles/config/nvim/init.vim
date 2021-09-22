@@ -58,7 +58,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
-Plug 'bps/vim-textobj-python'
+
 " Text objects for the last searched pattern; i/
 Plug 'kana/vim-textobj-lastpat'
 
@@ -176,6 +176,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Editing Jupyter ipynb files via jupytext
 " Plug 'goerz/jupytext.vim'
+
+" A simple, easy-to-use Vim alignment plugin.
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
@@ -407,12 +410,6 @@ augroup SHADA
         \ if exists(':rshada') | rshada | wshada | endif
 augroup END
 
-""""""""""""
-"  vim-go  "
-""""""""""""
-
-
-
 
 """"""""""""""
 "  vim-test  "
@@ -505,6 +502,7 @@ let g:ale_linters = {
 \   'python': ['flake8'],
 \   'markdown': ['markdownlint'],
 \   'sh': ['shellcheck'],
+\   'go': ['gofmt'],
 \   'vue': ['eslint', 'vls']
 \}
 
@@ -514,6 +512,7 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'json': ['jq'],
 \   'sh': ['shfmt'],
+\   'go': ['gofmt'],
 \}
 
 let g:ale_disable_lsp = 1
@@ -528,30 +527,6 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
-
-
-
-
-"""""""""""""""""""""""
-"  textobject-python  "
-"""""""""""""""""""""""
-
-let g:textobj_python_no_default_key_mappings = 1
-
-autocmd BufEnter *.py call textobj#user#map('python', {
-      \   'class': {
-      \     'select-a': '<buffer>ac',
-      \     'select-i': '<buffer>ic',
-      \     'move-n': '<buffer>]c',
-      \     'move-p': '<buffer>[c',
-      \   },
-      \   'function': {
-      \     'select-a': '<buffer>af',
-      \     'select-i': '<buffer>if',
-      \   }
-      \ })
-      " \     'move-n': '<buffer>]f',
-      " \     'move-p': '<buffer>[f',
 
 
 """"""""""""""
@@ -611,7 +586,6 @@ set foldmethod=marker
 "set cursorcolumn
 "set bufhidden=delete
 
-
 " use \" here, \' won't work
 let g:mapleader = "\\"
 
@@ -667,9 +641,6 @@ inoremap <c-n> <down>
 " Fold file based on syntax
 " nnoremap <leader>zs :setlocal foldmethod=syntax<cr>
 " nnoremap <leader>zt :setlocal nofoldenable<cr>
-
-" Rename current file
-"nnoremap <leader>rn :Move <c-r>=expand("%")<cr>
 
 " Replace word under cursor, globally, with confirmation
 "nnoremap <Leader>rk :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
@@ -732,10 +703,6 @@ augroup END
 " set rootPatterns for python porject
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <leader>rn <Plug>(coc-rename)
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -780,23 +747,47 @@ nmap <leader>rn <Plug>(coc-rename)
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>ua  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>ue  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>uc  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>uo  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <space>us  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <space>uj  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>uk  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>up  :<C-u>CocListResume<CR>
+
+""""""""""""
+"  vim-go  "
+""""""""""""
 
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+
+" Run current buffer
+nnoremap <silent> <space>gr  :<C-u>GoRun %<CR>
+
+
+"""""""""""""""""""""
+"  vim easy align  "
+"""""""""""""""""""""
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <leader>ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <leader>ga <Plug>(EasyAlign)
+
+augroup PYDOC
+  autocmd!
+  autocmd FileType python nmap <silent> <buffer> ga <Plug>(coc-codeaction-line)
+  autocmd FileType python xmap <silent> <buffer> ga <Plug>(coc-codeaction-selected)
+  autocmd FileType python nmap <silent> <buffer> gA <Plug>(coc-codeaction)
+augroup END
 
