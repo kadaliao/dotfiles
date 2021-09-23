@@ -81,6 +81,9 @@ dotfiles:
   f_vimrc:
     src: vimrc
     dst: ~/.vimrc
+  f_coc-settings.json:
+    src: config/nvim/coc-settings.json
+    dst: ~/.config/nvim/coc-settings.json
 profiles:
   localhost:
     dotfiles:
@@ -107,6 +110,7 @@ profiles:
     - f_tmux-session-work.yaml
     - f_flake8
     - f_vimrc
+    - f_coc-settings.json
   balrog2:
     dotfiles:
     - f_bashrc

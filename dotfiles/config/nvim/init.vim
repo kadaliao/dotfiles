@@ -199,6 +199,10 @@ let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
 "                        Plugin settings and mappings                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+
+
+
 """""""""""
 "  theme  "
 """""""""""
@@ -699,6 +703,18 @@ augroup END
 """""""""""""""""""
 "      coc      """
 """""""""""""""""""
+
+let g:coc_global_extensions = [
+      \'coc-markdownlint',
+      \'coc-highlight',
+      \'coc-html',
+      \'coc-tsserver',
+      \'coc-css',
+      \'coc-json',
+      \'coc-python',
+      \]
+
+
 
 " set rootPatterns for python porject
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
