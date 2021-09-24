@@ -62,6 +62,9 @@ Plug 'kana/vim-textobj-indent'
 " Text objects for the last searched pattern; i/
 Plug 'kana/vim-textobj-lastpat'
 
+Plug 'bps/vim-textobj-python'
+
+
 " Make the yanked region apparent!
 Plug 'machakann/vim-highlightedyank'
 
@@ -128,17 +131,8 @@ Plug 'kshenoy/vim-signature'
 " Make your Vim/Neovim as smart as VSCode.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Awesome Python autocompletion with VIM
-" Plug 'davidhalter/jedi-vim'
-
 " Semantic Highlighting for Python in Neovim
 Plug 'numirias/semshi', {'do': 'UpdateRemotePlugins'}
-
-" Ultimate solution for snippets in Vim.
-Plug 'SirVer/ultisnips'
-
-" Vim-snipmate default snippets
-Plug 'honza/vim-snippets'
 
 " A Vim wrapper for running tests on different granularities.
 Plug 'janko/vim-test'
@@ -149,7 +143,6 @@ Plug 'dense-analysis/ale'
 if has('mac')
   Plug 'junegunn/vim-xmark'
 endif
-
 
 " Vim plugin for insert mode completion of words in adjacent tmux panes
 Plug 'wellle/tmux-complete.vim'
@@ -166,16 +159,11 @@ Plug 'bronson/vim-visual-star-search'
 " send code to a live REPL
 Plug 'jpalardy/vim-slime'
 
-" re-run ctags on a source file when you save it
-" Plug 'craigemery/vim-autotag'
-
 " A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
+" Go development plugin for Vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" Editing Jupyter ipynb files via jupytext
-" Plug 'goerz/jupytext.vim'
 
 " A simple, easy-to-use Vim alignment plugin.
 Plug 'junegunn/vim-easy-align'
@@ -198,10 +186,6 @@ let g:python3_host_prog = '~/.cache/vim/venv/neovim3/bin/python'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Plugin settings and mappings                        "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
-
 
 """""""""""
 "  theme  "
@@ -255,32 +239,6 @@ let g:instant_rst_browser = 'Google Chrome'
 nmap <F3> :TagbarToggle<CR>
 
 
-""""""""""""""""""
-"  tig-explorer  "
-""""""""""""""""""
-
-" open tig with current file
-"nnoremap <Leader>gf :TigOpenCurrentFile<CR>
-
-" open tig with Project root path
-"nnoremap <Leader>gt :TigOpenProjectRootDir<CR>
-
-" open tig grep
-"nnoremap <Leader>gg :TigGrep<CR>
-
-" resume from last grep
-"nnoremap <Leader>gr :TigGrepResume<CR>
-
-" open tig grep with the selected word
-"vnoremap <Leader>gs y:TigGrep<Space><C-R>"<CR>
-
-" open tig grep with the word under the cursor
-"nnoremap <Leader>gw :<C-u>:TigGrep<Space><C-R><C-W><CR>
-
-" open tig blame with current file
-"nnoremap <Leader>gb :TigBlame<CR>
-
-
 """""""""""""""
 "  gitgutter  "
 """""""""""""""
@@ -289,11 +247,11 @@ let g:gitgutter_map_keys = 0
 
 nnoremap <leader>gp :silent! GitGutterPreviewHunk<cr>
 nnoremap <leader>gd :pclose<cr>
-nnoremap <leader>tg :GitGutterToggle<cr>
+nnoremap <leader>gt :GitGutterToggle<cr>
 autocmd BufWritePost * GitGutter
 
-nmap [g <Plug>GitGutterPrevHunk
-nmap ]g <Plug>GitGutterNextHunk
+nmap [g <Plug>(GitGutterPrevHunk)
+nmap ]g <Plug>(GitGutterNextHunk)
 
 function! PreviewWindowOpened()
     for nr in range(1, winnr('$'))
@@ -456,26 +414,6 @@ map  <leader>ww <plug>(easymotion-bd-w)
 nmap <leader>ww <plug>(easymotion-overwin-w)
 
 
-"""""""""""""""
-"  ultisnips  "
-"""""""""""""""
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" c-j c-k for moving in snippet
-let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
-
-
 """"""""""""
 "  semshi  "
 """"""""""""
@@ -629,15 +567,15 @@ inoremap jk <esc>
 inoremap <S-Tab> <C-o><<
 
 " inoremap <c-h> <bs>
-inoremap <expr> <c-h> pumvisible() ? "\<C-h>" : "<bs>"
-inoremap <c-d> <del>
-inoremap <c-k> <c-o>D
-inoremap <c-a> <c-o>I
-inoremap <expr> <c-e> pumvisible() ? "\<C-e>" : "\<C-o>$"
-inoremap <c-p> <up>
-inoremap <c-f> <right>
-inoremap <c-b> <left>
-inoremap <c-n> <down>
+" inoremap <expr> <c-h> pumvisible() ? "\<C-h>" : "<bs>"
+" inoremap <c-d> <del>
+" inoremap <c-k> <c-o>D
+" inoremap <c-a> <c-o>I
+" inoremap <expr> <c-e> pumvisible() ? "\<C-e>" : "\<C-o>$"
+" inoremap <c-p> <up>
+" inoremap <c-f> <right>
+" inoremap <c-b> <left>
+" inoremap <c-n> <down>
 
 " Deleting current buffer without losing the split
 " nnoremap <silent> <c-x> :bp\|bd #<cr>
@@ -711,9 +649,11 @@ let g:coc_global_extensions = [
       \'coc-tsserver',
       \'coc-css',
       \'coc-json',
+      \'coc-snippets',
       \'coc-python',
+      \'coc-pydocstring',
+      \'coc-marketplace',
       \]
-
 
 
 " set rootPatterns for python porject
