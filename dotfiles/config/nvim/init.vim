@@ -166,7 +166,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " A simple, easy-to-use Vim alignment plugin.
-Plug 'junegunn/vim-easy-align'
+" Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
@@ -623,12 +623,12 @@ noremap <leader>qP :cfirst<cr>
 "  location list  "
 """""""""""""""""""
 
-noremap <leader>el :lopen<cr>
-noremap <leader>eo :lclose<cr>
-noremap <leader>en :lnext<cr>
-noremap <leader>eN :llast<cr>
-noremap <leader>ep :lpre<cr>
-noremap <leader>eP :lfirst<cr>
+noremap <leader>ll :lopen<cr>
+noremap <leader>lo :lclose<cr>
+noremap <leader>ln :lnext<cr>
+noremap <leader>lN :llast<cr>
+noremap <leader>lp :lpre<cr>
+noremap <leader>lP :lfirst<cr>
 
 
 " do not quit entire vim
@@ -693,31 +693,33 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+
 " Use U to show documentation in preview window
 nnoremap <silent> U :call <SID>show_documentation()<CR>
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 " Show all diagnostics
-nnoremap <silent> <space>ua  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>ue  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>uc  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>uo  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>us  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>uj  :<C-u>CocNext<CR>
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>uk  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>up  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Remap for rename current word
+nmap <silent> <space>rn <Plug>(coc-rename)
 
 """"""""""""
 "  vim-go  "
@@ -727,18 +729,20 @@ nnoremap <silent> <space>up  :<C-u>CocListResume<CR>
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 
-" Run current buffer
-nnoremap <silent> <space>gr  :<C-u>GoRun %<CR>
-
+augroup RunScript
+  autocmd!
+  " Run current buffer
+  autocmd FileType go nnoremap <silent> <space>lr  :<C-u>GoRun %<CR>
+augroup END
 
 """""""""""""""""""""
 "  vim easy align  "
 """""""""""""""""""""
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap <leader>ga <Plug>(EasyAlign)
+" xmap <leader>ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap <leader>ga <Plug>(EasyAlign)
+" nmap <leader>ga <Plug>(EasyAlign)
 
 augroup PYDOC
   autocmd!
