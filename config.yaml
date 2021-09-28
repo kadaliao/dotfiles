@@ -81,6 +81,9 @@ dotfiles:
   f_coc-settings.json:
     src: config/nvim/coc-settings.json
     dst: ~/.config/nvim/coc-settings.json
+  f_fish_variables:
+    src: config/fish/fish_variables
+    dst: ~/.config/fish/fish_variables
 profiles:
   localhost:
     dotfiles:
@@ -107,6 +110,7 @@ profiles:
     - f_flake8
     - f_vimrc
     - f_coc-settings.json
+    - f_fish_variables
   balrog2:
     dotfiles:
     - f_bashrc
