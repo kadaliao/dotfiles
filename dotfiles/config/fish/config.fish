@@ -90,3 +90,9 @@ set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
 # set -p fish_user_paths "$HOME/.local/bin"
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
+# starship prompt
+if type -q starship
+    eval (starship init fish)
+end
+

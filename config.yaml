@@ -63,9 +63,6 @@ dotfiles:
   f_bash_profile:
     src: bash_profile
     dst: ~/.bash_profile
-  f_fish_variables:
-    src: config/fish/fish_variables
-    dst: ~/.config/fish/fish_variables
   f_config.fish:
     src: config/fish/config.fish
     dst: ~/.config/fish/config.fish
@@ -88,7 +85,6 @@ profiles:
   localhost:
     dotfiles:
     - f_tmux.conf
-    - f_fish_variables
     - f_config.fish
     - d_functions
     - f_global_ignore
