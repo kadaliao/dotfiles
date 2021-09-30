@@ -18,6 +18,9 @@ set -e fish_user_paths
 set -e CPPFLAGS
 set -e LDFLAGS
 
+
+set -gx XDG_CONFIG_DIRS "$HOME/.config"
+
 # ruby
 set -p fish_user_paths "/usr/local/opt/ruby/bin"
 set -p fish_user_paths "$HOME/.gem/ruby/2.6.0/bin"

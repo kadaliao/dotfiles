@@ -84,6 +84,9 @@ dotfiles:
   f_fish_variables:
     src: config/fish/fish_variables
     dst: ~/.config/fish/fish_variables
+  d_colorschemes:
+    src: config/powerline/colorschemes
+    dst: ~/.config/powerline/colorschemes
 profiles:
   localhost:
     dotfiles:
@@ -111,6 +114,7 @@ profiles:
     - f_vimrc
     - f_coc-settings.json
     - f_fish_variables
+    - d_colorschemes
   balrog2:
     dotfiles:
     - f_bashrc

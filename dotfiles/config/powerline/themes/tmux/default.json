@@ -3,19 +3,19 @@
     "right": [
       {
         "function": "powerline.segments.common.sys.cpu_load_percent",
+        "priority": 50,
+        "threshold": 5,
+        "before": "CPU: "
+      },
+      {
+        "function": "powerlinemem.mem_usage.mem_usage_percent",
+        "priority": 50,
         "args": {
-          "format": "{0:.0f}%"
+          "format": "Mem: %d%%"
         }
       },
       {
         "function": "powerline.segments.common.net.network_load"
-      },
-      {
-        "function": "powerline.segments.common.bat.battery",
-        "args": {
-          "gamify": true,
-          "format": "{ac_state}{capacity:3.0%}"
-        }
       },
       {
         "function": "powerline.segments.common.time.date"
