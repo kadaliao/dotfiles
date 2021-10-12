@@ -592,8 +592,8 @@ inoremap <S-Tab> <C-o><<
 nmap <silent> <esc> :nohlsearch<cr>
 
 " Quit help window just by q
-augroup EndHelpQ | au! FileType help noremap <buffer> q :q<cr> | augroup END
-augroup EndQuickFixQ | au! FileType qf noremap <buffer> q :q<cr> | augroup END
+" augroup EndHelpQ | au! FileType help noremap <buffer> q :q<cr> | augroup END
+" augroup EndQuickFixQ | au! FileType qf noremap <buffer> q :q<cr> | augroup END
 
 " Automatically source the vimrc file on save
 augroup AutoSourcing
@@ -716,7 +716,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>l  :<C-u>CocListResume<CR>
 
 " Remap for rename current word
 nmap <silent> <space>rn <Plug>(coc-rename)
@@ -732,7 +732,7 @@ let g:go_def_mapping_enabled = 0
 augroup RunScript
   autocmd!
   " Run current buffer
-  autocmd FileType go nnoremap <silent> <space>lr  :<C-u>GoRun %<CR>
+  autocmd FileType go nnoremap <silent> <space>vr  :<C-u>GoRun %<CR>
 augroup END
 
 """""""""""""""""""""
