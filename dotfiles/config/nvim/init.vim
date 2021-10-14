@@ -623,12 +623,12 @@ noremap <leader>qP :cfirst<cr>
 "  location list  "
 """""""""""""""""""
 
-noremap <leader>ll :lopen<cr>
-noremap <leader>lo :lclose<cr>
-noremap <leader>ln :lnext<cr>
-noremap <leader>lN :llast<cr>
-noremap <leader>lp :lpre<cr>
-noremap <leader>lP :lfirst<cr>
+noremap <leader>el :lopen<cr>
+noremap <leader>eo :lclose<cr>
+noremap <leader>en :lnext<cr>
+noremap <leader>eN :llast<cr>
+noremap <leader>ep :lpre<cr>
+noremap <leader>eP :lfirst<cr>
 
 
 " do not quit entire vim
@@ -699,27 +699,27 @@ nnoremap <silent> U :call <SID>show_documentation()<CR>
 
 
 " Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>cf  <Plug>(coc-format-selected)
+nmap <leader>cf  <Plug>(coc-format-selected)
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ca  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+" Search workleader symbols
+nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>l  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>cl  :<C-u>CocListResume<CR>
 
 " Remap for rename current word
-nmap <silent> <space>rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 """"""""""""
 "  vim-go  "
@@ -732,7 +732,7 @@ let g:go_def_mapping_enabled = 0
 augroup RunScript
   autocmd!
   " Run current buffer
-  autocmd FileType go nnoremap <silent> <space>vr  :<C-u>GoRun %<CR>
+  autocmd FileType go nnoremap <silent> <leader>vr  :<C-u>GoRun %<CR>
 augroup END
 
 """""""""""""""""""""
