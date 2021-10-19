@@ -650,7 +650,7 @@ let g:coc_global_extensions = [
       \'coc-css',
       \'coc-json',
       \'coc-snippets',
-      \'coc-python',
+      \'coc-pyright',
       \'coc-pydocstring',
       \'coc-marketplace',
       \]

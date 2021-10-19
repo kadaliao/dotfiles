@@ -3,6 +3,7 @@
   "python.linting.enabled": false,
   "python.linting.flake8Enabled": true,
   "python.formatting.provider": "black",
+  "pydocstring.formatter": "google",
   "diagnostic.displayByAle": true,
   "languageserver":{
     "golang": {
