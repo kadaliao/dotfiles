@@ -15,21 +15,6 @@ dotfiles:
   f_init.vim:
     src: config/nvim/init.vim
     dst: ~/.config/nvim/init.vim
-  f_rc.conf:
-    src: config/ranger/rc.conf
-    dst: ~/.config/ranger/rc.conf
-  f_commands.py:
-    src: config/ranger/commands.py
-    dst: ~/.config/ranger/commands.py
-  f_devicons.py:
-    src: config/ranger/plugins/devicons.py
-    dst: ~/.config/ranger/plugins/devicons.py
-  f_devicons_linemode.py:
-    src: config/ranger/plugins/devicons_linemode.py
-    dst: ~/.config/ranger/plugins/devicons_linemode.py
-  f_autojump.py:
-    src: config/ranger/plugins/autojump.py
-    dst: ~/.config/ranger/plugins/autojump.py
   f_ripgreprc:
     src: ripgreprc
     dst: ~/.ripgreprc
@@ -87,6 +72,9 @@ dotfiles:
   d_colorschemes:
     src: config/powerline/colorschemes
     dst: ~/.config/powerline/colorschemes
+  d_ranger:
+    src: config/ranger
+    dst: ~/.config/ranger
 profiles:
   localhost:
     dotfiles:
@@ -98,11 +86,6 @@ profiles:
     - f_ankdown-conf.yaml
     - d_powerline
     - f_init.vim
-    - f_rc.conf
-    - f_commands.py
-    - f_devicons.py
-    - f_devicons_linemode.py
-    - f_autojump.py
     - f_ripgreprc
     - f_hmscreens
     - f_smp.py
@@ -115,6 +98,7 @@ profiles:
     - f_coc-settings.json
     - f_fish_variables
     - d_colorschemes
+    - d_ranger
   balrog2:
     dotfiles:
     - f_bashrc
