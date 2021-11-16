@@ -750,4 +750,3 @@ augroup PYDOC
   autocmd FileType python xmap <silent> <buffer> ga <Plug>(coc-codeaction-selected)
   autocmd FileType python nmap <silent> <buffer> gA <Plug>(coc-codeaction)
 augroup END
-

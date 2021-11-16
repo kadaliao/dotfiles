@@ -22,8 +22,7 @@ set -e LDFLAGS
 set -gx XDG_CONFIG_DIRS "$HOME/.config"
 
 # ruby
-set -p fish_user_paths "/usr/local/opt/ruby/bin"
-set -p fish_user_paths "$HOME/.gem/ruby/2.6.0/bin"
+set -p fish_user_paths "$HOME/.gem/ruby/2.7.0/bin"
 
 # fzf
 set -gx FZF_DEFAULT_COMMAND "rg --files"
@@ -74,20 +73,22 @@ pyenv init - | source
 status is-login; and pyenv init --path | source
 status --is-interactive; and . (pyenv virtualenv-init -|psub)
 
+# consider using one line command:
+# key=value echo $key
+
+# 不同版本的 python 对 openssl 要求不同
+# 使用 pyenv install 的 python，会下载对应的 openssl 版本，需要手动建立软链接
 # openssl
-set -p fish_user_paths "/usr/local/opt/openssl@1.0/bin"
-
-set -gx LDFLAGS "-L/usr/local/opt/openssl@1.0/lib"
-set -gx CFLAGS "-I/usr/local/opt/openssl@1.0/include"
-set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.0/include"
-set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.0/lib/pkgconfig"
-
+# fish_add_path /usr/local/opt/openssl/bin
+# set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
+# set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
+# set -gx CFLAGS "-I/usr/local/opt/openssl/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
 # ffi
 # set -gx LDFLAGS "-L/usr/local/opt/libffi/lib"
 # set -gx CPPFLAGS "-I/usr/local/opt/libffi/include"
 # set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
-
 
 # poetry
 # set -p fish_user_paths "$HOME/.local/bin"
@@ -98,4 +99,3 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 if type -q starship
     eval (starship init fish)
 end
-
