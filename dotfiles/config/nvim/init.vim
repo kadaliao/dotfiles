@@ -90,7 +90,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'airblade/vim-gitgutter'
 
 " Ranger integration in vim and neovim, with dependency bclose
-Plug 'francoiscabrol/ranger.vim'
+" Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
 " Vim plugin to use Tig as a git client.
@@ -167,6 +167,11 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " A simple, easy-to-use Vim alignment plugin.
 " Plug 'junegunn/vim-easy-align'
+
+" A plugin that show the current file on NERDtree
+Plug 'unkiwii/vim-nerdtree-sync'
+
+
 
 call plug#end()
 
@@ -268,11 +273,11 @@ endfunction
 "  ranger  "
 """"""""""""
 
-nmap <F2> :Ranger<cr>
-nmap <leader>ft :RangerWorkingDirectory<cr>
-nmap <leader>fo :RangerCurrentFile<cr>
-let g:ranger_map_keys = 0
-let g:ranger_replace_netrw = 1
+" nmap <F4> :Ranger<cr>
+" nmap <leader>ft :RangerWorkingDirectory<cr>
+" nmap <leader>fo :RangerCurrentFile<cr>
+" let g:ranger_map_keys = 0
+" let g:ranger_replace_netrw = 1
 
 
 """"""""""""""
@@ -399,8 +404,7 @@ let g:better_whitespace_enabled = 1
 
 " forbid to change directory
 let g:startify_change_to_dir = 1
-let NERDTreeHijackNetrw = 0
-
+let NERDTreeHijackNetrw = 1
 
 """"""""""""""""
 "  easymotion  "
@@ -470,23 +474,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <leader>ts :ALEToggle<cr>
 nnoremap <leader>bf :ALEFix<cr>
 
-
-""""""""""""""
-"  nerdtree  "
-""""""""""""""
-let g:nerdtree_open = 0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let NERDTreeMinimalUI = 1
-map <F2> :call NERDTreeToggle()<CR>
-function NERDTreeToggle()
-    NERDTreeTabsToggle
-    if g:nerdtree_open == 1
-        let g:nerdtree_open = 0
-    else
-        let g:nerdtree_open = 1
-        wincmd p
-    endif
-endfunction
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -750,3 +737,27 @@ augroup PYDOC
   autocmd FileType python xmap <silent> <buffer> ga <Plug>(coc-codeaction-selected)
   autocmd FileType python nmap <silent> <buffer> gA <Plug>(coc-codeaction)
 augroup END
+
+""""""""""""""
+"  nerdtree  "
+""""""""""""""
+let g:nerdtree_open = 1
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeMinimalUI = 0
+map <F2> :call NERDTreeToggle()<CR>
+function NERDTreeToggle()
+    NERDTreeTabsToggle
+    if g:nerdtree_open == 1
+        let g:nerdtree_open = 0
+    else
+        let g:nerdtree_open = 1
+        wincmd p
+    endif
+endfunction
+
+
+"""""""""""""""""""
+"  nerdtree sync  "
+"""""""""""""""""""
+let g:nerdtree_sync_cursorline = 1
+let g:NERDTreeHighlightCursorline = 1
