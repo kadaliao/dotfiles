@@ -90,7 +90,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'airblade/vim-gitgutter'
 
 " Ranger integration in vim and neovim, with dependency bclose
-" Plug 'francoiscabrol/ranger.vim'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
 " Vim plugin to use Tig as a git client.
@@ -274,10 +274,10 @@ endfunction
 """"""""""""
 
 " nmap <F4> :Ranger<cr>
-" nmap <leader>ft :RangerWorkingDirectory<cr>
-" nmap <leader>fo :RangerCurrentFile<cr>
-" let g:ranger_map_keys = 0
-" let g:ranger_replace_netrw = 1
+nmap <leader>ft :RangerWorkingDirectory<cr>
+nmap <leader>fo :RangerCurrentFile<cr>
+let g:ranger_map_keys = 0
+let g:ranger_replace_netrw = 1
 
 
 """"""""""""""
