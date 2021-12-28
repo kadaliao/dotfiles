@@ -171,7 +171,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " A plugin that show the current file on NERDtree
 Plug 'unkiwii/vim-nerdtree-sync'
 
-
+" AI pair programmer which suggests line completions and entire function bodies as you type.
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -738,6 +739,9 @@ augroup PYDOC
   autocmd FileType python nmap <silent> <buffer> gA <Plug>(coc-codeaction)
 augroup END
 
+
+
+
 """"""""""""""
 "  nerdtree  "
 """"""""""""""
@@ -754,6 +758,7 @@ function NERDTreeToggle()
         wincmd p
     endif
 endfunction
+
 
 
 """""""""""""""""""
