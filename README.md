@@ -16,8 +16,6 @@ Need to install the dependent softwares, including but not limited to:
 - fishshell
 - psutils
 - libmagic
-- true color fonts
-- powerline-status
 - tmuxp
 - lazygit
 - fx

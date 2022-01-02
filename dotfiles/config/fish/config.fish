@@ -37,13 +37,6 @@ set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
 # zlib and bzip2
 # set -p LDFLAGS "-L/usr/local/opt/zlib/lib -L/usr/local/Cellar/bzip2/1.0.8/lib"
 
-# pipenv
-set -gx WORKON_HOME ~/.venvs
-set -gx PIPENV_VENV_IN_PROJECT 1
-set -gx PIPENV_SKIP_LOCK 1
-set -gx PIPENV_VERBOSITY -1
-set -gx PIPENV_PYPI_MIRROR https://pypi.douban.com/simple
-
 set -gx RANGER_LOAD_DEFAULT_RC 0
 
 # 使用trash替换rm命令
