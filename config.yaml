@@ -99,10 +99,6 @@ profiles:
     - f_fish_variables
     - d_colorschemes
     - d_ranger
-  balrog2:
-    dotfiles:
-    - f_bashrc
-    - f_bash_profile
   server:
     dotfiles:
     - f_bashrc
