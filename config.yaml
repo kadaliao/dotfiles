@@ -76,7 +76,7 @@ dotfiles:
     src: config/ranger
     dst: ~/.config/ranger
 profiles:
-  localhost:
+  mbp:
     dotfiles:
     - f_tmux.conf
     - f_config.fish
@@ -99,6 +99,3 @@ profiles:
     - f_fish_variables
     - d_colorschemes
     - d_ranger
-  server:
-    dotfiles:
-    - f_bashrc
