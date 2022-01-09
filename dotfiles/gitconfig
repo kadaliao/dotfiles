@@ -21,3 +21,5 @@
 	user = kadaliao
 [http]
 	sslVerify = false
+[init]
+	defaultBranch = master

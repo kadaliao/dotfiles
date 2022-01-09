@@ -18,8 +18,11 @@ set -e fish_user_paths
 set -e CPPFLAGS
 set -e LDFLAGS
 
+fish_add_path /opt/homebrew/bin
 
 set -gx XDG_CONFIG_DIRS "$HOME/.config"
+
+[ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
 
 # ruby
 set -p fish_user_paths "$HOME/.gem/ruby/2.7.0/bin"
@@ -45,11 +48,6 @@ alias rm trash
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
-# n configuration
-# set -gx N_PREFIX "$HOME/.n"
-# set -gx fish_user_paths "$HOME/.n/bin $fish_user_paths"
-# set -gx N_NODE_MIRROR "https://npm.taobao.org/mirrors/node"
-
 # go configuration
 set -gx GOPATH (go env GOPATH)
 set -gx GOBIN "$GOPATH/bin"
@@ -64,7 +62,6 @@ set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 pyenv init - | source
 status is-login; and pyenv init --path | source
-status --is-interactive; and . (pyenv virtualenv-init -|psub)
 
 # consider using one line command:
 # key=value echo $key
@@ -78,10 +75,9 @@ status --is-interactive; and . (pyenv virtualenv-init -|psub)
 # set -gx CFLAGS "-I/usr/local/opt/openssl/include"
 # set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
-# ffi
-# set -gx LDFLAGS "-L/usr/local/opt/libffi/lib"
-# set -gx CPPFLAGS "-I/usr/local/opt/libffi/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
+set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@3/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@3/include"
+set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@3/lib/pkgconfig"
 
 # poetry
 # set -p fish_user_paths "$HOME/.local/bin"
@@ -92,3 +88,8 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 if type -q starship
     eval (starship init fish)
 end
+
+# set -gx LDFLAGS "-L/usr/local/opt/libffi/lib"
+# set -gx CPPFLAGS "-I/usr/local/opt/libffi/include"
+# set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
+

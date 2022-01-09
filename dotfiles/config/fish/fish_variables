@@ -2,20 +2,14 @@
 # VERSION: 3.0
 SETUVAR --export PYENV_ROOT:/Users/liaoxingyi/\x2epyenv
 SETUVAR __fish_initialized:3100
-SETUVAR _fish_abbr_adg:ankdown\x20\x2d\x2dconfigFile\x20\x7e/\x2eankdown\x2dconf\x2eyam
+SETUVAR _fish_abbr_dpc:dae\x20pre\x20create\x20\x2d\x2dkeep\x2ddays\x2030\x20\x2dv\x20\x2d\x2dexternal\x20
 SETUVAR _fish_abbr_dpd:dae\x20pre\x20delete\x20\x2d\x2dpre
-SETUVAR _fish_abbr_dpfd:dae\x20permdir\x20\x2du\x20liaoxingyi\x20download\x20\x2dp
-SETUVAR _fish_abbr_dpfu:dae\x20permdir\x20\x2du\x20liaoxingyi\x20upload\x20\x2df
-SETUVAR _fish_abbr_dpl:dae\x20pre\x20log\x20\x2d\x2dpre
+SETUVAR _fish_abbr_dpl:dae\x20pre\x20list
 SETUVAR _fish_abbr_dpll:dae\x20pre\x20list
-SETUVAR _fish_abbr_dpr:dae\x20pre\x20remove\x20\x2d\x2dpre
-SETUVAR _fish_abbr_drs:dae\x20runscript\x20\x2du\x20liaoxingyi
+SETUVAR _fish_abbr_drs:dae\x20runscript
 SETUVAR _fish_abbr_drsh:dae\x20remoteshell
-SETUVAR _fish_abbr_lg:lazygit
-SETUVAR _fish_abbr_r:ranger
-SETUVAR _fish_abbr_ro:ranger\x2dcd
-SETUVAR _fish_abbr_tap:tmuxp\x20load\x20/Users/liaoxingyi/\x2etmux\x2dsession\x2dplayground\x2eyaml
-SETUVAR _fish_abbr_taw:tmuxp\x20load\x20/Users/liaoxingyi/\x2etmux\x2dsession\x2dwork\x2eyaml
+SETUVAR _fish_abbr_gcm:git\x20checkout\x20master
+SETUVAR _fish_abbr_taa:tmux\x20a
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:005fd7
@@ -43,4 +37,4 @@ SETUVAR fish_pager_color_completion:\x1d
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
-SETUVAR fish_user_paths:/Users/liaoxingyi/\x2epyenv/bin\x1e/Users/liaoxingyi/bin\x1e/Users/liaoxingyi/go/bin\x1e/Users/liaoxingyi/\x2egem/ruby/2\x2e6\x2e0/bin\x1e/usr/local/opt/ruby/bin
+SETUVAR fish_user_paths:/Users/liaoxingyi/\x2epyenv/bin\x1e/Users/liaoxingyi/bin\x1e/Users/liaoxingyi/go/bin\x1e/Users/liaoxingyi/\x2egem/ruby/2\x2e7\x2e0/bin\x1e/opt/homebrew/bin
