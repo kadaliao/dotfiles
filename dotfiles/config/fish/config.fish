@@ -1,8 +1,8 @@
 #在tmux中打开shell
 # if status is-interactive
-    # and not set -q TMUX
-    # echo 'let\'s go tmux!'
-    # exec tmux new -A -s Playground #创建或者附加指定session
+#     and not set -q TMUX
+#     echo 'let\'s go tmux!'
+#     exec tmux new -A -s Work #创建或者附加指定session
 # end
 
 # 设置默认编辑器
@@ -66,21 +66,14 @@ status is-login; and pyenv init --path | source
 # consider using one line command:
 # key=value echo $key
 
-# 不同版本的 python 对 openssl 要求不同
-# 使用 pyenv install 的 python，会下载对应的 openssl 版本，需要手动建立软链接
-# openssl
-# fish_add_path /usr/local/opt/openssl/bin
-# set -gx LDFLAGS "-L/usr/local/opt/openssl/lib"
-# set -gx CPPFLAGS "-I/usr/local/opt/openssl/include"
-# set -gx CFLAGS "-I/usr/local/opt/openssl/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
+# openssl 1.1 on m1
+# set -gx LDFLAGS "-L"(brew --prefix openssl@1.1)"/lib"
+# set -gx CPPFLAGS "-I"(brew --prefix openssl@1.1)"/include"
+# set -gx PKG_CONFIG_PATH (brew --prefix openssl@1.1)"/pkgconfig"
 
-set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@3/lib"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@3/include"
-set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@3/lib/pkgconfig"
-
-# poetry
-# set -p fish_user_paths "$HOME/.local/bin"
+# librdkafka on m1
+# set -gx C_INCLUDE_PATH "/opt/homebrew/Cellar/librdkafka/1.8.2/include"
+# set -gx LIBRARY_PATH "/opt/homebrew/Cellar/librdkafka/1.8.2/lib"
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
@@ -88,8 +81,3 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 if type -q starship
     eval (starship init fish)
 end
-
-# set -gx LDFLAGS "-L/usr/local/opt/libffi/lib"
-# set -gx CPPFLAGS "-I/usr/local/opt/libffi/include"
-# set -gx PKG_CONFIG_PATH "/usr/local/opt/libffi/lib/pkgconfig"
-

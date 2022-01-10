@@ -1,16 +1,28 @@
 {
-  "python.jediEnabled": false,
-  "python.linting.enabled": false,
-  "python.linting.flake8Enabled": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "markdown",
+    "graphql",
+    "json",
+    "go"
+  ],
+  // python config
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
   "python.formatting.provider": "black",
-  "pydocstring.formatter": "google",
-  "diagnostic.displayByAle": true,
-  "languageserver":{
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    }
-  }
-}
 
+  "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/utils/snips"],
+
+  // explorer
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.keyMappings.global": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit"
+  },
+
+  // "coc.source.emoji.triggerCharacters": [":"]
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+  "coc.preferences.extensionUpdateCheck": "daily"
+}

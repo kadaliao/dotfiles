@@ -76,6 +76,25 @@ dotfiles:
     src: ssh/config
     dst: ~/.ssh/config
     trans_read: _gpg
+  d_general:
+    src: config/nvim/general
+    dst: ~/.config/nvim/general
+  d_plug-config:
+    src: config/nvim/plug-config
+    dst: ~/.config/nvim/plug-config
+  d_vim-plug:
+    src: config/nvim/vim-plug
+    dst: ~/.config/nvim/vim-plug
+  d_snips:
+    src: config/nvim/snips
+    dst: ~/.config/nvim/snips
+  d_themes:
+    src: config/nvim/themes
+    dst: ~/.config/nvim/themes
+  f_tmux-start.sh:
+    src: bin/tmux-start.sh
+    dst: ~/bin/tmux-start.sh
+    chmod: '755'
 trans_read:
   _gpg: echo hello; gpg2 -q --for-your-eyes-only --no-tty -d {0} > {1}
 profiles:
@@ -102,3 +121,9 @@ profiles:
     - d_colorschemes
     - d_ranger
     - f_ssh_config
+    - d_general
+    - d_plug-config
+    - d_vim-plug
+    - d_snips
+    - d_themes
+    - f_tmux-start.sh

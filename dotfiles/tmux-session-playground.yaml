@@ -1,11 +1,8 @@
-session_name: Playground
+session_name: 🎢 Playground
 windows:
 - window_name: Conf
   panes:
     - cd ~/dotfiles
-- window_name: Learn
-  panes:
-    - cd ~/ankdown-cards
 - window_name: Blog
   # layout: main-horizontal
   # options:

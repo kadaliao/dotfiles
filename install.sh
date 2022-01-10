@@ -1,37 +1,21 @@
 #!/usr/bin/env sh
 
 # homebrew
-if [ $(uname) == 'Darwin' ];then
-	echo "Install for macOS"
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+echo "Install homebrew "
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
 
-	# nerdfont
-	brew tap homebrew/cask-fonts
-	brew cask install font-hack-nerd-font
+# nerdfont
+brew tap homebrew/cask-fonts
+brew cask install font-hack-nerd-font
 
-	# lastpass
-	sudo cpan install Capture::Tiny
-	brew install lastpass-cli
+brew install -v autojump
 
-	# autojump is only for macOS
-	brew install -v autojump
-
-else
-	echo "Install for linux..."
-	git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
-	mkdir -p ~/.linuxbrew/bin
-	ln -sf ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
-	eval $(~/.linuxbrew/bin/brew shellenv)
-	echo 'eval $(~/.linuxbrew/bin/brew shellenv)' >> ~/.bashrc
-fi
 
 # brew install files
 brew install -v git
 brew install -v wget
 brew install -v htop
 brew install -v tmux
-brew install -v pipenv
-brew install -v python3
 brew install -v go
 brew install -v vim
 brew install -v neovim
@@ -68,7 +52,3 @@ python3 -m pip install docopt
 python3 -m pip install tmuxp
 python3 -m pip install ruamel.yaml
 python3 -m pip install jinja2
-
-
-# pistol
-env GO111MODULE=on go get -u github.com/doronbehar/pistol/cmd/pistol
