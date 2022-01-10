@@ -8,10 +8,6 @@
         "before": "CPU: "
       },
       {
-        "function": "powerline.segments.common.env.virtualenv",
-        "priority": 20
-      },
-      {
         "function": "powerlinemem.mem_usage.mem_usage_percent",
         "priority": 50,
         "args": {
@@ -19,16 +15,17 @@
         }
       },
       {
-        "function": "powerline.segments.common.net.network_load"
+        "function": "powerline.segments.common.env.virtualenv",
+        "priority": 20
       },
       {
-        "function": "powerline.segments.common.time.date"
+        "function": "powerline.segments.common.net.network_load"
       },
       {
         "function": "powerline.segments.common.time.date",
         "name": "time",
         "args": {
-          "format": "%H:%M",
+          "format": "%m/%d %H:%M",
           "istime": true
         }
       }
