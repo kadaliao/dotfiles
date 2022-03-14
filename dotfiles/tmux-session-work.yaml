@@ -1,10 +1,20 @@
 session_name: 💼 Work
 windows:
-- window_name: FM
+- window_name: 🎶 Music
   panes:
     - shell_command:
-      - j fm
+      - j music
       - ls -lh
-- window_name: Test
+- window_name: 📚 Book
+  panes:
+    - shell_command:
+      - j book
+      - ls -lh
+- window_name: 🐴 Shire
+  panes:
+    - shell_command:
+      - j shire
+      - ls -lh
+- window_name: 🏠 Test
   panes:
     - cd ~/Desktop

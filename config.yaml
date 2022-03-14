@@ -18,21 +18,12 @@ dotfiles:
   f_ripgreprc:
     src: ripgreprc
     dst: ~/.ripgreprc
-  f_hmscreens:
-    src: bin/hmscreens
-    dst: ~/bin/hmscreens
-  f_smp.py:
-    src: bin/smp.py
-    dst: ~/bin/smp.py
   f_gitconfig:
     src: gitconfig
     dst: ~/.gitconfig
   f_pip.conf:
     src: pip/pip.conf
     dst: ~/.pip/pip.conf
-  f_dpo:
-    src: bin/dpo
-    dst: ~/bin/dpo
   f_tmux-session-playground.yaml:
     src: tmux-session-playground.yaml
     dst: ~/.tmux-session-playground.yaml
@@ -60,9 +51,6 @@ dotfiles:
   f_ctags:
     src: ctags
     dst: ~/.ctags
-  f_vimrc:
-    src: vimrc
-    dst: ~/.vimrc
   f_coc-settings.json:
     src: config/nvim/coc-settings.json
     dst: ~/.config/nvim/coc-settings.json
@@ -76,6 +64,7 @@ dotfiles:
     src: ssh/config
     dst: ~/.ssh/config
     trans_read: _gpg
+    chmod: '600'
   d_general:
     src: config/nvim/general
     dst: ~/.config/nvim/general
@@ -92,8 +81,8 @@ dotfiles:
     src: config/nvim/themes
     dst: ~/.config/nvim/themes
   f_tmux-start.sh:
-    src: bin/tmux-start.sh
-    dst: ~/bin/tmux-start.sh
+    src: local/bin/tmux-start.sh
+    dst: ~/.local/bin/tmux-start.sh
     chmod: '755'
 trans_read:
   _gpg: echo hello; gpg2 -q --for-your-eyes-only --no-tty -d {0} > {1}
@@ -109,14 +98,10 @@ profiles:
     - d_powerline
     - f_init.vim
     - f_ripgreprc
-    - f_hmscreens
-    - f_smp.py
     - f_gitconfig
-    - f_dpo
     - f_tmux-session-playground.yaml
     - f_tmux-session-work.yaml
     - f_flake8
-    - f_vimrc
     - f_coc-settings.json
     - d_colorschemes
     - d_ranger

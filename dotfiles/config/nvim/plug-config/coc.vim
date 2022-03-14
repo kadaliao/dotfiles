@@ -118,6 +118,5 @@ nmap <silent> <Space>rn <Plug>(coc-rename)
 
 " coc prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 nnoremap <silent> <Space>bf :<C-u>call CocAction()<CR>
 

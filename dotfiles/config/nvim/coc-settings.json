@@ -6,10 +6,6 @@
     "json",
     "go"
   ],
-  // python config
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.formatting.provider": "black",
 
   "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/utils/snips"],
 
@@ -24,5 +20,11 @@
 
   // "coc.source.emoji.triggerCharacters": [":"]
   "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
-  "coc.preferences.extensionUpdateCheck": "daily"
+  "coc.preferences.extensionUpdateCheck": "daily",
+
+  // python config
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.formatting.provider": "black",
+  "snippets.ultisnips.pythonPrompt": false
 }

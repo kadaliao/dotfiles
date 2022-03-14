@@ -70,8 +70,3 @@ nnoremap <Space>p "+p
 nnoremap <Space>P "+P
 
 
-""""""""""""""""""""""
-"     format python  "
-""""""""""""""""""""""
-xmap <Space>bf  <Plug>(coc-format-selected)
-nmap <Space>bf  <Plug>(coc-format-selected)

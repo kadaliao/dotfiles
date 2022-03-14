@@ -21,10 +21,6 @@
         }
       },
       {
-        "function": "powerline.segments.common.env.virtualenv",
-        "priority": 20
-      },
-      {
         "function": "powerline.segments.common.net.network_load"
       },
       {

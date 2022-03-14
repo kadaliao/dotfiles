@@ -9,14 +9,14 @@ endif
 call plug#begin('~/.config/nvim/autoload/plugged')
 
     " Better Syntax Support
-    Plug 'sheerun/vim-polyglot'
+    " Plug 'sheerun/vim-polyglot'
 
     " Quoting/parenthesizing made simple
     Plug 'tpope/vim-surround'
 
-    " OneDark theme
-    Plug 'joshdick/onedark.vim'
-    " Stable version of coc
+    " Gruvbox theme
+    Plug 'ellisonleao/gruvbox.nvim'
+    " coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Airline
     Plug 'vim-airline/vim-airline'

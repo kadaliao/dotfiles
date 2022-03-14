@@ -1,19 +1,24 @@
-#!/usr/bin/env python
+#/usr/local/bin/python
 # coding: utf-8
+
 '''
 按照上下位置，交换主屏幕
 外部调用，可以eval这个脚本
 '''
 import os
+import sys
 
 
 def swap_main_display(pos=None):
-    pos_d = {'left': 'right', 'right': 'left', 'up': 'bottom',
-             'top': 'bottom', 'bottom': 'top', 'down': 'top'}
+    pos_d = {'left': 'right', 'right': 'left',
+			'up': 'bottom', 'down': 'top'}
     pos = pos_d.get(pos, 'top')
+    sys.stdout.write(pos)
 
-    cmd = 'hmscreens -setMainID `hmscreens -info | grep "Screen ID:"' \
-        '| head -2 | tail -1 | sed "s/[^0-9]*//g"`'
+    # id_str = '| head -1 |' if pos in ('left', 'right') else '| head -2 | tail -1 |'
+    id_str = '| head -2 | tail -1 |'
+
+    cmd = '/Users/liaoxingyi/bin/hmscreens -setMainID `/Users/liaoxingyi/bin/hmscreens -info | grep "Screen ID:"' + id_str + ' sed "s/[^0-9]*//g"`'
     cmd += ' -othersStartingPosition ' + pos
     os.system(cmd)
 
