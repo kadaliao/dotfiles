@@ -45,7 +45,7 @@ Host tx
 
 Host tokyo
 	User ubuntu
-	HostName peipei.love
+	HostName st.liaoxingyi.com
 	Port 22
 
 Host xi
