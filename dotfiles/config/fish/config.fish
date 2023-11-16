@@ -96,8 +96,18 @@ status --is-interactive; and source (pyenv init -|psub)
 set -gx DOCKER_DEFAULT_PLATFORM 'linux/amd64'
 
 
+# NVM
+set -gx NVM_DIR "$HOME/.nvm"
+
+
 # starship prompt
 if type -q starship
     eval (starship init fish)
 end
 
+abbr -a -- dpl 'dae pre list'
+abbr -a -- dpd 'dae pre delete --pre'
+abbr -a -- dpu 'dae pre update --pre'
+abbr -a -- drsh 'dae remoteshell --pre'
+abbr -a -- drs 'dae runscript --pre'
+abbr -a -- dpc 'dae pre create --keep-days 30 --external'
