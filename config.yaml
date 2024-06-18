@@ -2,10 +2,8 @@ config:
   backup: true
   create: true
   dotpath: dotfiles
+  minversion: 1.14.0
 dotfiles:
-  f_ankdown-conf.yaml:
-    dst: ~/.ankdown-conf.yaml
-    src: ankdown-conf.yaml
   f_tmux.conf:
     dst: ~/.tmux.conf
     src: tmux.conf
@@ -42,9 +40,6 @@ dotfiles:
   f_config.fish:
     src: config/fish/config.fish
     dst: ~/.config/fish/config.fish
-  d_functions:
-    src: config/fish/functions
-    dst: ~/.config/fish/functions
   f_global_ignore:
     src: global_ignore
     dst: ~/.global_ignore
@@ -60,11 +55,6 @@ dotfiles:
   d_ranger:
     src: config/ranger
     dst: ~/.config/ranger
-  f_ssh_config:
-    src: ssh/config
-    dst: ~/.ssh/config
-    trans_read: _gpg
-    chmod: '600'
   d_general:
     src: config/nvim/general
     dst: ~/.config/nvim/general
@@ -80,21 +70,26 @@ dotfiles:
   d_themes:
     src: config/nvim/themes
     dst: ~/.config/nvim/themes
-  f_tmux-start.sh:
-    src: local/bin/tmux-start.sh
-    dst: ~/.local/bin/tmux-start.sh
     chmod: '755'
-trans_read:
-  _gpg: echo hello; gpg2 -q --for-your-eyes-only --no-tty -d {0} > {1}
+  f_pon.fish:
+    src: config/fish/functions/pon.fish
+    dst: ~/.config/fish/functions/pon.fish
+  f_poff.fish:
+    src: config/fish/functions/poff.fish
+    dst: ~/.config/fish/functions/poff.fish
+  f_don.fish:
+    src: config/fish/functions/don.fish
+    dst: ~/.config/fish/functions/don.fish
+  f_doff.fish:
+    src: config/fish/functions/doff.fish
+    dst: ~/.config/fish/functions/doff.fish
 profiles:
   mbp:
     dotfiles:
     - f_tmux.conf
     - f_config.fish
-    - d_functions
     - f_global_ignore
     - f_ctags
-    - f_ankdown-conf.yaml
     - d_powerline
     - f_init.vim
     - f_ripgreprc
@@ -105,10 +100,14 @@ profiles:
     - f_coc-settings.json
     - d_colorschemes
     - d_ranger
-    - f_ssh_config
     - d_general
     - d_plug-config
     - d_vim-plug
     - d_snips
     - d_themes
-    - f_tmux-start.sh
+    - f_pon.fish
+    - f_poff.fish
+    - f_don.fish
+    - f_doff.fish
+    - d_ranger
+    - f_config

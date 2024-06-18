@@ -46,3 +46,4 @@ else
         tmux attach-session -t "$SESSION"
     fi
 fi
+

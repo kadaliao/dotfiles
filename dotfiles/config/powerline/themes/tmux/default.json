@@ -21,6 +21,10 @@
         }
       },
       {
+        "function": "powerline.segments.common.env.virtualenv",
+        "priority": 20
+      },
+      {
         "function": "powerline.segments.common.net.network_load"
       },
       {
@@ -29,6 +33,13 @@
         "args": {
           "format": "%m/%d %H:%M",
           "istime": true
+        }
+      },
+      {
+        "function": "powerline.segments.common.sys.uptime",
+        "priority": 50,
+        "args": {
+          "shorten_len": 2
         }
       }
     ]

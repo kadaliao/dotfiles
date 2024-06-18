@@ -18,22 +18,13 @@ set -e fish_user_paths
 set -e CPPFLAGS
 set -e LDFLAGS
 
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/sbin
-fish_add_path "$HOME/.local/bin"
-
 set -gx XDG_CONFIG_DIRS "$HOME/.config"
 
 [ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
 
-# ruby
-# set -p fish_user_paths "$HOME/.gem/ruby/2.7.0/bin"
-fish_add_path "$HOME/.gem/ruby/2.7.0/bin"
-
-
 # fzf
 set -gx FZF_DEFAULT_COMMAND "rg --files"
-set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
+# set -gx FZF_DEFAULT_OPTS "--preview='pistol {}'"
 
 # mysql5.7
 # set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
@@ -57,10 +48,6 @@ alias rm trash
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
-# go configuration
-set -gx GOPATH (go env GOPATH)
-set -gx GOBIN "$GOPATH/bin"
-
 # /usr/loca/bin
 # set -p fish_user_paths "$HOME/go/bin"
 # set -p fish_user_paths "$HOME/bin"
@@ -70,20 +57,14 @@ fish_add_path "$HOME/go/bin"
 # key=value echo $key
 
 # openssl 1.1 on m1
-set -gx LDFLAGS "-L"(brew --prefix openssl@1.1)"/lib"
-set -gx CPPFLAGS "-I"(brew --prefix openssl@1.1)"/include"
-set -gx PKG_CONFIG_PATH (brew --prefix openssl@1.1)"/pkgconfig"
+# set -gx LDFLAGS "-L"(brew --prefix openssl@1.1)"/lib"
+# set -gx CPPFLAGS "-I"(brew --prefix openssl@1.1)"/include"
+# set -gx PKG_CONFIG_PATH (brew --prefix openssl@1.1)"/pkgconfig"
+
 
 # librdkafka on m1
 # set -gx C_INCLUDE_PATH "/opt/homebrew/Cellar/librdkafka/1.8.2/include"
 # set -gx LIBRARY_PATH "/opt/homebrew/Cellar/librdkafka/1.8.2/lib"
-
-
-# pyenv
-set -gx PYENV_ROOT "$HOME/.pyenv"
-set -gx PATH "$PYENV_ROOT/bin" $PATH
-status --is-interactive; and source (pyenv init -|psub)
-#status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 
 # Douban
@@ -95,15 +76,8 @@ status --is-interactive; and source (pyenv init -|psub)
 # Docker?
 set -gx DOCKER_DEFAULT_PLATFORM 'linux/amd64'
 
-
 # NVM
 set -gx NVM_DIR "$HOME/.nvm"
-
-
-# starship prompt
-if type -q starship
-    eval (starship init fish)
-end
 
 abbr -a -- dpl 'dae pre list'
 abbr -a -- dpd 'dae pre delete --pre'
@@ -111,3 +85,42 @@ abbr -a -- dpu 'dae pre update --pre'
 abbr -a -- drsh 'dae remoteshell --pre'
 abbr -a -- drs 'dae runscript --pre'
 abbr -a -- dpc 'dae pre create --keep-days 30 --external'
+
+
+set -gx PATH $PATH /opt/miniconda3/bin
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/miniconda3/bin/conda
+    eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+        . "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/opt/miniconda3/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+
+
+# Add Homebrew and other custom paths without duplicating
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/bin $PATH
+
+
+# go configuration
+set -gx GOPATH (go env GOPATH)
+set -gx GOBIN "$GOPATH/bin"
+
+# ruby
+# set -p fish_user_paths "$HOME/.gem/ruby/2.7.0/bin"
+fish_add_path "$HOME/.gem/ruby/2.7.0/bin"
+
+
+
+# starship prompt
+if type -q starship
+    eval (starship init fish)
+end
+
+
+
