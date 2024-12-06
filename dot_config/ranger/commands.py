@@ -17,12 +17,12 @@ class mkcd(Command):
         if not lexists(dirname):
             makedirs(dirname)
 
-            match = re.search('^/|^~[^/]*/', dirname)
+            match = re.search(r'^/|^~[^/]*/', dirname)
             if match:
                 self.fm.cd(match.group(0))
                 dirname = dirname[match.end(0):]
 
-            for m in re.finditer('[^/]+', dirname):
+            for m in re.finditer(r'[^/]+', dirname):
                 s = m.group(0)
                 if s == '..' or \
                         (s.startswith('.')
@@ -70,11 +70,11 @@ class fzf_select(Command):
         import os.path
         if self.quantifier:
             # match only directories
-            command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = r"find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
             -o -type d -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"
         else:
             # match files and directories
-            command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+            command = r"find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
             -o -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"
         fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
