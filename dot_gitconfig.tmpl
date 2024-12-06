@@ -1,0 +1,31 @@
+[user]
+{{- if eq .chezmoi.hostname "xingyi-mbp16-1263" }}
+	name = liaoxingyi
+	email = liaoxingyi@douban.com
+{{- else }}
+	name = Kada Liao
+	email = kadaliao@gmail.com
+{{- end }}
+[core]
+	excludesfile = /Users/liaoxingyi/.gitignore_global
+	editor = vim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[commit]
+	template = /Users/liaoxingyi/.stCommitMsg
+[alias]
+	co = checkout
+	ci = commit
+	br = branch
+	st = status
+	unstage = reset HEAD --
+[github]
+	user = kadaliao
+[http]
+	sslVerify = false
+[init]
+	defaultBranch = master
+	templatedir = /Users/liaoxingyi/.git-templates
