@@ -1,5 +1,9 @@
 #在tmux中打开shell
 
+# Add Homebrew and other custom paths without duplicating
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/bin $PATH
+
+
 if status is-interactive
     # and not set -q TMUX
     # echo 'let\'s go tmux!'
@@ -84,11 +88,6 @@ abbr -a -- dpu 'dae pre update --pre'
 abbr -a -- drsh 'dae remoteshell --pre'
 abbr -a -- drs 'dae runscript --pre'
 abbr -a -- dpc 'dae pre create --keep-days 30 --external'
-
-# Add Homebrew and other custom paths without duplicating
-set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/bin $PATH
-
-
 
 # go configuration
 set -gx GOPATH (go env GOPATH)
