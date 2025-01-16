@@ -31,6 +31,8 @@ require("lazy").setup({
 	require("plugins.comment"),
 	require("plugins.leetcode"),
 	require("plugins.autocompletion"),
+	require("plugins.rsi"),
+	require("plugins.vim-surround"),
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
