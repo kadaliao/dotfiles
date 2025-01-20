@@ -102,3 +102,11 @@ vim.api.nvim_set_keymap("v", "vae", "<Esc>ggVG", { noremap = true, silent = true
 
 -- 设置 cae 删除整个文档并进入插入模式
 vim.api.nvim_set_keymap("n", "cae", "ggdGi", { noremap = true, silent = true })
+
+-- Emacs-style keybindings (补充 vim-rsi 没有的)
+vim.keymap.set('i', '<C-k>', '<C-o>D', opts)  -- 删除光标到行尾
+vim.keymap.set('i', '<C-u>', '<C-u>', opts)   -- 删除光标到行首
+
+-- 命令行模式补充键位
+vim.keymap.set('c', '<C-k>', '<C-\\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>', opts)
+vim.keymap.set('c', '<C-u>', '<C-U>', opts)

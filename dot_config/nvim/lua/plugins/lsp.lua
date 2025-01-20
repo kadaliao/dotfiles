@@ -213,6 +213,34 @@ return {
           },
         },
       },
+
+      -- Rust
+      rust_analyzer = {
+        settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            cargo = {
+              allFeatures = true,
+            },
+            check = {
+              command = "check",
+              extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" },
+            },
+          },
+        },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = true
+          
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format({ async = false })
+            end,
+          })
+        end,
+      },
     }
 
     -- Ensure the servers and tools above are installed
@@ -228,6 +256,7 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      'rust-analyzer', -- Rust LSP
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
