@@ -30,7 +30,7 @@ require("lazy").setup({
 	require("plugins.misc"),
 	require("plugins.comment"),
 	require("plugins.leetcode"),
-	require("plugins.autocompletion"),
+	require("plugins.image"),
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
