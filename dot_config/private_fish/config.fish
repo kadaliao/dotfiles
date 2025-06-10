@@ -97,10 +97,6 @@ set -gx GOBIN "$GOPATH/bin"
 # set -p fish_user_paths "$HOME/.gem/ruby/2.7.0/bin"
 fish_add_path "$HOME/.gem/ruby/2.7.0/bin"
 
-# pixi
-fish_add_path /Users/liaoxingyi/.pixi/bin
-pixi completion --shell fish | source
-
 # fnm
 if type -q fnm
   eval (fnm env)
