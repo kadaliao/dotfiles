@@ -1,0 +1,145 @@
+[
+    {
+      "key": "ctrl+cmd+l",
+      "command": "extension.multiCommand.execute",
+      "args": {
+        "sequence": [
+          "workbench.action.movePanelToSidePanel",
+          "workbench.action.focusAuxiliaryBar",
+        ]
+      }
+    },
+    {
+      "key": "ctrl+cmd+h",
+      "command": "extension.multiCommand.execute",
+      "args": {
+        "sequence": [
+          "workbench.action.focusActiveEditorGroup"
+        ]
+      }
+    },
+    {
+      "key": "ctrl+cmd+j",
+      "command": "extension.multiCommand.execute",
+      "args": {
+        "sequence": [
+          "workbench.action.moveSidePanelToPanel",
+          "workbench.action.focusPanel"
+        ]
+      }
+    },
+    {
+      "key": "ctrl+cmd+k",
+      "command": "extension.multiCommand.execute",
+      "args": {
+        "sequence": [
+          "workbench.action.focusActiveEditorGroup"
+        ]
+      },
+      "when": "panelFocus"
+    },
+    {
+      "key": "ctrl+cmd+m",
+      "command": "workbench.action.toggleMaximizedPanel",
+      "when": "panelFocus || auxiliaryBarFocus"
+    },
+    {
+      "key": "cmd+enter",
+      "command": "renameFile",
+      "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+      "key": "enter",
+      "command": "-renameFile",
+      "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+      "key": "enter",
+      "command": "list.select",
+      "when": "listFocus && !inputFocus"
+    },
+    {
+      "key": "ctrl+j",
+      "command": "selectNextSuggestion",
+      "when": "suggestWidgetVisible"
+    },
+    {
+      "key": "ctrl+k",
+      "command": "selectPrevSuggestion",
+      "when": "suggestWidgetVisible"
+    },
+    {
+      "key": "ctrl+j",
+      "command": "workbench.action.quickOpenSelectNext",
+      "when": "inQuickOpen"
+    },
+    {
+      "key": "ctrl+k",
+      "command": "workbench.action.quickOpenSelectPrevious",
+      "when": "inQuickOpen"
+    },
+    {
+      "key": "ctrl+h",
+      "command": "breadcrumbs.focusPrevious",
+      "when": "breadcrumbsActive && breadcrumbsVisible"
+    },
+    {
+      "key": "ctrl+j",
+      "command": "list.focusDown",
+      "when": "breadcrumbsActive && breadcrumbsVisible"
+    },
+    {
+      "key": "ctrl+k",
+      "command": "list.focusUp",
+      "when": "breadcrumbsActive && breadcrumbsVisible"
+    },
+    {
+      "key": "ctrl+l",
+      "command": "breadcrumbs.focusNext",
+      "when": "breadcrumbsActive && breadcrumbsVisible"
+    },
+    {
+      "key": "ctrl+alt+left",
+      "command": "-cursorWordPartLeft",
+      "when": "textInputFocus"
+    },
+    {
+      "key": "ctrl+shift+alt+left",
+      "command": "-cursorWordPartLeftSelect",
+      "when": "textInputFocus"
+    },
+    {
+      "key": "ctrl+alt+right",
+      "command": "-cursorWordPartRight",
+      "when": "textInputFocus"
+    },
+    {
+      "key": "ctrl+shift+alt+right",
+      "command": "-cursorWordPartRightSelect",
+      "when": "textInputFocus"
+    },
+    {
+      "key": "ctrl+alt+backspace",
+      "command": "-deleteWordPartLeft",
+      "when": "textInputFocus && !editorReadonly"
+    },
+    {
+      "key": "ctrl+alt+delete",
+      "command": "-deleteWordPartRight",
+      "when": "textInputFocus && !editorReadonly"
+    },
+    {
+      "key": "enter",
+      "command": "notebook.cell.edit",
+      "when": "notebookCellListFocused && !inputFocus"
+    },
+    {
+      "key": "enter",
+      "command": "-notebook.cell.edit",
+      "when": "notebookCellListFocused && notebookEditable && !inputFocus"
+    },
+    {
+      "key": "cmd+i",
+      "command": "composerMode.agent"
+    }
+  ]

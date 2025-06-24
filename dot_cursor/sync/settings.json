@@ -1,0 +1,489 @@
+{
+  "[go]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": false
+  },
+  "bookmarks.saveBookmarksInProject": true,
+  "bookmarks.sideBar.expanded": true,
+  "csv.enabled": true,
+  "csv.separator": "|",
+  "cursor-retrieval.canAttemptGithubLogin": false,
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.cpp.disabledLanguages": [],
+  "editor.accessibilitySupport": "off",
+  "editor.fontFamily": "'mononoki Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 15,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.insertSpaces": true,
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 4,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.wordWrap": "on",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.exclude": {
+    "**/*.pyc": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.ipynb_checkpoints": true,
+    "**/.svn": true,
+    "**/.venv": true,
+    "**/CVS": true,
+    "**/Thumbs.db": true,
+    "**/__pycache__": true,
+    "**/venv": true
+  },
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  "html.format.enable": false,
+  "leetcode.defaultLanguage": "python3",
+  "leetcode.endpoint": "leetcode-cn",
+  "leetcode.hint.commandShortcut": false,
+  "leetcode.hint.commentDescription": false,
+  "leetcode.hint.configWebviewMarkdown": false,
+  "leetcode.workspaceFolder": "/Users/liaoxingyi/workspace/leetcode/python",
+  "markdown.preview.lineHeight": 1.4,
+  "notebook.breadcrumbs.showCodeCells": true,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "notebook.compactView": true,
+  "notebook.markup.fontSize": 15,
+  "notebook.output.fontSize": 15,
+  "projectManager.git.baseFolders": [
+    "/Users/liaoxingyi/workspace"
+  ],
+  "projectManager.git.maxDepthRecursion": 2,
+  "python.analysis.extraPaths": [
+    "/Users/liaoxingyi/.vscode/extensions/continue.continue-0.8.1-darwin-arm64"
+  ],
+  "python.analysis.inlayHints.callArgumentNames": "all",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.autoComplete.extraPaths": [
+    "/Users/liaoxingyi/.vscode/extensions/continue.continue-0.8.1-darwin-arm64"
+  ],
+  "python.languageServer": "Pylance",
+  "python.terminal.activateEnvironment": false,
+  "remote.SSH.configFile": "/Users/liaoxingyi/.ssh/config",
+  "remote.SSH.remotePlatform": {
+    "hithlan2": "linux",
+    "hithlan3": "linux",
+    "hk": "linux",
+    "mbp": "macOS",
+    "peipei.love": "linux",
+    "theoden": "linux",
+    "tokyo": "linux"
+  },
+  "remote.SSH.useFlock": false,
+  "remote.SSH.useLocalServer": false,
+  "ruff.interpreter": [
+    "/Users/liaoxingyi/.local/share/uv/tools/ruff/bin/python"
+  ],
+  "ruff.nativeServer": "on",
+  "security.workspace.trust.untrustedFiles": "open",
+  "sync.gist": "9541983bfb2da840e6af3ee176c04327",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.env.osx": {
+    "PATH": "/opt/homebrew/bin:${env:PATH}",
+    "Q_NEW_SESSION": "1"
+  },
+  "terminal.integrated.fontFamily": "'mononoki Nerd Font'",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.ignoreProcessNames": [
+    "starship",
+    "oh-my-posh",
+    "bash",
+    "zsh",
+    "fish"
+  ],
+  "terminal.integrated.inheritEnv": false,
+  "terminal.integrated.macOptionIsMeta": true,
+  "terminal.integrated.profiles.osx": {
+    "bash": {
+      "args": [
+        "-l"
+      ],
+      "icon": "terminal-bash",
+      "path": "bash"
+    },
+    "fish": {
+      "args": [
+        "-l"
+      ],
+      "path": "fish"
+    },
+    "pwsh": {
+      "icon": "terminal-powershell",
+      "path": "pwsh"
+    },
+    "tmux": {
+      "icon": "terminal-tmux",
+      "path": "tmux"
+    },
+    "zsh": {
+      "args": [
+        "-l"
+      ],
+      "path": "zsh"
+    }
+  },
+  "update.releaseTrack": "prerelease",
+  "vim.easymotion": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "after": [
+        "<Esc>",
+        "<S-i>"
+      ],
+      "before": [
+        "<C-a>"
+      ]
+    },
+    {
+      "after": [
+        "<Esc>",
+        "<S-a>"
+      ],
+      "before": [
+        "<C-e>"
+      ]
+    },
+    {
+      "after": [
+        "<Esc>"
+      ],
+      "before": [
+        "j",
+        "k"
+      ]
+    },
+    {
+      "after": [
+        "<Esc>",
+        "l",
+        "<S-c>"
+      ],
+      "before": [
+        "<C-k>"
+      ]
+    }
+  ],
+  "vim.leader": "<Space>",
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "u"
+      ],
+      "commands": [
+        "undo"
+      ]
+    },
+    {
+      "before": [
+        "<C-r>"
+      ],
+      "commands": [
+        "redo"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<S-u>"
+      ],
+      "commands": [
+        "editor.action.peekDefinition"
+      ]
+    },
+    {
+      "before": [
+        "leader",
+        "v",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.splitEditorRight"
+      ]
+    },
+    {
+      "before": [
+        "leader",
+        "s",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.splitEditorDown"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "p"
+      ],
+      "before": [
+        "leader",
+        "p"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "p"
+      ],
+      "before": [
+        "leader",
+        "P"
+      ]
+    },
+    {
+      "before": [
+        "m",
+        "m"
+      ],
+      "commands": [
+        "bookmarks.toggle"
+      ]
+    },
+    {
+      "before": [
+        "m",
+        "/"
+      ],
+      "commands": [
+        "bookmarks.list"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "y",
+        "y"
+      ],
+      "before": [
+        "<leader>",
+        "y",
+        "y"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "d",
+        "d"
+      ],
+      "before": [
+        "<leader>",
+        "d",
+        "d"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.files.save"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "n"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "p"
+      ],
+      "commands": [
+        ":bp"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "n"
+      ],
+      "commands": [
+        ":bn"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "d"
+      ],
+      "commands": [
+        ":bd!"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b",
+        "f"
+      ],
+      "commands": [
+        "editor.action.formatDocument"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "<C-m>"
+      ],
+      "commands": [
+        "workbench.action.toggleEditorWidths"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "m"
+      ],
+      "commands": [
+        "workbench.action.toggleEditorWidths"
+      ]
+    },
+    {
+      "before": [
+        ",",
+        "t"
+      ],
+      "commands": [
+        "revealInExplorer"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "d"
+      ],
+      "commands": [
+        "editor.action.revealDefinitionAside"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "<Esc>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
+    },
+    {
+      "before": [
+        "<S-k>"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<C-g>"
+      ],
+      "commands": [
+        "workbench.action.gotoLine"
+      ]
+    }
+  ],
+  "vim.sneak": true,
+  "vim.useSystemClipboard": false,
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "after": [
+        "\"",
+        "+",
+        "p"
+      ],
+      "before": [
+        "leader",
+        "p"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "p"
+      ],
+      "before": [
+        "leader",
+        "P"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "y"
+      ],
+      "before": [
+        "<leader>",
+        "y"
+      ]
+    },
+    {
+      "after": [
+        "\"",
+        "+",
+        "d"
+      ],
+      "before": [
+        "<leader>",
+        "d"
+      ]
+    }
+  ],
+  "window.zoomLevel": 1.5,
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.showTabs": "multiple",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "workbench.preferredDarkColorTheme": "Visual Studio Light",
+  "workbench.settings.editor": "ui"
+}
