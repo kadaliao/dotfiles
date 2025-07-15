@@ -1,5 +1,7 @@
 return {
 	"3rd/image.nvim",
+	-- 完全禁用插件
+	enabled = false,
 	config = function()
 		require("image").setup({
 			backend = "kitty", -- 或者 'ueberzug'
