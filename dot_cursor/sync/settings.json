@@ -26,7 +26,7 @@
   "cursor.composer.shouldChimeAfterChatFinishes": true,
   "cursor.cpp.disabledLanguages": [],
   "editor.accessibilitySupport": "off",
-  "editor.fontFamily": "'mononoki Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "'Maple Mono NF CN', 'mononoki Nerd Font', Menlo, Monaco, 'Courier New', monospace",
   "editor.fontSize": 15,
   "editor.formatOnPaste": false,
   "editor.formatOnSave": false,
@@ -478,12 +478,10 @@
       ]
     }
   ],
-  "window.zoomLevel": 1.5,
+  "window.zoomLevel": 1.2,
   "workbench.colorTheme": "Default Dark+",
   "workbench.editor.showTabs": "multiple",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
-  },
-  "workbench.preferredDarkColorTheme": "Visual Studio Light",
-  "workbench.settings.editor": "ui"
+  }
 }

@@ -1,145 +1,204 @@
 [
-    {
-      "key": "ctrl+cmd+l",
-      "command": "extension.multiCommand.execute",
-      "args": {
-        "sequence": [
-          "workbench.action.movePanelToSidePanel",
-          "workbench.action.focusAuxiliaryBar",
-        ]
-      }
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\\\r\n"
     },
-    {
-      "key": "ctrl+cmd+h",
-      "command": "extension.multiCommand.execute",
-      "args": {
-        "sequence": [
-          "workbench.action.focusActiveEditorGroup"
-        ]
-      }
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+l",
+    "command": "workbench.action.toggleAuxiliaryBar"
+  },
+  {
+    "key": "ctrl+cmd+h",
+    "command": "workbench.action.focusLeftGroup"
+  },
+  {
+    "key": "ctrl+cmd+l",
+    "command": "workbench.action.focusRightGroup"
+  },
+  {
+    "key": "ctrl+cmd+k",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.focusActiveEditorGroup"
+      ]
     },
-    {
-      "key": "ctrl+cmd+j",
-      "command": "extension.multiCommand.execute",
-      "args": {
-        "sequence": [
-          "workbench.action.moveSidePanelToPanel",
-          "workbench.action.focusPanel"
-        ]
-      }
-    },
-    {
-      "key": "ctrl+cmd+k",
-      "command": "extension.multiCommand.execute",
-      "args": {
-        "sequence": [
-          "workbench.action.focusActiveEditorGroup"
-        ]
-      },
-      "when": "panelFocus"
-    },
-    {
-      "key": "ctrl+cmd+m",
-      "command": "workbench.action.toggleMaximizedPanel",
-      "when": "panelFocus || auxiliaryBarFocus"
-    },
-    {
-      "key": "cmd+enter",
-      "command": "renameFile",
-      "when": "explorerViewletVisible && filesExplorerFocus"
-    },
-    {
-      "key": "enter",
-      "command": "-renameFile",
-      "when": "explorerViewletVisible && filesExplorerFocus"
-    },
-    {
-      "key": "enter",
-      "command": "list.select",
-      "when": "listFocus && !inputFocus"
-    },
-    {
-      "key": "ctrl+j",
-      "command": "selectNextSuggestion",
-      "when": "suggestWidgetVisible"
-    },
-    {
-      "key": "ctrl+k",
-      "command": "selectPrevSuggestion",
-      "when": "suggestWidgetVisible"
-    },
-    {
-      "key": "ctrl+j",
-      "command": "workbench.action.quickOpenSelectNext",
-      "when": "inQuickOpen"
-    },
-    {
-      "key": "ctrl+k",
-      "command": "workbench.action.quickOpenSelectPrevious",
-      "when": "inQuickOpen"
-    },
-    {
-      "key": "ctrl+h",
-      "command": "breadcrumbs.focusPrevious",
-      "when": "breadcrumbsActive && breadcrumbsVisible"
-    },
-    {
-      "key": "ctrl+j",
-      "command": "list.focusDown",
-      "when": "breadcrumbsActive && breadcrumbsVisible"
-    },
-    {
-      "key": "ctrl+k",
-      "command": "list.focusUp",
-      "when": "breadcrumbsActive && breadcrumbsVisible"
-    },
-    {
-      "key": "ctrl+l",
-      "command": "breadcrumbs.focusNext",
-      "when": "breadcrumbsActive && breadcrumbsVisible"
-    },
-    {
-      "key": "ctrl+alt+left",
-      "command": "-cursorWordPartLeft",
-      "when": "textInputFocus"
-    },
-    {
-      "key": "ctrl+shift+alt+left",
-      "command": "-cursorWordPartLeftSelect",
-      "when": "textInputFocus"
-    },
-    {
-      "key": "ctrl+alt+right",
-      "command": "-cursorWordPartRight",
-      "when": "textInputFocus"
-    },
-    {
-      "key": "ctrl+shift+alt+right",
-      "command": "-cursorWordPartRightSelect",
-      "when": "textInputFocus"
-    },
-    {
-      "key": "ctrl+alt+backspace",
-      "command": "-deleteWordPartLeft",
-      "when": "textInputFocus && !editorReadonly"
-    },
-    {
-      "key": "ctrl+alt+delete",
-      "command": "-deleteWordPartRight",
-      "when": "textInputFocus && !editorReadonly"
-    },
-    {
-      "key": "enter",
-      "command": "notebook.cell.edit",
-      "when": "notebookCellListFocused && !inputFocus"
-    },
-    {
-      "key": "enter",
-      "command": "-notebook.cell.edit",
-      "when": "notebookCellListFocused && notebookEditable && !inputFocus"
-    },
-    {
-      "key": "cmd+i",
-      "command": "composerMode.agent"
+    "when": "panelFocus"
+  },
+  {
+    "key": "ctrl+cmd+j",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.terminal.focus"
+      ]
     }
-  ]
+  },
+  {
+    "key": "ctrl+cmd+m",
+    "command": "workbench.action.toggleMaximizedPanel",
+    "when": "panelFocus || auxiliaryBarFocus"
+  }, 
+  {
+    "key": "cmd+enter",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.select",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "breadcrumbs.focusPrevious",
+    "when": "breadcrumbsActive && breadcrumbsVisible"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "list.focusDown",
+    "when": "breadcrumbsActive && breadcrumbsVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "list.focusUp",
+    "when": "breadcrumbsActive && breadcrumbsVisible"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "breadcrumbs.focusNext",
+    "when": "breadcrumbsActive && breadcrumbsVisible"
+  },
+  {
+    "key": "ctrl+alt+left",
+    "command": "-cursorWordPartLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+shift+alt+left",
+    "command": "-cursorWordPartLeftSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+alt+right",
+    "command": "-cursorWordPartRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+shift+alt+right",
+    "command": "-cursorWordPartRightSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+alt+backspace",
+    "command": "-deleteWordPartLeft",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+alt+delete",
+    "command": "-deleteWordPartRight",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "enter",
+    "command": "notebook.cell.edit",
+    "when": "notebookCellListFocused && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-notebook.cell.edit",
+    "when": "notebookCellListFocused && notebookEditable && !inputFocus"
+  },
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\\\r\n"
+    },
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+escape",
+    "command": "-workbench.action.chat.cancel"
+  },
+  {
+    "key": "cmd+escape",
+    "command": "-claude-code.runClaude.keyboard"
+  },
+  // 宽度增加
+  {
+    "key": "ctrl+cmd+shift+l",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.increaseViewWidth",
+        "workbench.action.increaseViewWidth",
+        "workbench.action.increaseViewWidth"
+      ]
+    }
+  }, // 宽度减少
+  {
+    "key": "ctrl+cmd+shift+h",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.decreaseViewWidth",
+        "workbench.action.decreaseViewWidth",
+        "workbench.action.decreaseViewWidth"
+      ]
+    }
+  },
+  // 高度增加
+  {
+    "key": "ctrl+cmd+shift+k",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.increaseViewHeight",
+        "workbench.action.increaseViewHeight",
+        "workbench.action.increaseViewHeight"
+      ]
+    }
+  },
+  // 高度减少
+  {
+    "key": "ctrl+cmd+shift+j",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.decreaseViewHeight",
+        "workbench.action.decreaseViewHeight",
+        "workbench.action.decreaseViewHeight"
+      ]
+    }
+  }
+]
