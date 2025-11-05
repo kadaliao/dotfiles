@@ -86,7 +86,7 @@
   "python.autoComplete.extraPaths": [
     "/Users/liaoxingyi/.vscode/extensions/continue.continue-0.8.1-darwin-arm64"
   ],
-  "python.languageServer": "Pylance",
+  "python.languageServer": "None",
   "python.terminal.activateEnvironment": false,
   "remote.SSH.configFile": "/Users/liaoxingyi/.ssh/config",
   "remote.SSH.remotePlatform": {
@@ -478,10 +478,16 @@
       ]
     }
   ],
-  "window.zoomLevel": 1.2,
-  "workbench.colorTheme": "Default Dark+",
+  "window.zoomLevel": 1.4,
   "workbench.editor.showTabs": "multiple",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
-  }
+  },
+  "workbench.colorTheme": "Default Dark Modern",
+  "cursorpyright.analysis.extraPaths": [
+    "/Users/liaoxingyi/.vscode/extensions/continue.continue-0.8.1-darwin-arm64"
+  ],
+  "cursorpyright.analysis.inlayHints.callArgumentNames": "all",
+  "cursorpyright.analysis.inlayHints.functionReturnTypes": true,
+  "cursorpyright.analysis.inlayHints.variableTypes": true
 }

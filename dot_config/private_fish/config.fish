@@ -4,12 +4,12 @@
 set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/bin $PATH
 
 
-if status is-interactive
+# if status is-interactive
     # and not set -q TMUX
     # echo 'let\'s go tmux!'
     # exec tmux new -A -s Work #创建或者附加指定session
-    atuin init fish | source
-end
+    # atuin init fish | source
+# end
 
 # 设置默认编辑器
 set -gx EDITOR nvim
@@ -30,9 +30,16 @@ set -gx XDG_CONFIG_DIRS "$HOME/.config"
 [ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
 
 # fzf
-set -gx FZF_DEFAULT_COMMAND "rg --files"
-set -gx FZF_DEFAULT_OPTS "--preview 'bat --color=always --style=numbers --line-range=:500 {}' --height 40% --border --layout=reverse"
+# set -gx FZF_DEFAULT_COMMAND "rg --files"
 
+# 使用 fd 加速文件搜索
+set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --exclude .git'
+
+# 文件和图片预览
+set -gx FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "bash -c \"if [[ -f {} ]]; then if file --mime {} | grep -q image/; then viu -w 40 -h 20 {}; else bat --style=numbers --color=always {} || head -200 {}; fi; fi\"" --preview-window=right:60%'
+
+# 历史命令搜索增强
+set -gx FZF_CTRL_R_OPTS '--sort --exact'
 
 # mysql5.7
 # set -p LDFLAGS "-L/usr/local/opt/mysql@5.7/lib"
@@ -48,16 +55,16 @@ set -gx FZF_DEFAULT_OPTS "--preview 'bat --color=always --style=numbers --line-r
 # set -gx CPPFLAGS "-I/opt/homebrew/opt/libffi/include"
 # set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/libffi/lib/pkgconfig"
 
-set -gx RANGER_LOAD_DEFAULT_RC 0
-
-# 使用trash替换rm命令
-alias rm trash
-
 # rg configuration
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
 # /usr/loca/bin
 fish_add_path "$HOME/go/bin"
+
+# go configuration
+set -gx GOPATH (go env GOPATH)
+set -gx GOBIN "$GOPATH/bin"
+
 
 # consider using one line command:
 # key=value echo $key
@@ -89,13 +96,12 @@ abbr -a -- drsh 'dae remoteshell --pre'
 abbr -a -- drs 'dae runscript --pre'
 abbr -a -- dpc 'dae pre create --keep-days 30 --external'
 
-# go configuration
-set -gx GOPATH (go env GOPATH)
-set -gx GOBIN "$GOPATH/bin"
-
 # ruby
 # set -p fish_user_paths "$HOME/.gem/ruby/2.7.0/bin"
 fish_add_path "$HOME/.gem/ruby/2.7.0/bin"
+
+# trash-cli
+fish_add_path /opt/homebrew/opt/trash/bin
 
 # fnm
 if type -q fnm
