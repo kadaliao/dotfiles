@@ -21,14 +21,13 @@ brew install gnupg chezmoi
 # 2. 克隆 dotfiles
 chezmoi init https://github.com/kadaliao/dotfiles.git
 
-# 3. 导入密钥（自动配置 chezmoi）
-# 密钥文件可以来自任何地方（U 盘、下载文件夹、~/Documents 等）
-bash ~/.local/share/chezmoi/.chezmoi-scripts/import-on-new-machine.sh \
-  /path/to/your/liaoxingyi-secret-key.asc
+# 3. 进入脚本目录并运行导入脚本
+cd $(chezmoi source-path)/.chezmoi-scripts
+bash ./import-on-new-machine.sh /path/to/your/liaoxingyi-secret-key.asc
 
-# 例子：
-# bash ~/.local/share/chezmoi/.chezmoi-scripts/import-on-new-machine.sh ~/Downloads/liaoxingyi-secret-key.asc
-# bash ~/.local/share/chezmoi/.chezmoi-scripts/import-on-new-machine.sh /Volumes/USB_DRIVE/liaoxingyi-secret-key.asc
+# 或者直接指定完整路径（密钥文件可以来自任何地方）
+# bash $(chezmoi source-path)/.chezmoi-scripts/import-on-new-machine.sh ~/Downloads/liaoxingyi-secret-key.asc
+# bash $(chezmoi source-path)/.chezmoi-scripts/import-on-new-machine.sh /Volumes/USB_DRIVE/liaoxingyi-secret-key.asc
 
 # 4. 应用配置
 chezmoi apply
