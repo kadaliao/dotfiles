@@ -1,0 +1,33 @@
+# chezmoi configuration template
+# This file will be rendered to ~/.config/chezmoi/chezmoi.toml on each machine
+
+# GPG encryption configuration (same for all machines)
+encryption = "gpg"
+
+[gpg]
+    recipient = "4B07A70A11BE697792BE71EB7249BD4EFC2850F4"
+
+[data]
+{{- if eq .chezmoi.os "darwin" }}
+    {{- if eq .chezmoi.hostname "xingyi-mbp16-1263" }}
+    # Work Mac
+    email = "liaoxingyi@douban.com"
+    gitname = "liaoxingyi"
+    is_work = true
+    {{- else }}
+    # Personal Mac
+    email = "kadaliao@gmail.com"
+    gitname = "Kada Liao"
+    is_work = false
+    {{- end }}
+    is_macos = true
+    is_linux = false
+{{- else if eq .chezmoi.os "linux" }}
+    # Linux server configuration
+    email = "liaoxingyi@douban.com"
+    gitname = "liaoxingyi"
+    is_work = true
+    is_macos = false
+    is_linux = true
+    is_server = true
+{{- end }}
