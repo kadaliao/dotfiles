@@ -1,0 +1,47 @@
+# 🔐 安全: 防止 GPG 密钥和敏感文件上传
+
+# ❌ 绝对不要上传 GPG 密钥文件
+*.asc
+*.gpg
+*secret*key*
+privatekey*
+private_key*
+/gpg-backup/
+
+# ❌ 不要上传本地状态文件
+.chezmoistate.boltdb
+*.db
+*.sqlite
+
+# ❌ 不要上传 IDE 和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ❌ 不要上传 Node/Python 依赖
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ⚠️  其他本地文件
+.chezmoidata
+.chezmoiroot
+/tmp/
+/temp/
+
+# 🔐 chezmoi-scripts 目录中的安全规则
+.chezmoi-scripts/*secret*
+.chezmoi-scripts/*key*
+.chezmoi-scripts/*.asc
+.chezmoi-scripts/*.gpg
+
+# 📝 允许上传的文件（scripts 目录中的文档和脚本除外）
+!.chezmoi-scripts/
+!.chezmoi-scripts/*.sh
+!.chezmoi-scripts/*.md
+!.chezmoi-scripts/*.txt

@@ -1,0 +1,47 @@
+📦 ~/gpg-backup 目录清单
+============================================
+
+本目录包含 GPG 密钥管理和 chezmoi 跨机器设置的所有文件。
+
+📄 文档文件（必读）：
+  ├─ SETUP-INSTRUCTIONS.md   ⭐ 【从这里开始】完整的设置说明
+  ├─ QUICK-START.md          ⚡ 5 分钟快速指南
+  ├─ README.md               📚 详细参考和故障排查
+  └─ FILES-MANIFEST.txt      📋 这个文件
+
+🔧 脚本文件（可执行）：
+  ├─ export-gpg-key.sh       💾 导出你的 GPG 密钥
+  └─ import-on-new-machine.sh 📥 在新机器上导入密钥
+
+🔐 密钥文件（尚未生成）：
+  ├─ liaoxingyi-secret-key.asc   ❌ 需要手动导出
+  ├─ liaoxingyi-public-key.asc   ❌ 需要手动导出
+  └─ liaoxingyi-secret-key.gpg   ❌ 不完整（请忽略）
+
+🎯 快速开始步骤：
+  1. 阅读 SETUP-INSTRUCTIONS.md
+  2. 运行 bash export-gpg-key.sh 导出密钥
+  3. 复制密钥文件到安全位置
+  4. 在新机器上运行 bash import-on-new-machine.sh
+
+⚠️ 重要安全提示：
+  - liaoxingyi-secret-key.asc 是你最重要的文件
+  - 妥善保管，不要上传到云端
+  - 只通过安全通道（U盘、加密通道）传输
+
+✅ 验证清单：
+  □ 导出了 GPG 密钥
+  □ 保存了 SHA256 校验和
+  □ 复制到安全位置（U盘/离线存储）
+  □ 在新机器上成功导入
+  □ chezmoi 配置文件创建
+  □ chezmoi apply 成功应用配置
+  □ SSH 配置文件正确生成
+
+🆘 如果遇到问题：
+  - 查看 README.md 的【故障排查】部分
+  - 查看 QUICK-START.md 的【问题排查】部分
+  - 确认已正确导入 GPG 密钥
+  - 确认 chezmoi 配置正确
+
+✨ 祝你使用愉快！
