@@ -1,0 +1,82 @@
+# 设置默认编辑器与打开方式
+set editor nvim
+set shell sh
+set shellopts '-eu'
+set ifs "\n"
+
+# 显示详细信息和预览面板
+set info size:mtime
+set ratios 1:2:3
+
+# 文件图标与颜色支持（若用 nerd font）
+set icons true
+set preview true
+set drawbox true
+set period 1
+
+# 允许创建新文件夹
+cmd mkdir ${{
+    mkdir -p "$@"
+    lf -remote "send $id reload"
+}}
+
+# 智能打开：文本文件用 nvim，其他用系统默认程序
+cmd open ${{
+    case "$f" in
+        *.txt|*.md|*.json|*.yaml|*.yml|*.toml|*.conf|*.cfg|*.ini|\
+        *.sh|*.bash|*.zsh|*.fish|\
+        *.c|*.cpp|*.h|*.hpp|*.cc|*.cxx|\
+        *.py|*.rb|*.rs|*.go|*.java|*.js|*.ts|*.jsx|*.tsx|\
+        *.css|*.scss|*.sass|*.less|*.html|*.xml|*.svg|\
+        *.vim|*.lua|*.el|*.clj|*.hs|*.ml|*.ex|*.erl|\
+        *.sql|*.proto|*.thrift|*.graphql)
+            $EDITOR "$f"
+            ;;
+        *)
+            # 其他文件类型检测 MIME
+            mime=$(file -b --mime-type "$f")
+            case "$mime" in
+                text/*|application/json|application/x-sh|application/x-shellscript)
+                    $EDITOR "$f"
+                    ;;
+                *)
+                    # macOS 默认程序打开
+                    open "$f"
+                    ;;
+            esac
+            ;;
+    esac
+}}
+
+# 图片预览配置
+set previewer ~/.config/lf/preview.sh
+set cleaner ~/.config/lf/clean.sh
+
+# 快捷键：移动
+map g top
+map G bottom
+map <c-d> half-down
+map <c-u> half-up
+
+# 切换隐藏文件（<c-h> 会被终端当成 Backspace，改用 zh）
+map zh set hidden!
+
+# 其他操作
+map <c-r> reload
+map o open
+map e $editor
+map . toggle
+map r rename
+
+# 类 vim 的复制/剪切/粘贴（需要先清除默认 d/y/p 绑定）
+map d
+map y
+map p
+map dd cut
+map yy copy
+map pp paste
+map dD delete
+
+# 打开目录时自动刷新
+set dircounts true
+set hidden false
