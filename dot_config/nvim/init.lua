@@ -1,6 +1,8 @@
 require("core.options") -- Load general options
 require("core.keymaps") -- Load general keymaps
 require("core.snippets") -- Custom code snippets
+require("core.health") -- Health check module
+require("core.filetype-tools").setup() -- Smart filetype-based tool checking
 
 -- Set up the Lazy plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -31,6 +33,9 @@ require("lazy").setup({
 	require("plugins.comment"),
 	require("plugins.leetcode"),
 	require("plugins.image"),
+	require("plugins.which-key"),
+	require("plugins.trouble"),
+	require("plugins.flash"),
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`

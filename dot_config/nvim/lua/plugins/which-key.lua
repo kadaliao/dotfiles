@@ -1,0 +1,92 @@
+return {
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  config = function()
+    local wk = require("which-key")
+
+    wk.setup({
+      plugins = {
+        marks = true,
+        registers = true,
+        spelling = {
+          enabled = true,
+          suggestions = 20,
+        },
+        presets = {
+          operators = true,
+          motions = true,
+          text_objects = true,
+          windows = true,
+          nav = true,
+          z = true,
+          g = true,
+        },
+      },
+      -- Configure window options
+      win = {
+        border = "rounded",
+        padding = { 1, 2 },
+      },
+      layout = {
+        height = { min = 4, max = 25 },
+        width = { min = 20, max = 50 },
+        spacing = 3,
+      },
+    })
+
+    -- Register leader key groups with descriptions
+    wk.add({
+      { "<leader>b", desc = "New buffer" },
+      { "<leader>c", group = "Code/Check" },
+      { "<leader>ca", desc = "Code Action" },
+      { "<leader>ch", desc = "Check Health" },
+      { "<leader>d", group = "Diagnostics/Delete/Document" },
+      { "<leader>dc", desc = "Cut to clipboard" },
+      { "<leader>dC", desc = "Cut line to clipboard" },
+      { "<leader>ds", desc = "Document Symbols" },
+      { "<leader>D", desc = "Type Definition" },
+      { "<leader>e", desc = "Show diagnostic" },
+      { "<leader>h", desc = "Split horizontal" },
+      { "<leader>l", group = "Line" },
+      { "<leader>lw", desc = "Toggle line wrap" },
+      { "<leader>p", desc = "Paste from clipboard" },
+      { "<leader>P", desc = "Paste before cursor" },
+      { "<leader>q", desc = "Diagnostics list" },
+      { "<leader>r", group = "Rename" },
+      { "<leader>rn", desc = "Rename symbol" },
+      { "<leader>s", group = "Search" },
+      { "<leader>sd", desc = "Search Diagnostics" },
+      { "<leader>sf", desc = "Search Files" },
+      { "<leader>sg", desc = "Search by Grep" },
+      { "<leader>sh", desc = "Search Help" },
+      { "<leader>sk", desc = "Search Keymaps" },
+      { "<leader>sn", desc = "Save without format" },
+      { "<leader>sr", desc = "Search Resume" },
+      { "<leader>ss", desc = "Search Select Telescope" },
+      { "<leader>sw", desc = "Search Word" },
+      { "<leader>s.", desc = "Search Recent Files" },
+      { "<leader>s/", desc = "Search in Open Files" },
+      { "<leader>se", desc = "Equal split windows" },
+      { "<leader>t", group = "Tab/Toggle" },
+      { "<leader>th", desc = "Toggle Inlay Hints" },
+      { "<leader>to", desc = "Tab open" },
+      { "<leader>tx", desc = "Tab close" },
+      { "<leader>tn", desc = "Tab next" },
+      { "<leader>tp", desc = "Tab previous" },
+      { "<leader>v", desc = "Split vertical" },
+      { "<leader>w", group = "Workspace" },
+      { "<leader>ws", desc = "Workspace Symbols" },
+      { "<leader>x", desc = "Close buffer" },
+      { "<leader>xs", desc = "Close split" },
+      { "<leader>y", desc = "Copy to clipboard" },
+      { "<leader>Y", desc = "Copy line to clipboard" },
+      { "<leader>/", desc = "Search in buffer" },
+      { "<leader><leader>", desc = "Find buffers" },
+      { "g", group = "Go to" },
+      { "gd", desc = "Go to Definition" },
+      { "gD", desc = "Go to Declaration" },
+      { "gr", desc = "Go to References" },
+      { "gI", desc = "Go to Implementation" },
+    })
+  end,
+}

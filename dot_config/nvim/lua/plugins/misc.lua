@@ -2,6 +2,10 @@
 return {
 	{
 		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
 	},
 	{
 		"tpope/vim-rsi",
@@ -21,10 +25,6 @@ return {
 	{
 		-- GitHub integration for vim-fugitive
 		"tpope/vim-rhubarb",
-	},
-	{
-		-- Hints keybinds
-		"folke/which-key.nvim",
 	},
 	{
 		-- Autoclose parentheses, brackets, quotes, etc.

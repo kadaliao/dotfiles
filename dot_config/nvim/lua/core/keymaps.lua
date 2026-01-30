@@ -76,14 +76,14 @@ vim.keymap.set("v", "<leader>p", '"+p', { noremap = true, desc = "Paste from sys
 vim.keymap.set("n", "<leader>P", '"+P', { noremap = true, desc = "Paste from system clipboard before cursor" })
 
 -- cut
-vim.keymap.set("n", "<leader>d", '"+d', { noremap = true, desc = "Cut to system clipboard" })
-vim.keymap.set("v", "<leader>d", '"+d', { noremap = true, desc = "Cut to system clipboard" })
-vim.keymap.set("n", "<leader>D", '"+D', { noremap = true, desc = "Cut to end of line to system clipboard" })
+vim.keymap.set("n", "<leader>dc", '"+d', { noremap = true, desc = "Cut to system clipboard" })
+vim.keymap.set("v", "<leader>dc", '"+d', { noremap = true, desc = "Cut to system clipboard" })
+vim.keymap.set("n", "<leader>dC", '"+D', { noremap = true, desc = "Cut to end of line to system clipboard" })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- jk,kj to escape
@@ -108,5 +108,8 @@ vim.keymap.set('i', '<C-k>', '<C-o>D', opts)  -- 删除光标到行尾
 vim.keymap.set('i', '<C-u>', '<C-u>', opts)   -- 删除光标到行首
 
 -- 命令行模式补充键位
-vim.keymap.set('c', '<C-k>', '<C-\\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>', opts)
+vim.keymap.set('c', '<C-k>', '<C-\\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<CR>', opts)
 vim.keymap.set('c', '<C-u>', '<C-U>', opts)
+
+-- Health check mapping
+vim.keymap.set('n', '<leader>ch', '<cmd>checkhealth<cr>', { desc = '[C]heck [H]ealth of Neovim configuration' })

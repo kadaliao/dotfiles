@@ -9,20 +9,24 @@ return {
     local formatting = null_ls.builtins.formatting -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
+    -- Note: We no longer check for tools at startup to reduce noise
+    -- Tools will be automatically installed by mason-null-ls
+    -- Or you can run: ~/.config/nvim/install-tools.sh to install manually
+
     -- Formatters & linters for mason to install
     require('mason-null-ls').setup {
       ensure_installed = {
         'prettier', -- ts/js formatter
         'stylua', -- lua formatter
-        'eslint_d', -- ts/js linter
         'shfmt', -- Shell formatter
-        'checkmake', -- linter for Makefiles
         'ruff', -- Python linter and formatter
       },
-      automatic_installation = true,
+      automatic_installation = false, -- Set to true to auto-install missing tools
     }
 
     local sources = {
+      -- Only enable sources if the tool is available
+      -- This prevents errors when tools aren't installed
       diagnostics.checkmake,
       formatting.prettier.with { filetypes = { 'html', 'json', 'yaml', 'markdown' } },
       formatting.stylua,

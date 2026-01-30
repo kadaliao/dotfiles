@@ -15,6 +15,8 @@ return {
     'hrsh7th/cmp-nvim-lsp',
   },
   config = function()
+    local utils = require('core.utils')
+
     -- Brief aside: **What is LSP?**
     --
     -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -39,6 +41,10 @@ return {
     --
     -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
     -- and elegantly composed help section, `:help lsp-vs-treesitter`
+
+    -- Note: We removed startup checks for LSP tools to reduce noise
+    -- Tools will be checked when actually needed (when opening relevant files)
+    -- You can run :Mason to manually install LSP servers
 
     --  This function gets run when an LSP attaches to a particular buffer.
     --    That is to say, every time a new file is opened that is associated with
@@ -132,6 +138,22 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
+
+        -- Auto-format on save for supported languages
+        -- Note: For certain file types, none-ls handles formatting
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = event.buf,
+            group = vim.api.nvim_create_augroup('lsp-format-on-save', { clear = false }),
+            callback = function()
+              vim.lsp.buf.format({
+                async = false,
+                timeout_ms = 2000,
+                bufnr = event.buf,
+              })
+            end,
+          })
+        end
       end,
     })
 
@@ -163,7 +185,9 @@ return {
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
       ts_ls = {}, -- tsserver is deprecated
-      ruff = {},
+      ruff = {}, -- Python linter and formatter (fast!)
+      -- pylsp = {}, -- Disabled: conflicts with pyright
+      pyright = {}, -- Python LSP Server (recommended)
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       cssls = {},
       tailwindcss = {},

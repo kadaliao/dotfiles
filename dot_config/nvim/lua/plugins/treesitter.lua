@@ -1,6 +1,10 @@
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter-context',
+  },
   main = 'nvim-treesitter.configs', -- Sets main module to use for opts
   -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
   opts = {
@@ -43,7 +47,56 @@ return { -- Highlight, edit, and navigate code
       additional_vim_regex_highlighting = { 'ruby' },
     },
     indent = { enable = true, disable = { 'ruby' } },
+    -- Treesitter textobjects for enhanced text manipulation
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true, -- Automatically jump forward to textobj
+        keymaps = {
+          -- You can use the capture groups defined in textobjects.scm
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+          ['aa'] = '@parameter.outer',
+          ['ia'] = '@parameter.inner',
+          ['ab'] = '@block.outer',
+          ['ib'] = '@block.inner',
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          [']f'] = '@function.outer',
+          [']c'] = '@class.outer',
+        },
+        goto_next_end = {
+          [']F'] = '@function.outer',
+          [']C'] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[f'] = '@function.outer',
+          ['[c'] = '@class.outer',
+        },
+        goto_previous_end = {
+          ['[F'] = '@function.outer',
+          ['[C'] = '@class.outer',
+        },
+      },
+    },
   },
+  config = function(_, opts)
+    require('nvim-treesitter.configs').setup(opts)
+
+    -- Configure treesitter-context
+    require('treesitter-context').setup({
+      enable = true,
+      max_lines = 3, -- How many lines the window should span
+      trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded
+      mode = 'cursor',  -- Line used to calculate context
+    })
+  end,
   -- There are additional nvim-treesitter modules that you can use to interact
   -- with nvim-treesitter. You should go explore a few and see what interests you:
   --
