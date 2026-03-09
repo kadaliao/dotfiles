@@ -22,6 +22,10 @@ dae runscript <script_path>
 - 不可以在本地直接执行 Python 脚本（`python script.py` 或 `uv run python script.py`）
 - 所有脚本调试、测试运行都必须通过 `dae runscript` 执行
 
+# Git 提交规范
+
+- commit message 里不要加 `Co-Authored-By: Claude` 署名
+
 # Markdown 格式规范
 
 在生成 Markdown 文件时：
