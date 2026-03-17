@@ -12,7 +12,6 @@
 - **starship** — `dot_config/starship.toml`，shell 提示符
 - **Git** — `dot_gitconfig.tmpl`，模板化配置，区分 macOS/Linux
 - **Claude Code** — `dot_claude/`，Claude Code 配置和状态栏脚本
-- **Cursor** — `dot_cursor/sync/`，编辑器同步配置
 - **SSH** — `private_dot_ssh/`，加密存储
 
 ## 前置依赖

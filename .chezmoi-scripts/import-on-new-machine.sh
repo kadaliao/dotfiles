@@ -7,6 +7,8 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 KEY_FILE="${1:-$SCRIPT_DIR/liaoxingyi-secret-key.asc}"
 KEY_ID="4B07A70A11BE697792BE71EB7249BD4EFC2850F4"
+EMAIL="kadaliao@gmail.com"
+GIT_NAME="Kada Liao"
 
 echo "🚀 在新机器上导入 GPG 密钥并配置 chezmoi"
 echo "=================================================="
@@ -88,11 +90,32 @@ echo ""
 echo "⚙️  配置 chezmoi..."
 mkdir -p ~/.config/chezmoi
 
+case "$(uname -s)" in
+    Darwin)
+        IS_MACOS=true
+        IS_LINUX=false
+        ;;
+    Linux)
+        IS_MACOS=false
+        IS_LINUX=true
+        ;;
+    *)
+        IS_MACOS=false
+        IS_LINUX=false
+        ;;
+esac
+
 cat > ~/.config/chezmoi/chezmoi.toml << EOF
 encryption = "gpg"
 
 [gpg]
 recipient = "$KEY_ID"
+
+[data]
+email = "$EMAIL"
+gitname = "$GIT_NAME"
+is_macos = $IS_MACOS
+is_linux = $IS_LINUX
 EOF
 
 echo "✅ chezmoi 配置已创建: ~/.config/chezmoi/chezmoi.toml"
