@@ -1,11 +1,15 @@
 #!/bin/bash
 # 导出 GPG 密钥的脚本
 # 在交互式终端中运行此脚本
+# 用法: bash export-gpg-key.sh /path/to/backup-dir
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 KEY_ID="4B07A70A11BE697792BE71EB7249BD4EFC2850F4"
-BACKUP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKUP_DIR="${1:-$SCRIPT_DIR}"
+
+mkdir -p "$BACKUP_DIR"
 
 echo "🔐 导出 GPG 密钥"
 echo "======================================"
@@ -43,7 +47,8 @@ else
     echo "   2. pinentry 程序未正确配置"
     echo ""
     echo "📝 手动导出方法："
-    echo "   gpg --export-secret-keys --armor $KEY_ID > ~/liaoxingyi-secret-key.asc"
+    echo "   mkdir -p /path/to/backup-dir"
+    echo "   gpg --export-secret-keys --armor $KEY_ID > /path/to/backup-dir/liaoxingyi-secret-key.asc"
     echo ""
     exit 1
 fi

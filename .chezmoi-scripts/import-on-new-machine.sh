@@ -5,19 +5,41 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-KEY_FILE="${1:-$SCRIPT_DIR/liaoxingyi-secret-key.asc}"
 KEY_ID="4B07A70A11BE697792BE71EB7249BD4EFC2850F4"
 EMAIL="kadaliao@gmail.com"
 GIT_NAME="Kada Liao"
+
+if [ $# -ge 1 ]; then
+    KEY_FILE="$1"
+else
+    for candidate in \
+        "$SCRIPT_DIR/liaoxingyi-secret-key.asc" \
+        "$PWD/liaoxingyi-secret-key.asc"
+    do
+        if [ -f "$candidate" ]; then
+            KEY_FILE="$candidate"
+            break
+        fi
+    done
+fi
 
 echo "🚀 在新机器上导入 GPG 密钥并配置 chezmoi"
 echo "=================================================="
 echo ""
 
 # 检查文件
-if [ ! -f "$KEY_FILE" ]; then
-    echo "❌ 错误: 找不到密钥文件: $KEY_FILE"
-    echo "用法: bash $0 /path/to/liaoxingyi-secret-key.asc"
+if [ -z "${KEY_FILE:-}" ] || [ ! -f "$KEY_FILE" ]; then
+    echo "❌ 错误: 找不到密钥文件"
+    echo ""
+    echo "已检查的位置:"
+    echo "  1. $SCRIPT_DIR/liaoxingyi-secret-key.asc"
+    echo "  2. $PWD/liaoxingyi-secret-key.asc"
+    echo ""
+    echo "说明: 仓库里的 .chezmoi-scripts/ 只包含脚本，不包含私钥文件。"
+    echo ""
+    echo "可用方式:"
+    echo "  bash ./import-on-new-machine.sh /path/to/liaoxingyi-secret-key.asc"
+    echo "  cp /path/to/liaoxingyi-secret-key.asc \"$SCRIPT_DIR/\" && bash ./import-on-new-machine.sh"
     exit 1
 fi
 
@@ -27,7 +49,7 @@ for tool in gpg chezmoi git; do
     if ! command -v $tool &> /dev/null; then
         echo "❌ 未安装 $tool"
         echo "请先安装:"
-        echo "  macOS: brew install gnupg chezmoi"
+        echo "  macOS: brew install gnupg chezmoi git"
         echo "  Ubuntu: sudo apt install gnupg chezmoi git"
         exit 1
     fi
@@ -51,8 +73,6 @@ echo ""
 
 # 信任密钥
 echo "🔑 信任密钥..."
-# 使用 --batch 模式和期望的输入来自动化信任过程
-# 或者提示用户手动执行
 cat << 'EOF'
 
 ⚠️  重要: 你需要信任这个密钥以使用加密文件。
@@ -121,14 +141,13 @@ EOF
 echo "✅ chezmoi 配置已创建: ~/.config/chezmoi/chezmoi.toml"
 echo ""
 
-# 提示用户后续步骤
 cat << 'EOF'
 🎉 设置完成！
 
 接下来的步骤:
 
 1. 克隆 dotfiles 仓库（如果还没有）:
-   chezmoi init https://github.com/yourusername/dotfiles.git
+   chezmoi init https://github.com/kadaliao/dotfiles.git
 
 2. 或者如果已经初始化，更新配置:
    chezmoi update
@@ -139,14 +158,14 @@ cat << 'EOF'
 4. 应用配置到系统:
    chezmoi apply
 
-5. 测试是否成功:
-   ls -la ~/.ssh/config
-   ssh -v hithlan1
+5. 如果已有本地文件导致冲突，先看差异，确认后再覆盖:
+   chezmoi diff ~/.config/fish/config.fish
+   chezmoi apply --force
 
 ❓ 如果遇到问题，检查:
   gpg --list-secret-keys                    # 验证密钥导入
-  cat ~/.config/chezmoi/chezmoi.toml         # 验证配置
-  chezmoi status                            # 检查 chezmoi 状态
+  cat ~/.config/chezmoi/chezmoi.toml       # 验证配置
+  chezmoi status                           # 检查 chezmoi 状态
 
 EOF
 
