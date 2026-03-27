@@ -1,7 +1,6 @@
 # 🔐 安全: 防止 GPG 密钥和敏感文件上传
 
 # ❌ 绝对不要上传 GPG 密钥文件
-*.asc
 *.gpg
 *secret*key*
 privatekey*
@@ -45,6 +44,3 @@ venv/
 !.chezmoi-scripts/*.sh
 !.chezmoi-scripts/*.md
 !.chezmoi-scripts/*.txt
-
-# 🔐 允许 dot_claude 目录中的加密文件（由 chezmoi GPG 加密，内容安全）
-!dot_claude/*.asc
