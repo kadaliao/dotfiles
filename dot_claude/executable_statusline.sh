@@ -15,6 +15,9 @@ session_id=$(echo "$input" | jq -r '.session_id // ""')
 transcript_path=$(echo "$input" | jq -r '.transcript_path // ""')
 
 # Function to extract token usage from transcript file
+# NOTE: Claude Code writes one JSONL entry per content block (thinking, text,
+# tool_use), but every block from the same API call carries identical usage.
+# We deduplicate by skipping consecutive entries whose usage signature matches.
 extract_tokens_from_transcript() {
     local file="$1"
     local input_total=0
@@ -22,30 +25,26 @@ extract_tokens_from_transcript() {
     local message_count=0
     local cache_creation=0
     local cache_read=0
-    
+    local prev_sig=""
+
     if [[ -f "$file" ]]; then
-        # Process each line of JSONL file
-        while IFS= read -r line; do
-            if [[ -n "$line" ]]; then
-                local usage_data=$(echo "$line" | jq -r '.message.usage // empty' 2>/dev/null)
-                if [[ -n "$usage_data" && "$usage_data" != "null" ]]; then
-                    local input_tok=$(echo "$usage_data" | jq -r '.input_tokens // 0')
-                    local output_tok=$(echo "$usage_data" | jq -r '.output_tokens // 0')
-                    local cache_create=$(echo "$usage_data" | jq -r '.cache_creation_input_tokens // 0')
-                    local cache_rd=$(echo "$usage_data" | jq -r '.cache_read_input_tokens // 0')
-                    
-                    if [[ "$input_tok" != "null" && "$input_tok" != "0" ]]; then
-                        input_total=$((input_total + input_tok))
-                        output_total=$((output_total + output_tok))
-                        cache_creation=$((cache_creation + cache_create))
-                        cache_read=$((cache_read + cache_rd))
-                        message_count=$((message_count + 1))
-                    fi
-                fi
+        # Use jq to extract all usage signatures in one pass (much faster than per-line)
+        while IFS=',' read -r input_tok output_tok cache_create cache_rd; do
+            local sig="${input_tok},${output_tok},${cache_create},${cache_rd}"
+            if [[ "$sig" == "$prev_sig" ]]; then
+                continue  # duplicate content block from same API call
             fi
-        done < "$file"
+            prev_sig="$sig"
+            input_total=$((input_total + input_tok))
+            output_total=$((output_total + output_tok))
+            cache_creation=$((cache_creation + cache_create))
+            cache_read=$((cache_read + cache_rd))
+            message_count=$((message_count + 1))
+        done < <(jq -r 'select(.message.usage != null)
+            | .message.usage
+            | "\(.input_tokens // 0),\(.output_tokens // 0),\(.cache_creation_input_tokens // 0),\(.cache_read_input_tokens // 0)"' "$file" 2>/dev/null)
     fi
-    
+
     echo "$input_total,$output_total,$message_count,$cache_creation,$cache_read"
 }
 
@@ -147,13 +146,15 @@ PRICING_CACHE="$HOME/.claude/model_pricing.json"
 
 # Canonical known prices (written on first run or if cache is missing)
 BUILTIN_PRICING='{
+  "claude-opus-4-6":   {"input":5.00,"cache_write":6.25,"cache_read":0.50,"output":25.00},
+  "claude-opus-4-5":   {"input":5.00,"cache_write":6.25,"cache_read":0.50,"output":25.00},
+  "claude-opus-4-1":   {"input":15.00,"cache_write":18.75,"cache_read":1.50,"output":75.00},
   "claude-opus-4":     {"input":15.00,"cache_write":18.75,"cache_read":1.50,"output":75.00},
-  "claude-opus-4-5":   {"input":15.00,"cache_write":18.75,"cache_read":1.50,"output":75.00},
-  "claude-sonnet-4":   {"input":3.00,"cache_write":3.75,"cache_read":0.30,"output":15.00},
-  "claude-sonnet-4-5": {"input":3.00,"cache_write":3.75,"cache_read":0.30,"output":15.00},
   "claude-sonnet-4-6": {"input":3.00,"cache_write":3.75,"cache_read":0.30,"output":15.00},
+  "claude-sonnet-4-5": {"input":3.00,"cache_write":3.75,"cache_read":0.30,"output":15.00},
+  "claude-sonnet-4":   {"input":3.00,"cache_write":3.75,"cache_read":0.30,"output":15.00},
+  "claude-haiku-4-5":  {"input":1.00,"cache_write":1.25,"cache_read":0.10,"output":5.00},
   "claude-haiku-4":    {"input":0.80,"cache_write":1.00,"cache_read":0.08,"output":4.00},
-  "claude-haiku-4-5":  {"input":0.80,"cache_write":1.00,"cache_read":0.08,"output":4.00},
   "claude-haiku-3-5":  {"input":0.80,"cache_write":1.00,"cache_read":0.08,"output":4.00},
   "claude-opus-3":     {"input":15.00,"cache_write":18.75,"cache_read":1.50,"output":75.00},
   "claude-sonnet-3-7": {"input":3.00,"cache_write":3.75,"cache_read":0.30,"output":15.00},
