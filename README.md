@@ -8,7 +8,6 @@
 - **Fish shell** — `dot_config/private_fish/`，包含 functions 和别名
 - **Ghostty** — `dot_config/ghostty/`，终端模拟器配置
 - **tmux** — `dot_tmux.conf`，使用 TPM 插件管理器，Nord 主题
-- **lf** — `dot_config/lf/`，文件管理器，含预览脚本
 - **starship** — `dot_config/starship.toml`，shell 提示符
 - **Git** — `dot_gitconfig.tmpl`，模板化配置，区分 macOS/Linux
 - **Claude Code** — `dot_claude/`，Claude Code 配置和状态栏脚本
