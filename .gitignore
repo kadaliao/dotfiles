@@ -46,5 +46,5 @@ venv/
 !.chezmoi-scripts/*.md
 !.chezmoi-scripts/*.txt
 
-# 🔐 允许 dot_claude 目录中的加密文件（由 chezmoi GPG 加密，内容安全）
-!dot_claude/*.asc
+# 🔐 允许 chezmoi 加密产物（由 GPG 加密，内容安全）
+!**/encrypted_*.asc
