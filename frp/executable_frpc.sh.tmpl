@@ -1,0 +1,435 @@
+#!/bin/bash
+# frpc 服务管理脚本
+#
+# 用法:
+#   ./frpc.sh start [qiniu|tx|all]
+#   ./frpc.sh stop [qiniu|tx|all]
+#   ./frpc.sh restart [qiniu|tx|all]
+#   ./frpc.sh status [qiniu|tx|all]
+#   ./frpc.sh logs [qiniu|tx] [行数]
+#   ./frpc.sh install-launchd [qiniu|tx|all]
+#   ./frpc.sh uninstall-launchd [qiniu|tx|all]
+#
+# 说明:
+#   qiniu: 共享公网 IP 服务器，使用 frpc-qiniu.toml 和 com.user.frpc-qiniu
+#   tx: tx 服务器，使用 frpc-tx.toml 和 com.user.frpc-tx
+
+set -u
+
+{{- $frp := include "frp/encrypted_machines.toml.asc" | decrypt | fromToml -}}
+{{- $machine := index $frp.machines .chezmoi.hostname -}}
+{{- if not $machine -}}
+{{- fail (printf "No FRP machine config for hostname %s. Add it to the encrypted FRP machine inventory" .chezmoi.hostname) -}}
+{{- end }}
+{{- $defaults := index $frp "defaults" -}}
+{{- $homeDir := index $machine "home_dir" | default (index $defaults "home_dir") -}}
+{{- $frpcBin := index $machine "frpc_bin" | default (index $defaults "frpc_bin") }}
+
+FRPC_BIN="{{ $frpcBin }}"
+HOME_DIR="{{ $homeDir }}"
+BASE_DIR="$HOME_DIR/frp"
+LAUNCHD_DOMAIN="gui/$(id -u)"
+DEFAULT_TARGET="all"
+ENABLED_TARGETS="{{ join " " $machine.enabled }}"
+
+usage() {
+    sed -n '3,19p' "$0"
+}
+
+target_conf() {
+    case "$1" in
+        qiniu) echo "$BASE_DIR/frpc-qiniu.toml" ;;
+        tx) echo "$BASE_DIR/frpc-tx.toml" ;;
+        *) return 1 ;;
+    esac
+}
+
+target_pid_file() {
+    case "$1" in
+        qiniu) echo "$BASE_DIR/frpc-qiniu.pid" ;;
+        tx) echo "$BASE_DIR/frpc-tx.pid" ;;
+        *) return 1 ;;
+    esac
+}
+
+target_log_file() {
+    case "$1" in
+        qiniu) echo "$BASE_DIR/frpc-qiniu.log" ;;
+        tx) echo "$BASE_DIR/frpc-tx.log" ;;
+        *) return 1 ;;
+    esac
+}
+
+target_err_log_file() {
+    case "$1" in
+        qiniu) echo "$BASE_DIR/frpc-qiniu.err.log" ;;
+        tx) echo "$BASE_DIR/frpc-tx.err.log" ;;
+        *) return 1 ;;
+    esac
+}
+
+target_label() {
+    case "$1" in
+        qiniu) echo "com.user.frpc-qiniu" ;;
+        tx) echo "com.user.frpc-tx" ;;
+        *) return 1 ;;
+    esac
+}
+
+target_display_name() {
+    case "$1" in
+        qiniu) echo "qiniu" ;;
+        tx) echo "tx" ;;
+        *) return 1 ;;
+    esac
+}
+
+target_plist() {
+    local label
+    label="$(target_label "$1")" || return 1
+    echo "$HOME_DIR/Library/LaunchAgents/${label}.plist"
+}
+
+target_service() {
+    local label
+    label="$(target_label "$1")" || return 1
+    echo "${LAUNCHD_DOMAIN}/${label}"
+}
+
+targets_for() {
+    case "${1:-$DEFAULT_TARGET}" in
+        qiniu) echo "qiniu" ;;
+        tx) echo "tx" ;;
+        all) echo "$ENABLED_TARGETS" ;;
+        *)
+            echo "未知目标: $1" >&2
+            usage >&2
+            return 1
+            ;;
+    esac
+}
+
+ensure_frpc_bin() {
+    if [ ! -x "$FRPC_BIN" ]; then
+        echo "找不到可执行 frpc: $FRPC_BIN" >&2
+        exit 1
+    fi
+}
+
+frpc_pids() {
+    local conf
+    conf="$(target_conf "$1")" || return 1
+    pgrep -f "$FRPC_BIN -c $conf" 2> /dev/null | sort -u || true
+}
+
+launchd_loaded() {
+    local service
+    service="$(target_service "$1")" || return 1
+    launchctl print "$service" > /dev/null 2>&1
+}
+
+launchd_pid() {
+    local service
+    service="$(target_service "$1")" || return 1
+    launchctl print "$service" 2> /dev/null | awk '/pid = / { print $3; exit }'
+}
+
+launchd_state() {
+    local service
+    service="$(target_service "$1")" || return 1
+    launchctl print "$service" 2> /dev/null | awk -F'= ' '/state = / { print $2; exit }'
+}
+
+dedupe_words() {
+    tr ' ' '\n' | sed '/^$/d' | sort -u | tr '\n' ' '
+}
+
+run_launchctl() {
+    local display_name
+
+    display_name="$1"
+    shift
+
+    if "$@"; then
+        return 0
+    fi
+
+    echo "${display_name}: launchctl 命令失败: $*" >&2
+    return 1
+}
+
+start_one() {
+    local target conf pid_file log_file err_log_file plist pids pid
+
+    target="$1"
+    conf="$(target_conf "$target")" || return 1
+    pid_file="$(target_pid_file "$target")" || return 1
+    log_file="$(target_log_file "$target")" || return 1
+    err_log_file="$(target_err_log_file "$target")" || return 1
+    plist="$(target_plist "$target")" || return 1
+
+    ensure_frpc_bin
+
+    if [ ! -f "$conf" ]; then
+        echo "$(target_display_name "$target"): 配置文件不存在: $conf" >&2
+        return 1
+    fi
+
+    if launchd_loaded "$target"; then
+        pid="$(launchd_pid "$target")"
+        pids="$(frpc_pids "$target" | tr '\n' ' ')"
+        if [ -n "$pid" ]; then
+            echo "$(target_display_name "$target"): 已通过 launchd 运行 (PID: $pid)"
+        elif [ -n "$pids" ]; then
+            echo "$(target_display_name "$target"): 已通过 launchd 运行 (PID: $pids)"
+        else
+            run_launchctl "$(target_display_name "$target")" launchctl kickstart "$(target_service "$target")" || return 1
+            echo "$(target_display_name "$target"): 已通过 launchd 启动"
+        fi
+        return 0
+    fi
+
+    if [ -f "$plist" ]; then
+        launchctl bootstrap "$LAUNCHD_DOMAIN" "$plist" > /dev/null 2>&1 || true
+        run_launchctl "$(target_display_name "$target")" launchctl kickstart "$(target_service "$target")" || return 1
+        echo "$(target_display_name "$target"): 已通过 launchd 启动"
+        return 0
+    fi
+
+    pids="$(frpc_pids "$target" | tr '\n' ' ')"
+    if [ -n "$pids" ]; then
+        echo "$(target_display_name "$target"): 已运行 (PID: $pids)"
+        return 0
+    fi
+
+    if [ -f "$pid_file" ]; then
+        pid="$(cat "$pid_file")"
+        if ps -p "$pid" > /dev/null 2>&1; then
+            echo "$(target_display_name "$target"): 已运行 (PID: $pid)"
+            return 0
+        fi
+        rm -f "$pid_file"
+    fi
+
+    nohup "$FRPC_BIN" -c "$conf" >> "$log_file" 2>> "$err_log_file" &
+    echo $! > "$pid_file"
+    echo "$(target_display_name "$target"): 已启动 (PID: $(cat "$pid_file"))"
+}
+
+stop_one() {
+    local target pid_file pids pid
+
+    target="$1"
+    pid_file="$(target_pid_file "$target")" || return 1
+
+    if launchd_loaded "$target"; then
+        launchctl bootout "$LAUNCHD_DOMAIN" "$(target_plist "$target")" > /dev/null 2>&1 || \
+            launchctl bootout "$(target_service "$target")" > /dev/null 2>&1 || true
+    fi
+
+    pids="$(frpc_pids "$target" | tr '\n' ' ')"
+
+    if [ -f "$pid_file" ]; then
+        pid="$(cat "$pid_file")"
+        if ps -p "$pid" > /dev/null 2>&1; then
+            pids="$pids $pid"
+        fi
+        rm -f "$pid_file"
+    fi
+
+    pids="$(printf "%s" "$pids" | dedupe_words)"
+    if [ -n "$pids" ]; then
+        kill $pids
+        echo "$(target_display_name "$target"): 已停止"
+    else
+        echo "$(target_display_name "$target"): 未运行"
+    fi
+}
+
+restart_one() {
+    local target plist
+
+    target="$1"
+    plist="$(target_plist "$target")" || return 1
+
+    if [ -f "$plist" ]; then
+        if ! launchd_loaded "$target"; then
+            launchctl bootstrap "$LAUNCHD_DOMAIN" "$plist" > /dev/null 2>&1 || true
+        fi
+        run_launchctl "$(target_display_name "$target")" launchctl kickstart -k "$(target_service "$target")" || return 1
+        echo "$(target_display_name "$target"): 已通过 launchd 重启"
+    else
+        stop_one "$target"
+        sleep 1
+        start_one "$target"
+    fi
+}
+
+status_one() {
+    local target pids pid_file pid loaded state
+
+    target="$1"
+    pid_file="$(target_pid_file "$target")" || return 1
+    loaded="manual"
+
+    if launchd_loaded "$target"; then
+        pid="$(launchd_pid "$target")"
+        state="$(launchd_state "$target")"
+        if [ -n "$pid" ]; then
+            echo "$(target_display_name "$target"): 运行中 (launchd, PID: $pid)"
+            return 0
+        fi
+        echo "$(target_display_name "$target"): launchd 已加载但未运行 (state: ${state:-unknown})"
+        return 1
+    fi
+
+    pids="$(frpc_pids "$target" | tr '\n' ' ')"
+
+    if [ -n "$pids" ]; then
+        echo "$(target_display_name "$target"): 运行中 ($loaded, PID: $pids)"
+        return 0
+    fi
+
+    if [ -f "$pid_file" ]; then
+        pid="$(cat "$pid_file")"
+        if ps -p "$pid" > /dev/null 2>&1; then
+            echo "$(target_display_name "$target"): 运行中 (pid-file, PID: $pid)"
+            return 0
+        fi
+    fi
+
+    echo "$(target_display_name "$target"): 未运行"
+    return 1
+}
+
+write_plist() {
+    local target conf label log_file err_log_file plist
+
+    target="$1"
+    conf="$(target_conf "$target")" || return 1
+    label="$(target_label "$target")" || return 1
+    log_file="$(target_log_file "$target")" || return 1
+    err_log_file="$(target_err_log_file "$target")" || return 1
+    plist="$(target_plist "$target")" || return 1
+
+    cat > "$plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>$label</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>$FRPC_BIN</string>
+        <string>-c</string>
+        <string>$conf</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>$BASE_DIR</string>
+    <key>StandardOutPath</key>
+    <string>$log_file</string>
+    <key>StandardErrorPath</key>
+    <string>$err_log_file</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
+PLIST
+}
+
+install_launchd_one() {
+    local target
+
+    target="$1"
+    write_plist "$target" || return 1
+    if launchd_loaded "$target"; then
+        launchctl bootout "$LAUNCHD_DOMAIN" "$(target_plist "$target")" > /dev/null 2>&1 || \
+            launchctl bootout "$(target_service "$target")" > /dev/null 2>&1 || true
+    fi
+    run_launchctl "$(target_display_name "$target")" launchctl bootstrap "$LAUNCHD_DOMAIN" "$(target_plist "$target")" || return 1
+    run_launchctl "$(target_display_name "$target")" launchctl kickstart "$(target_service "$target")" || return 1
+    echo "$(target_display_name "$target"): launchd 已安装并启动 ($(target_plist "$target"))"
+}
+
+uninstall_launchd_one() {
+    local target plist
+
+    target="$1"
+    plist="$(target_plist "$target")" || return 1
+    if launchd_loaded "$target"; then
+        launchctl bootout "$LAUNCHD_DOMAIN" "$plist" > /dev/null 2>&1 || \
+            launchctl bootout "$(target_service "$target")" > /dev/null 2>&1 || true
+    fi
+    rm -f "$plist"
+    echo "$(target_display_name "$target"): launchd 已卸载"
+}
+
+run_for_targets() {
+    local action target failed targets
+
+    action="$1"
+    targets="$(targets_for "${2:-$DEFAULT_TARGET}")" || return 1
+    failed=0
+
+    for target in $targets; do
+        "${action}_one" "$target" || failed=1
+    done
+
+    return "$failed"
+}
+
+show_logs() {
+    local target lines log_file err_log_file
+
+    target="${1:-qiniu}"
+    lines="${2:-80}"
+    if [ "$target" = "all" ]; then
+        echo "logs 命令请指定 qiniu 或 tx"
+        return 1
+    fi
+
+    target_conf "$target" > /dev/null || {
+        echo "未知目标: $target" >&2
+        return 1
+    }
+
+    log_file="$(target_log_file "$target")" || return 1
+    err_log_file="$(target_err_log_file "$target")" || return 1
+
+    echo "== $(target_display_name "$target") stdout: $log_file =="
+    if [ -f "$log_file" ]; then
+        tail -n "$lines" "$log_file"
+    else
+        echo "(没有日志文件)"
+    fi
+
+    echo
+    echo "== $(target_display_name "$target") stderr: $err_log_file =="
+    if [ -f "$err_log_file" ]; then
+        tail -n "$lines" "$err_log_file"
+    else
+        echo "(没有错误日志文件)"
+    fi
+}
+
+command="${1:-status}"
+target="${2:-$DEFAULT_TARGET}"
+
+case "$command" in
+    start) run_for_targets start "$target" ;;
+    stop) run_for_targets stop "$target" ;;
+    restart) run_for_targets restart "$target" ;;
+    status) run_for_targets status "$target" ;;
+    logs|tail) show_logs "${2:-qiniu}" "${3:-80}" ;;
+    install-launchd) run_for_targets install_launchd "$target" ;;
+    uninstall-launchd) run_for_targets uninstall_launchd "$target" ;;
+    help|-h|--help) usage ;;
+    *)
+        echo "未知命令: $command" >&2
+        usage >&2
+        exit 1
+        ;;
+esac

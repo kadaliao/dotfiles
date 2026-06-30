@@ -1,0 +1,23 @@
+.config/ranger/plugins
+
+# FRP runtime files are local state, not dotfiles.
+frp/*.log
+frp/*.err.log
+frp/*.pid
+
+{{- $frp := include "frp/encrypted_machines.toml.asc" | decrypt | fromToml -}}
+{{- $machine := index $frp.machines .chezmoi.hostname -}}
+{{- if $machine }}
+{{- if not (has "tx" $machine.enabled) }}
+frp/frpc-tx.toml
+Library/LaunchAgents/com.user.frpc-tx.plist
+{{- end }}
+{{- if not (has "qiniu" $machine.enabled) }}
+frp/frpc-qiniu.toml
+Library/LaunchAgents/com.user.frpc-qiniu.plist
+{{- end }}
+{{- else }}
+frp/frpc.sh
+frp/frpc-*.toml
+Library/LaunchAgents/com.user.frpc-*.plist
+{{- end }}
