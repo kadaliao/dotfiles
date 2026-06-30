@@ -8,6 +8,9 @@ encryption = "gpg"
     recipient = "C00057135DC3F491FD83847E62C4D5757BAD262B"
 
 [data]
+    # Set this locally on each machine before applying FRP templates.
+    # Example: frp_machine = "mbp16"
+    # Do not rely on .chezmoi.hostname; /etc/hosts and proxy tools can change it.
     # Personal git configuration (same for all machines)
     email = "kadaliao@gmail.com"
     gitname = "Kada Liao"

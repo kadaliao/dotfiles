@@ -16,10 +16,14 @@
 
 set -u
 
-{{- $frp := include "frp/encrypted_machines.toml.asc" | decrypt | fromToml -}}
-{{- $machine := index $frp.machines .chezmoi.hostname -}}
+{{- $frp := include "frp/encrypted_private_machines.toml.asc" | decrypt | fromToml -}}
+{{- $machineID := index . "frp_machine" | default "" -}}
+{{- if not $machineID -}}
+{{- fail "No frp_machine configured. Set frp_machine in ~/.config/chezmoi/chezmoi.toml [data] to one of frp/machines.toml machines." -}}
+{{- end -}}
+{{- $machine := index $frp.machines $machineID -}}
 {{- if not $machine -}}
-{{- fail (printf "No FRP machine config for hostname %s. Add it to the encrypted FRP machine inventory" .chezmoi.hostname) -}}
+{{- fail (printf "No FRP machine config for frp_machine %q. Add [machines.%s] to the encrypted FRP machine inventory." $machineID $machineID) -}}
 {{- end }}
 {{- $defaults := index $frp "defaults" -}}
 {{- $homeDir := index $machine "home_dir" | default (index $defaults "home_dir") -}}

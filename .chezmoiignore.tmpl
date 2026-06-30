@@ -5,8 +5,12 @@ frp/*.log
 frp/*.err.log
 frp/*.pid
 
-{{- $frp := include "frp/encrypted_machines.toml.asc" | decrypt | fromToml -}}
-{{- $machine := index $frp.machines .chezmoi.hostname -}}
+{{- $frp := include "frp/encrypted_private_machines.toml.asc" | decrypt | fromToml -}}
+{{- $machineID := index . "frp_machine" | default "" -}}
+{{- $machine := dict -}}
+{{- if $machineID }}
+{{- $machine = index $frp.machines $machineID | default dict -}}
+{{- end -}}
 {{- if $machine }}
 {{- if not (has "tx" $machine.enabled) }}
 frp/frpc-tx.toml
