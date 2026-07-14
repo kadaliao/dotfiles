@@ -45,3 +45,17 @@ customDomains = [
     "{{ $domain }}",
 {{- end }}
 ]
+{{- if and (hasKey $listeners "web2_port") (hasKey $endpoint "web2_domains") }}
+
+# Local web2 service.
+[[proxies]]
+name = "tx-{{ $label }}-web2-{{ $listeners.web2_port }}"
+type = "http"
+localIP = "127.0.0.1"
+localPort = {{ $listeners.web2_port }}
+customDomains = [
+{{- range $domain := $endpoint.web2_domains }}
+    "{{ $domain }}",
+{{- end }}
+]
+{{- end }}
