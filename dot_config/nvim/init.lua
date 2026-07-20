@@ -71,7 +71,15 @@ vim.diagnostic.config {
   underline = { severity = { min = vim.diagnostic.severity.WARN } },
   virtual_text = true,
   virtual_lines = false,
-  jump = { float = true },
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float {
+        bufnr = bufnr,
+        scope = 'cursor',
+        focus = false,
+      }
+    end,
+  },
 }
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -152,6 +160,16 @@ end
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
+
+local function format_buffer()
+  require('conform').format {
+    async = false,
+    timeout_ms = 3000,
+    lsp_format = 'fallback',
+  }
+end
+
+vim.api.nvim_create_user_command('Format', format_buffer, { desc = 'Format current buffer' })
 
 -- [[ Configure and install plugins ]]
 require('lazy').setup({
@@ -417,15 +435,14 @@ require('lazy').setup({
     end,
   },
 
-  -- Autoformat with conform
+  -- Manual formatting with conform
   {
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
       {
         '<leader>f',
-        function() require('conform').format { async = true, lsp_format = 'fallback' } end,
+        format_buffer,
         mode = '',
         desc = '[F]ormat buffer',
       },
@@ -434,14 +451,6 @@ require('lazy').setup({
     ---@type conform.setupOpts
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return { timeout_ms = 500, lsp_format = 'fallback' }
-        end
-      end,
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_format' },
@@ -710,6 +719,7 @@ require('lazy').setup({
   },
 
 }, { ---@diagnostic disable-line: missing-fields
+  rocks = { enabled = false },
   ui = {
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',

@@ -113,3 +113,9 @@ if type -q starship
     eval (starship init fish)
 end
 
+
+# Added by Devin
+fish_add_path /Users/liaoxingyi/.codeium/windsurf/bin
+
+# opencode
+fish_add_path /Users/liaoxingyi/.opencode/bin

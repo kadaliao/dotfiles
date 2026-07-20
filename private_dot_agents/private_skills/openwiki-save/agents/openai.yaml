@@ -1,0 +1,4 @@
+interface:
+  display_name: "Save to OpenWiki"
+  short_description: "Save durable session knowledge to OpenWiki"
+  default_prompt: "Use $openwiki-save to distill the current session and save its durable knowledge to my personal OpenWiki."
