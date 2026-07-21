@@ -53,6 +53,20 @@ localIP = "127.0.0.1"
 localPort = {{ $listeners.clash_auth_port }}
 remotePort = {{ $endpoint.clash_remote_port }}
 {{- end }}
+{{- if and (hasKey $listeners "multica_port") (hasKey $endpoint "multica_domains") }}
+
+# Multica self-host single-domain entrypoint.
+[[proxies]]
+name = "tx-{{ $label }}-multica-{{ $listeners.multica_port }}"
+type = "http"
+localIP = "127.0.0.1"
+localPort = {{ $listeners.multica_port }}
+customDomains = [
+{{- range $domain := $endpoint.multica_domains }}
+    "{{ $domain }}",
+{{- end }}
+]
+{{- end }}
 
 # Local web service.
 [[proxies]]
