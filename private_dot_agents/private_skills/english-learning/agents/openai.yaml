@@ -1,0 +1,4 @@
+interface:
+  display_name: "English Learning"
+  short_description: "Prompt polish for English learning."
+  default_prompt: "Use $english-learning to turn on English learning for this session."
