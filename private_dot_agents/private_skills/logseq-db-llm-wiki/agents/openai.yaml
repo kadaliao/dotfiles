@@ -1,0 +1,4 @@
+interface:
+  display_name: "维护 Logseq DB LLM Wiki"
+  short_description: "整理 Journal/Inbox 零碎记录，并维护带来源与附件的 LLM Wiki"
+  default_prompt: "使用 $logseq-db-llm-wiki 整理最近的 Journal/Inbox 内容，并把有价值的信息融入现有 LLM Wiki。"
