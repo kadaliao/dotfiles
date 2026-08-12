@@ -194,7 +194,8 @@ start_one() {
     fi
 
     if [ -f "$plist" ]; then
-        launchctl bootstrap "$LAUNCHD_DOMAIN" "$plist" > /dev/null 2>&1 || true
+        run_launchctl "$(target_display_name "$target")" launchctl enable "$(target_service "$target")" || return 1
+        run_launchctl "$(target_display_name "$target")" launchctl bootstrap "$LAUNCHD_DOMAIN" "$plist" || return 1
         run_launchctl "$(target_display_name "$target")" launchctl kickstart "$(target_service "$target")" || return 1
         echo "$(target_display_name "$target"): 已通过 launchd 启动"
         return 0
@@ -258,7 +259,8 @@ restart_one() {
 
     if [ -f "$plist" ]; then
         if ! launchd_loaded "$target"; then
-            launchctl bootstrap "$LAUNCHD_DOMAIN" "$plist" > /dev/null 2>&1 || true
+            run_launchctl "$(target_display_name "$target")" launchctl enable "$(target_service "$target")" || return 1
+            run_launchctl "$(target_display_name "$target")" launchctl bootstrap "$LAUNCHD_DOMAIN" "$plist" || return 1
         fi
         run_launchctl "$(target_display_name "$target")" launchctl kickstart -k "$(target_service "$target")" || return 1
         echo "$(target_display_name "$target"): 已通过 launchd 重启"
@@ -353,6 +355,7 @@ install_launchd_one() {
         launchctl bootout "$LAUNCHD_DOMAIN" "$(target_plist "$target")" > /dev/null 2>&1 || \
             launchctl bootout "$(target_service "$target")" > /dev/null 2>&1 || true
     fi
+    run_launchctl "$(target_display_name "$target")" launchctl enable "$(target_service "$target")" || return 1
     run_launchctl "$(target_display_name "$target")" launchctl bootstrap "$LAUNCHD_DOMAIN" "$(target_plist "$target")" || return 1
     run_launchctl "$(target_display_name "$target")" launchctl kickstart "$(target_service "$target")" || return 1
     echo "$(target_display_name "$target"): launchd 已安装并启动 ($(target_plist "$target"))"
