@@ -12,6 +12,7 @@
 - **Git** — `dot_gitconfig.tmpl`，模板化配置，区分 macOS/Linux
 - **Claude Code** — `dot_claude/`，Claude Code 配置和状态栏脚本
 - **SSH** — `private_dot_ssh/`，加密存储
+- **OpenList + rclone** — 两台 Mac 使用相同的夸克 WebDAV 与密文备份命令
 
 ## 前置依赖
 
@@ -93,3 +94,10 @@ chezmoi update
 ```bash
 chezmoi add --encrypt ~/.ssh/id_ed25519
 ```
+
+## OpenList 与 rclone
+
+`~/.config/rclone/rclone.conf` 使用 GPG 加密同步。OpenList 的初始数据库和
+配置同样加密，但仅在目标文件不存在时创建；后续运行状态不会被
+`chezmoi apply` 覆盖。安装、LaunchAgent 与常用命令见
+`openlist/README.md`。

@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+{{ if eq .chezmoi.os "darwin" -}}
+OPENLIST_HOME="{{ .chezmoi.homeDir }}/openlist"
+mkdir -p "$OPENLIST_HOME/bin" "$OPENLIST_HOME/data/log" "{{ .chezmoi.homeDir }}/.config/rclone"
+chmod 700 "$OPENLIST_HOME/bin" "$OPENLIST_HOME/data" "{{ .chezmoi.homeDir }}/.config/rclone"
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew is required to install OpenList and rclone" >&2
+  exit 1
+fi
+
+if [ ! -x "$OPENLIST_HOME/bin/openlist" ]; then
+  brew list openlist >/dev/null 2>&1 || brew install openlist
+  ln -sfn "$(brew --prefix)/bin/openlist" "$OPENLIST_HOME/bin/openlist"
+fi
+
+if ! command -v rclone >/dev/null 2>&1; then
+  brew install rclone
+fi
+{{ end -}}

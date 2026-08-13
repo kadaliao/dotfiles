@@ -48,3 +48,4 @@ venv/
 
 # 🔐 允许 chezmoi 加密产物（由 GPG 加密，内容安全）
 !**/encrypted_*.asc
+!**/*_encrypted_*.asc

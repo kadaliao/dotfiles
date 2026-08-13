@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+{{ if eq .chezmoi.os "darwin" -}}
+DOMAIN="gui/$(id -u)"
+LABEL="org.openlist.local"
+PLIST="{{ .chezmoi.homeDir }}/Library/LaunchAgents/$LABEL.plist"
+
+mkdir -p "{{ .chezmoi.homeDir }}/openlist/data/log"
+launchctl bootout "$DOMAIN/$LABEL" >/dev/null 2>&1 || true
+launchctl bootstrap "$DOMAIN" "$PLIST"
+launchctl kickstart -k "$DOMAIN/$LABEL"
+{{ end -}}
