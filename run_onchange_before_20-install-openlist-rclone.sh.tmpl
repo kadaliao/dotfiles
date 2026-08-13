@@ -1,7 +1,8 @@
 #!/bin/sh
 set -eu
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ $machineID := index . "frp_machine" | default "" -}}
+{{ if and (eq .chezmoi.os "darwin") (has $machineID (list "mbp16" "mm")) -}}
 OPENLIST_HOME="{{ .chezmoi.homeDir }}/openlist"
 mkdir -p "$OPENLIST_HOME/bin" "$OPENLIST_HOME/data/log" "{{ .chezmoi.homeDir }}/.config/rclone"
 chmod 700 "$OPENLIST_HOME/bin" "$OPENLIST_HOME/data" "{{ .chezmoi.homeDir }}/.config/rclone"
