@@ -67,7 +67,7 @@ scrollback-limit = 50000000
 
 # --- 光标 ---
 cursor-style = block
-cursor-style-blink = false
+cursor-style-blink = true
 
 # 鼠标隐藏（打字时自动隐藏鼠标）
 mouse-hide-while-typing = true
