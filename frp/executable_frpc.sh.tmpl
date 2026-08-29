@@ -2,16 +2,15 @@
 # frpc 服务管理脚本
 #
 # 用法:
-#   ./frpc.sh start [qiniu|tx|all]
-#   ./frpc.sh stop [qiniu|tx|all]
-#   ./frpc.sh restart [qiniu|tx|all]
-#   ./frpc.sh status [qiniu|tx|all]
-#   ./frpc.sh logs [qiniu|tx] [行数]
-#   ./frpc.sh install-launchd [qiniu|tx|all]
-#   ./frpc.sh uninstall-launchd [qiniu|tx|all]
+#   ./frpc.sh start [tx|all]
+#   ./frpc.sh stop [tx|all]
+#   ./frpc.sh restart [tx|all]
+#   ./frpc.sh status [tx|all]
+#   ./frpc.sh logs [tx] [行数]
+#   ./frpc.sh install-launchd [tx|all]
+#   ./frpc.sh uninstall-launchd [tx|all]
 #
 # 说明:
-#   qiniu: 共享公网 IP 服务器，使用 frpc-qiniu.toml 和 com.user.frpc-qiniu
 #   tx: tx 服务器，使用 frpc-tx.toml 和 com.user.frpc-tx
 
 set -u
@@ -33,8 +32,8 @@ FRPC_BIN="{{ $frpcBin }}"
 HOME_DIR="{{ $homeDir }}"
 BASE_DIR="$HOME_DIR/frp"
 LAUNCHD_DOMAIN="gui/$(id -u)"
-DEFAULT_TARGET="all"
-ENABLED_TARGETS="{{ join " " $machine.enabled }}"
+DEFAULT_TARGET="tx"
+ENABLED_TARGETS="tx"
 
 usage() {
     sed -n '3,19p' "$0"
@@ -42,7 +41,6 @@ usage() {
 
 target_conf() {
     case "$1" in
-        qiniu) echo "$BASE_DIR/frpc-qiniu.toml" ;;
         tx) echo "$BASE_DIR/frpc-tx.toml" ;;
         *) return 1 ;;
     esac
@@ -50,7 +48,6 @@ target_conf() {
 
 target_pid_file() {
     case "$1" in
-        qiniu) echo "$BASE_DIR/frpc-qiniu.pid" ;;
         tx) echo "$BASE_DIR/frpc-tx.pid" ;;
         *) return 1 ;;
     esac
@@ -58,7 +55,6 @@ target_pid_file() {
 
 target_log_file() {
     case "$1" in
-        qiniu) echo "$BASE_DIR/frpc-qiniu.log" ;;
         tx) echo "$BASE_DIR/frpc-tx.log" ;;
         *) return 1 ;;
     esac
@@ -66,7 +62,6 @@ target_log_file() {
 
 target_err_log_file() {
     case "$1" in
-        qiniu) echo "$BASE_DIR/frpc-qiniu.err.log" ;;
         tx) echo "$BASE_DIR/frpc-tx.err.log" ;;
         *) return 1 ;;
     esac
@@ -74,7 +69,6 @@ target_err_log_file() {
 
 target_label() {
     case "$1" in
-        qiniu) echo "com.user.frpc-qiniu" ;;
         tx) echo "com.user.frpc-tx" ;;
         *) return 1 ;;
     esac
@@ -82,7 +76,6 @@ target_label() {
 
 target_display_name() {
     case "$1" in
-        qiniu) echo "qiniu" ;;
         tx) echo "tx" ;;
         *) return 1 ;;
     esac
@@ -102,7 +95,6 @@ target_service() {
 
 targets_for() {
     case "${1:-$DEFAULT_TARGET}" in
-        qiniu) echo "qiniu" ;;
         tx) echo "tx" ;;
         all) echo "$ENABLED_TARGETS" ;;
         *)
@@ -391,10 +383,10 @@ run_for_targets() {
 show_logs() {
     local target lines log_file err_log_file
 
-    target="${1:-qiniu}"
+    target="${1:-tx}"
     lines="${2:-80}"
     if [ "$target" = "all" ]; then
-        echo "logs 命令请指定 qiniu 或 tx"
+        echo "logs 命令请指定 tx"
         return 1
     fi
 
@@ -430,7 +422,7 @@ case "$command" in
     stop) run_for_targets stop "$target" ;;
     restart) run_for_targets restart "$target" ;;
     status) run_for_targets status "$target" ;;
-    logs|tail) show_logs "${2:-qiniu}" "${3:-80}" ;;
+    logs|tail) show_logs "${2:-tx}" "${3:-80}" ;;
     install-launchd) run_for_targets install_launchd "$target" ;;
     uninstall-launchd) run_for_targets uninstall_launchd "$target" ;;
     help|-h|--help) usage ;;

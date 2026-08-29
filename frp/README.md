@@ -16,19 +16,12 @@ chezmoi edit ~/frp/machines.toml
     frp_machine = "mbp16"
 ```
 
-秘密也只放本机的 `~/.config/chezmoi/chezmoi.toml`：
-
-```toml
-[data.frp_secrets.machines.<frp_machine>.endpoints.qiniu]
-auth_token = "..."
-```
-
-常用命令：
+当前只保留 `tx` 线路。常用命令：
 
 ```bash
 ~/frp/frpc.sh status all
 ~/frp/frpc.sh restart tx
-~/frp/frpc.sh logs qiniu 80
+~/frp/frpc.sh logs tx 80
 ```
 
 加一台新电脑：
@@ -43,7 +36,7 @@ auth_token = "..."
 
 ```bash
 chezmoi diff ~/frp
-chezmoi apply ~/frp ~/Library/LaunchAgents/com.user.frpc-tx.plist ~/Library/LaunchAgents/com.user.frpc-qiniu.plist
+chezmoi apply ~/frp ~/Library/LaunchAgents/com.user.frpc-tx.plist
 ~/frp/frpc.sh install-launchd all
 ```
 
