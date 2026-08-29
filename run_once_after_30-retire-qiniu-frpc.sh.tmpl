@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ "$(uname -s)" != "Darwin" ]; then
+    exit 0
+fi
+
+qiniu_paths=(
+    "frp/frpc-qiniu.toml"
+    "frp/frpc-qiniu.log"
+    "frp/frpc-qiniu.err.log"
+    "frp/frpc-qiniu.pid"
+    "frp/server/qiniu"
+    "Library/LaunchAgents/com.user.frpc-qiniu.plist"
+)
+existing_paths=()
+
+for path in "${qiniu_paths[@]}"; do
+    if [ -e "$HOME/$path" ]; then
+        existing_paths+=("$path")
+    fi
+done
+
+if [ "${#existing_paths[@]}" -eq 0 ]; then
+    exit 0
+fi
+
+timestamp=$(date -u +%Y%m%dT%H%M%SZ)
+backup="$HOME/frp/qiniu-uninstall-backup-$timestamp.tar.gz"
+tar -C "$HOME" -czf "$backup" "${existing_paths[@]}"
+chmod 600 "$backup"
+
+uid=$(id -u)
+plist="$HOME/Library/LaunchAgents/com.user.frpc-qiniu.plist"
+launchctl bootout "gui/$uid" "$plist" >/dev/null 2>&1 || \
+    launchctl bootout "gui/$uid/com.user.frpc-qiniu" >/dev/null 2>&1 || true
+
+rm -f \
+    "$HOME/frp/frpc-qiniu.toml" \
+    "$HOME/frp/frpc-qiniu.log" \
+    "$HOME/frp/frpc-qiniu.err.log" \
+    "$HOME/frp/frpc-qiniu.pid" \
+    "$plist"
+rm -rf "$HOME/frp/server/qiniu"
+
+echo "Retired qiniu frpc profile; backup: $backup"
