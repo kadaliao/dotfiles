@@ -2,13 +2,28 @@
 set -eu
 
 runtime_dir="${DSH_RUNTIME_DIR:-$HOME/.local/share/dsh}"
+required_pnpm="11.24.0"
 
 if command -v pnpm >/dev/null 2>&1; then
   pnpm_bin=$(command -v pnpm)
-  pnpm_mode=standalone
+  case "$($pnpm_bin --version 2>/dev/null || true)" in
+    11.*) pnpm_mode=standalone ;;
+    *)
+      if command -v npm >/dev/null 2>&1; then
+        npm_bin=$(command -v npm)
+        pnpm_mode=npm_exec
+      else
+        echo "dsh-update: pnpm $required_pnpm is required, but npm is unavailable" >&2
+        exit 1
+      fi
+      ;;
+  esac
 elif command -v corepack >/dev/null 2>&1; then
   corepack_bin=$(command -v corepack)
   pnpm_mode=corepack
+elif command -v npm >/dev/null 2>&1; then
+  npm_bin=$(command -v npm)
+  pnpm_mode=npm_exec
 else
   node_bin="${DSH_NODE_BIN:-}"
   if [ -z "$node_bin" ] || [ ! -x "$node_bin" ]; then
@@ -37,6 +52,9 @@ fi
 if [ "$pnpm_mode" = standalone ]; then
   "$pnpm_bin" update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
   "$pnpm_bin" rebuild --dir "$runtime_dir" --reporter=append-only
+elif [ "$pnpm_mode" = npm_exec ]; then
+  "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
+  "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm rebuild --dir "$runtime_dir" --reporter=append-only
 else
   "$corepack_bin" pnpm update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
   "$corepack_bin" pnpm rebuild --dir "$runtime_dir" --reporter=append-only
