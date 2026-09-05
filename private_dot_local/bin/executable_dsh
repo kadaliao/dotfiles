@@ -1,0 +1,36 @@
+#!/bin/sh
+set -eu
+
+runtime_dir="${DSH_RUNTIME_DIR:-$HOME/.local/share/dsh}"
+
+if [ -n "${DSH_NODE_BIN:-}" ] && [ -x "$DSH_NODE_BIN" ]; then
+  node_bin="$DSH_NODE_BIN"
+elif command -v node >/dev/null 2>&1; then
+  node_bin=$(command -v node)
+else
+  node_bin=$(find "$HOME/.local/share/fnm/node-versions" -type f -path '*/installation/bin/node' -perm -111 2>/dev/null | sort -r | head -n 1 || true)
+fi
+
+if [ -z "${node_bin:-}" ] || [ ! -x "$node_bin" ]; then
+  echo "dsh: no Node.js runtime found; set DSH_NODE_BIN or activate Node.js" >&2
+  exit 1
+fi
+
+entrypoint="$runtime_dir/node_modules/@deepseek-ai/dsh/lib/bin.js"
+if [ ! -f "$entrypoint" ]; then
+  echo "dsh: runtime is not installed at $runtime_dir; run dsh-update first" >&2
+  exit 1
+fi
+
+if [ -z "${NODE_EXTRA_CA_CERTS+x}" ]; then
+  for cert in \
+    "$HOME/.dsh/certs/douban-root-ca-2024.pem" \
+    "$HOME/.local/share/ca-certificates/douban-root-ca-2024.pem"; do
+    if [ -f "$cert" ]; then
+      export NODE_EXTRA_CA_CERTS="$cert"
+      break
+    fi
+  done
+fi
+
+exec "$node_bin" "$entrypoint" "$@"

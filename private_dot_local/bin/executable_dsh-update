@@ -1,0 +1,43 @@
+#!/bin/sh
+set -eu
+
+runtime_dir="${DSH_RUNTIME_DIR:-$HOME/.local/share/dsh}"
+
+if command -v pnpm >/dev/null 2>&1; then
+  pnpm_bin=$(command -v pnpm)
+  pnpm_mode=standalone
+elif command -v corepack >/dev/null 2>&1; then
+  corepack_bin=$(command -v corepack)
+  pnpm_mode=corepack
+else
+  node_bin="${DSH_NODE_BIN:-}"
+  if [ -z "$node_bin" ] || [ ! -x "$node_bin" ]; then
+    node_bin=$(command -v node 2>/dev/null || true)
+  fi
+  if [ -z "${node_bin:-}" ] || [ ! -x "$node_bin" ]; then
+    node_bin=$(find "$HOME/.local/share/fnm/node-versions" -type f -path '*/installation/bin/node' -perm -111 2>/dev/null | sort -r | head -n 1 || true)
+  fi
+  if [ -z "${node_bin:-}" ] || [ ! -x "$node_bin" ]; then
+    echo "dsh-update: no Node.js runtime found; set DSH_NODE_BIN or activate Node.js" >&2
+    exit 1
+  fi
+  corepack_bin=$(dirname "$node_bin")/corepack
+  if [ ! -x "$corepack_bin" ]; then
+    echo "dsh-update: pnpm/corepack not found" >&2
+    exit 1
+  fi
+  pnpm_mode=corepack
+fi
+
+if [ ! -f "$runtime_dir/package.json" ]; then
+  echo "dsh-update: package metadata is missing at $runtime_dir" >&2
+  exit 1
+fi
+
+if [ "$pnpm_mode" = standalone ]; then
+  "$pnpm_bin" update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
+  "$pnpm_bin" rebuild --dir "$runtime_dir" --reporter=append-only
+else
+  "$corepack_bin" pnpm update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
+  "$corepack_bin" pnpm rebuild --dir "$runtime_dir" --reporter=append-only
+fi
