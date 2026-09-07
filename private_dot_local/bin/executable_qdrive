@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# quarkclouddrive launcher (pi)
+# 让夸克 CLI 以 codex 渠道运行，从而在 pi 环境下也可用。
+# 本脚本只负责注入 CODEX_ENV=1 并转发参数，不改动任何默认命令/文件。
+# 位于 ~/.local/bin，不受 skill 目录 install.sh 更新影响。
+export CODEX_ENV=1
+exec node "$HOME/.agents/skills/quarkclouddrive/scripts/quark-drive.cjs" "$@"
