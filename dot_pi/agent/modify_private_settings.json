@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+import json,sys
+x=json.load(sys.stdin)
+x.update(defaultProvider="oneapi",defaultModel="deepseek-v4-flash-vision-exp")
+print(json.dumps(x,ensure_ascii=False,indent=2))

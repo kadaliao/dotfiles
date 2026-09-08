@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+import sys,yaml
+x=yaml.safe_load(sys.stdin) or {}
+x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-v4-flash-vision-exp"}
+p=x.setdefault("llm-pi-ai",{}).setdefault("providers",{})
+one=p.setdefault("douban-oneapi",{})
+one.update(displayName="Douban OneAPI",apiKeyEnv="DOUBAN_ONEAPI_API_KEY",api="openai-completions",baseURL="https://oneapi.sapps.douban/v1")
+models=one.setdefault("models",[])
+model=next((v for v in models if v["id"]=="deepseek-v4-flash-vision-exp"),None)
+if model is None:
+ model={"id":"deepseek-v4-flash-vision-exp"};models.append(model)
+model.update(name="DeepSeek V4 Flash Vision Exp",input=["text","image"],contextWindow=1000000)
+print(yaml.safe_dump(x,allow_unicode=True,sort_keys=False),end="")
