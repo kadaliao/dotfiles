@@ -5,15 +5,18 @@ x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-flash"}
 p=x.setdefault("llm-pi-ai",{}).setdefault("providers",{})
 one=p.setdefault("douban-oneapi",{})
 one.update(displayName="Douban OneAPI",apiKeyEnv="DOUBAN_ONEAPI_API_KEY",api="openai-completions",baseURL="https://oneapi.sapps.douban/v1")
+one.setdefault("compat",{})["supportsDeveloperRole"]=False
 models=one.setdefault("models",[])
-model=next((v for v in models if v["id"]=="deepseek-v4-flash-vision-exp"),None)
-if model is None:
- model={"id":"deepseek-v4-flash-vision-exp"};models.append(model)
-model.update(name="DeepSeek V4 Flash Vision Exp",input=["text","image"],contextWindow=1000000)
-flash=next((v for v in models if v["id"]=="deepseek-flash"),None)
-if flash is None:
- flash={"id":"deepseek-flash"};models.insert(0,flash)
-flash.update(name="DeepSeek Flash",input=["text","image"],contextWindow=1000000,maxTokens=393216)
+def upsert(mid,name,image=False):
+ e=next((v for v in models if v["id"]==mid),None)
+ if e is None:
+  e={"id":mid};models.append(e)
+ e.update(name=name,contextWindow=1000000,maxTokens=384000,reasoningEfforts={"low":"low","high":"high","max":"max"})
+ if image: e["input"]=["text","image"]
+upsert("deepseek-flash","DeepSeek Flash",True)
+upsert("deepseek-v4-flash","DeepSeek V4 Flash")
+upsert("deepseek-v4-flash-vision-exp","DeepSeek V4 Flash Vision Exp",True)
+upsert("deepseek-v4-pro","DeepSeek V4 Pro")
 sel=x.get("subagent-model-selection")
 if isinstance(sel,dict):
  allowed=sel.setdefault("allowedModels",[])
