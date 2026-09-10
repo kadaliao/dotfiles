@@ -3,5 +3,5 @@ import sys,yaml
 x=yaml.safe_load(sys.stdin) or {}
 r=x.setdefault("modelRoles",{})
 for role in set(r)|{"default","plan"}:
- r[role]="oneapi/deepseek-v4-flash-vision-exp:high"
+ r[role]="oneapi/deepseek-flash:high"
 print(yaml.safe_dump(x,allow_unicode=True,sort_keys=False),end="")

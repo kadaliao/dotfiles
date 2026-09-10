@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys,yaml
 x=yaml.safe_load(sys.stdin) or {}
-x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-v4-flash-vision-exp"}
+x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-flash"}
 p=x.setdefault("llm-pi-ai",{}).setdefault("providers",{})
 one=p.setdefault("douban-oneapi",{})
 one.update(displayName="Douban OneAPI",apiKeyEnv="DOUBAN_ONEAPI_API_KEY",api="openai-completions",baseURL="https://oneapi.sapps.douban/v1")
@@ -10,4 +10,13 @@ model=next((v for v in models if v["id"]=="deepseek-v4-flash-vision-exp"),None)
 if model is None:
  model={"id":"deepseek-v4-flash-vision-exp"};models.append(model)
 model.update(name="DeepSeek V4 Flash Vision Exp",input=["text","image"],contextWindow=1000000)
+flash=next((v for v in models if v["id"]=="deepseek-flash"),None)
+if flash is None:
+ flash={"id":"deepseek-flash"};models.insert(0,flash)
+flash.update(name="DeepSeek Flash",input=["text","image"],contextWindow=1000000,maxTokens=393216)
+sel=x.get("subagent-model-selection")
+if isinstance(sel,dict):
+ allowed=sel.setdefault("allowedModels",[])
+ if not any(v.get("provider")=="douban-oneapi" and v.get("model")=="deepseek-flash" for v in allowed if isinstance(v,dict)):
+  allowed.insert(0,{"provider":"douban-oneapi","model":"deepseek-flash"})
 print(yaml.safe_dump(x,allow_unicode=True,sort_keys=False),end="")
