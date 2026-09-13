@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill with Docs"
+  short_description: "Interview a repo and record settled terms"
+  default_prompt: "Use $grill-with-docs to interview me about this repository change, writing resolved terms to CONTEXT.md and qualifying decisions to ADRs."
