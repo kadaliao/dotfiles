@@ -44,12 +44,16 @@ else
   pnpm_mode=corepack
 fi
 
+# Allow build scripts: pnpm 11 exits non-zero (ERR_PNPM_IGNORED_BUILDS) when
+# native deps (node-pty, koffi, protobufjs, ...) are not approved, which breaks
+# `set -e` and skips their prebuilt binaries. This runtime only ever installs
+# @deepseek-ai/dsh and its transitive deps, so allowing builds here is safe.
 if [ "$pnpm_mode" = standalone ]; then
-  pnpm_cmd() { "$pnpm_bin" "$@"; }
+  pnpm_cmd() { "$pnpm_bin" --config.dangerouslyAllowAllBuilds=true "$@"; }
 elif [ "$pnpm_mode" = npm_exec ]; then
-  pnpm_cmd() { "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm "$@"; }
+  pnpm_cmd() { "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm --config.dangerouslyAllowAllBuilds=true "$@"; }
 else
-  pnpm_cmd() { "$corepack_bin" pnpm "$@"; }
+  pnpm_cmd() { "$corepack_bin" pnpm --config.dangerouslyAllowAllBuilds=true "$@"; }
 fi
 
 mkdir -p "$runtime_dir"
