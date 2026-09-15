@@ -47,6 +47,9 @@ frp/*.log
 frp/*.err.log
 frp/*.pid
 
+# dsh runtime is self-managed (dsh-update bootstraps and updates it).
+.local/share/dsh/**
+
 {{- $machineID := index . "frp_machine" | default "" -}}
 {{- if not (has $machineID (list "mbp16" "mm")) }}
 .config/rclone

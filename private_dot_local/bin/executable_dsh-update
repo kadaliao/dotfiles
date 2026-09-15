@@ -44,18 +44,35 @@ else
   pnpm_mode=corepack
 fi
 
-if [ ! -f "$runtime_dir/package.json" ]; then
-  echo "dsh-update: package metadata is missing at $runtime_dir" >&2
-  exit 1
+if [ "$pnpm_mode" = standalone ]; then
+  pnpm_cmd() { "$pnpm_bin" "$@"; }
+elif [ "$pnpm_mode" = npm_exec ]; then
+  pnpm_cmd() { "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm "$@"; }
+else
+  pnpm_cmd() { "$corepack_bin" pnpm "$@"; }
 fi
 
-if [ "$pnpm_mode" = standalone ]; then
-  "$pnpm_bin" update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
-  "$pnpm_bin" rebuild --dir "$runtime_dir" --reporter=append-only
-elif [ "$pnpm_mode" = npm_exec ]; then
-  "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
-  "$npm_bin" exec --yes --package="pnpm@$required_pnpm" -- pnpm rebuild --dir "$runtime_dir" --reporter=append-only
-else
-  "$corepack_bin" pnpm update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
-  "$corepack_bin" pnpm rebuild --dir "$runtime_dir" --reporter=append-only
+mkdir -p "$runtime_dir"
+
+# The runtime is self-managed: chezmoi does not pin the dsh version.
+# Bootstrap a minimal package.json on first use, then always resolve latest.
+if [ ! -f "$runtime_dir/package.json" ]; then
+  cat > "$runtime_dir/package.json" <<EOF
+{
+  "name": "local-dsh-runtime",
+  "private": true,
+  "packageManager": "pnpm@$required_pnpm",
+  "dependencies": {
+    "@deepseek-ai/dsh": "latest"
+  }
+}
+EOF
+  echo "dsh-update: bootstrapped $runtime_dir/package.json" >&2
 fi
+
+if [ -f "$runtime_dir/pnpm-lock.yaml" ]; then
+  pnpm_cmd update --dir "$runtime_dir" --prod --latest '@deepseek-ai/dsh'
+else
+  pnpm_cmd install --dir "$runtime_dir" --prod
+fi
+pnpm_cmd rebuild --dir "$runtime_dir" --reporter=append-only
