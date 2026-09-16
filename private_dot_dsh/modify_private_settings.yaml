@@ -19,8 +19,13 @@ _ensure_yaml()
 
 import yaml
 
+# 块序列同样缩进 2 空格，与 DSH 自己写出的 YAML 保持一致；否则每次 apply 都会整篇重排
+class _IndentDumper(yaml.SafeDumper):
+ def increase_indent(self, flow=False, indentless=False):
+  return super().increase_indent(flow, False)
+
 x=yaml.safe_load(sys.stdin) or {}
-x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-flash"}
+x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-v4-flash-vision-exp"}
 p=x.setdefault("llm-pi-ai",{}).setdefault("providers",{})
 one=p.setdefault("douban-oneapi",{})
 one.update(displayName="Douban OneAPI",apiKeyEnv="DOUBAN_ONEAPI_API_KEY",api="openai-completions",baseURL="https://oneapi.sapps.douban/v1")
@@ -41,4 +46,4 @@ if isinstance(sel,dict):
  allowed=sel.setdefault("allowedModels",[])
  if not any(v.get("provider")=="douban-oneapi" and v.get("model")=="deepseek-flash" for v in allowed if isinstance(v,dict)):
   allowed.insert(0,{"provider":"douban-oneapi","model":"deepseek-flash"})
-print(yaml.safe_dump(x,allow_unicode=True,sort_keys=False),end="")
+print(yaml.dump(x,Dumper=_IndentDumper,allow_unicode=True,sort_keys=False),end="")
