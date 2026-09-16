@@ -28,3 +28,13 @@
 {{- if .is_macos }}
 	templatedir = {{ .chezmoi.homeDir }}/.git-templates
 {{- end }}
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = {{ .chezmoi.homeDir }}/.gitconfig-github
+[includeIf "hasconfig:remote.*.url:http://github.com/**"]
+	path = {{ .chezmoi.homeDir }}/.gitconfig-github
+[includeIf "hasconfig:remote.*.url:ssh://git@github.com/**"]
+	path = {{ .chezmoi.homeDir }}/.gitconfig-github
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+	path = {{ .chezmoi.homeDir }}/.gitconfig-github
+[includeIf "hasconfig:remote.*.url:https://*@github.com/**"]
+	path = {{ .chezmoi.homeDir }}/.gitconfig-github

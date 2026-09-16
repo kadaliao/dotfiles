@@ -1,5 +1,24 @@
 #!/usr/bin/env python3
-import sys,yaml
+import os
+import sys
+
+# Make PyYAML available no matter which `python3` is first in PATH.
+def _ensure_yaml():
+    try:
+        import yaml  # noqa: F401
+    except ImportError:
+        import subprocess
+        venv = os.path.expanduser("~/.cache/chezmoi/yaml-venv")
+        py = os.path.join(venv, "bin", "python3")
+        if not os.path.isfile(py):
+            subprocess.run([sys.executable, "-m", "venv", "--clear", venv], check=True)
+            subprocess.run([py, "-m", "pip", "install", "--disable-pip-version-check", "--quiet", "PyYAML"], check=True)
+        os.execv(py, [py, sys.argv[0]])
+
+_ensure_yaml()
+
+import yaml
+
 x=yaml.safe_load(sys.stdin) or {}
 x["agent-default-model"]={"provider":"douban-oneapi","model":"deepseek-flash"}
 p=x.setdefault("llm-pi-ai",{}).setdefault("providers",{})

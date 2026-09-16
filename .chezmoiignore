@@ -4,6 +4,11 @@
 .agents/skills/**/__pycache__
 .agents/skills/**/__pycache__/**
 .agents/skills/**/*.py[co]
+
+# Python bytecode caches anywhere in the source tree.
+__pycache__/
+**/__pycache__/**
+*.py[co]
 .agents/skills/**/.pytest_cache
 .agents/skills/**/.pytest_cache/**
 .agents/skills/**/.mypy_cache
