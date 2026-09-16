@@ -119,3 +119,6 @@ fish_add_path /Users/liaoxingyi/.codeium/windsurf/bin
 
 # opencode
 fish_add_path /Users/liaoxingyi/.opencode/bin
+
+# libtv-cli: PATH (install-libtv-cli.sh)
+fish_add_path "$HOME/.libtv"
