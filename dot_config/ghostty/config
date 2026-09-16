@@ -3,12 +3,10 @@
 # ===========================
 
 # --- 外观 ---
-# 主题跟随系统深色模式自动切换
-# theme = light:Catppuccin Latte,dark:Catppuccin Mocha
-theme = Catppuccin Mocha
+theme = 0x96f
 
 # 背景透明度（0.0 ~ 1.0）
-background-opacity = 0.88
+#background-opacity = 0.88
 
 # 背景模糊（配合透明度使用，毛玻璃效果）
 background-blur = 20
