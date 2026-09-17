@@ -122,3 +122,7 @@ fish_add_path /Users/liaoxingyi/.opencode/bin
 
 # libtv-cli: PATH (install-libtv-cli.sh)
 fish_add_path "$HOME/.libtv"
+
+# >>> grok installer >>>
+fish_add_path $HOME/.grok/bin
+# <<< grok installer <<<
