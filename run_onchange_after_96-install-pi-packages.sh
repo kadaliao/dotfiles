@@ -28,7 +28,6 @@ npm:pi-lens
 npm:@plannotator/pi-extension
 npm:pi-mcp-adapter
 npm:@juicesharp/rpiv-ask-user-question
-npm:pi-agent-browser-native
 npm:pi-arcade-games
 npm:@zhushanwen/pi-pending-notifications@0.7.2
 npm:pi-herdr-agents
