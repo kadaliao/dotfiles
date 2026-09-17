@@ -1,0 +1,28 @@
+onboarding = false
+
+[ui]
+status_indicators = "symbols"
+
+[ui.toast]
+delivery = "herdr"
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+# 侧栏 Space 行加上编号（$idx 由 plugin local.space-index 实时上报，
+# 与 switch_workspace = prefix+shift+1..9 的编号一致）。
+# rows 是「整体替换」而不是追加，所以这里把默认两行也写全。
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  ["$idx", "state_icon", "workspace"],
+  ["branch", "git_status"],
+]
+
+[keys]
+# 上下切换 workspace（用方向键，不碰默认的 focus_pane_down/up = prefix+j/k）
+next_workspace = "prefix+down"
+previous_workspace = "prefix+up"
+# ctrl+b 之后按 shift+1..9 跳到第 N 个 workspace（侧边栏序号）
+switch_workspace = "prefix+shift+1..9"
