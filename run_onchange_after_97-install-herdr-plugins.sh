@@ -47,12 +47,10 @@ if [ -z "$HERDR_BIN" ]; then
     exit 0
 fi
 
-# Installing a plugin goes through the running server's socket API.
-if ! "$HERDR_BIN" status server >/dev/null 2>&1; then
-    echo "herdr server is not running; skipping herdr plugin bootstrap." >&2
-    echo "Start herdr once, then re-run with: chezmoi state delete-bucket --bucket=scriptState && chezmoi apply" >&2
-    exit 0
-fi
+# Installing a plugin writes ~/.config/herdr/plugins.json directly, so it works
+# with no server running. `herdr status server` also exits 0 either way, which
+# is why this script does not gate on a server: chezmoi apply can bootstrap the
+# plugin before herdr was ever started on the machine.
 
 installed_herdr_plugins() {
     "$HERDR_BIN" plugin list 2>/dev/null | sed -n 's/^- \([^ ][^ ]*\) .*/\1/p'
