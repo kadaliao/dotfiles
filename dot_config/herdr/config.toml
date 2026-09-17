@@ -10,7 +10,7 @@ delivery = "herdr"
 name = "terminal"
 auto_switch = false
 
-# 侧栏 Space 行加上编号（$idx 由 plugin local.space-index 实时上报，
+# 侧栏 Space 行加上编号（$idx 由 herdr-space-index 插件上报，
 # 与 switch_workspace = prefix+shift+1..9 的编号一致）。
 # rows 是「整体替换」而不是追加，所以这里把默认两行也写全。
 [ui.sidebar.spaces]
