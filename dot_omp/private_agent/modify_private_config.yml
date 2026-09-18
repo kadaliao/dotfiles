@@ -1,8 +1,23 @@
 #!/usr/bin/env python3
-import sys,yaml
-x=yaml.safe_load(sys.stdin) or {}
-r=x.setdefault("modelRoles",{})
-for role in set(r)|{"default","plan"}:
- r[role]="oneapi/deepseek-flash:high"
-r["vision"]="oneapi/deepseek-v4-flash-vision-exp:high"
-print(yaml.safe_dump(x,allow_unicode=True,sort_keys=False),end="")
+# Forced model roles. Re-dumps YAML with the same style omp writes so the
+# rendered file is byte-identical to what omp leaves behind (no drift).
+import sys, yaml
+
+src = sys.stdin.read()
+x = yaml.safe_load(src) or {}
+r = x.setdefault("modelRoles", {})
+for role in set(r) | {"default", "plan"}:
+    r[role] = "oneapi/deepseek-flash:high"
+r["vision"] = "oneapi/deepseek-flash:high"
+
+
+class D(yaml.SafeDumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super().increase_indent(flow, False)
+
+
+out = yaml.dump(x, Dumper=D, allow_unicode=True, sort_keys=False,
+                indent=2, default_flow_style=False)
+if not src.endswith("\n"):
+    out = out.rstrip("\n")
+sys.stdout.write(out)
