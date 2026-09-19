@@ -52,3 +52,5 @@ Official sources: https://github.com/browser-use/jev-ultrafast and https://docs.
 Run `~/.agents/skills/jev-browser/scripts/jev status` on the same Mac. It displays the last five runs, action counts, completed model requests, agent-loop time, and total command time (including initialization and cleanup). Records start with this version; no record cannot disprove an older invocation. Native Kindle actions cannot appear here because this executor only controls Chrome. A `done` record is not independent verification or a speed comparison. Failed/in-flight model requests may not be included in completed request counts.
 
 The local log `~/.local/state/jev-browser/runs.jsonl` stores timings/counts only, without goals, page content, URLs, or credentials. To compare speed, use the same task and success criteria with both executors; report total time separately from model-loop time.
+
+For native applications such as Kindle and Calculator, use [jev-native](../jev-native/SKILL.md) when installed. Keep browser and native run statistics separate.

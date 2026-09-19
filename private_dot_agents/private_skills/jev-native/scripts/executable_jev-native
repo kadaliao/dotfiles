@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+runtime="$HOME/.local/share/jev-native/.venv/bin/python"
+if [ ! -x "$runtime" ]; then
+  echo 'Native Jev runtime is not installed on this Mac.' >&2
+  exit 2
+fi
+exec "$runtime" "$(dirname "$0")/native.py" "$@"
