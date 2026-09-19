@@ -5,6 +5,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 
@@ -30,10 +31,13 @@ def text_config():
     key = provider["apiKey"]
     if not isinstance(key, str) or not key or key.startswith("!"):
         raise ValueError("The Pi provider key must be literal or an exported variable name.")
-    if key.isidentifier():
-        key = os.environ.get(key)
+    reference = re.fullmatch(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}", key) or re.fullmatch(r"\$([A-Za-z_][A-Za-z0-9_]*)", key)
+    if reference or key.isidentifier():
+        key = os.environ.get(reference.group(1) if reference else key)
         if not key:
             raise ValueError("The Pi provider's key variable is not exported.")
+    elif key.startswith("$"):
+        raise ValueError("Unsupported key expression in the Pi provider; use an environment variable.")
     return {"TEXT_MODEL_API_KEY": key, "TEXT_MODEL_BASE_URL": provider["baseUrl"],
             "TEXT_MODEL": "deepseek-v4-flash"}
 
@@ -81,6 +85,9 @@ def run(args):
         os.environ[ACCOUNT] = key
     os.environ.update(text_config())
     os.environ.setdefault("TEXT_MODEL_REASONING", "none")
+    # Honor macOS's trusted corporate CAs without weakening TLS verification.
+    import truststore
+    truststore.inject_into_ssl()
     from jev_ultrafast import Agent
     agent = Agent(args.url, args.goal)
     print(json.dumps({"tab_id": agent.browser.target}), flush=True)
