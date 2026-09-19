@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+runtime="$HOME/.local/share/jev-ultrafast/.venv/bin/python"
+if [ ! -x "$runtime" ]; then
+  echo 'Jev runtime is not installed on this host.' >&2
+  exit 2
+fi
+exec "$runtime" "$(dirname "$0")/jev.py" "$@"
