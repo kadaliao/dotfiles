@@ -29,6 +29,9 @@ def install_ax_fix(macos):
 
 def front():
     from AppKit import NSWorkspace
+    from Foundation import NSDate, NSRunLoop
+    # Keep NSWorkspace's activation notifications current in this command-line process.
+    NSRunLoop.currentRunLoop().runUntilDate_(NSDate.date())
     app = NSWorkspace.sharedWorkspace().frontmostApplication()
     return str(app.localizedName()), int(app.processIdentifier())
 
