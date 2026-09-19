@@ -1,11 +1,11 @@
 ---
 name: jev-browser
-description: Use Jev Ultrafast on mm for short Chrome workflows involving ordinary HTML controls, searches, and filters. Use when asked to accelerate browser computer use with Jev. Requires a configured TypeSafe key and Chrome remote debugging. Does not replace native macOS computer use or visual/canvas workflows.
+description: Use Jev Ultrafast on this Mac for short Chrome workflows involving ordinary HTML controls, searches, and filters. Use when asked to accelerate browser computer use with Jev. Requires a configured TypeSafe key and Chrome remote debugging. Does not replace native macOS computer use or visual/canvas workflows.
 ---
 
-# Jev browser on mm
+# Jev browser
 
-This is an optional browser executor, separate from Codex's built-in computer use. The runtime is installed at `~/.local/share/jev-ultrafast` on mm. Run the commands on the host whose Chrome should be controlled.
+This is an optional browser executor, separate from Codex's built-in computer use. The runtime is installed at `~/.local/share/jev-ultrafast` on each configured Mac. Run the commands on the host whose Chrome should be controlled.
 
 ## Check and configure
 
@@ -13,7 +13,7 @@ This is an optional browser executor, separate from Codex's built-in computer us
 ~/.agents/skills/jev-browser/scripts/jev doctor
 ```
 
-If the TypeSafe key is absent, have the user run the following in **Terminal on mm**. It takes hidden input and stores the key in the macOS login keychain. Never request the key in chat, print it, or pass it on a command line.
+If the TypeSafe key is absent, have the user run the following in **Terminal on the target Mac**. It takes hidden input and stores the key in the macOS login keychain. Never request the key in chat, print it, or pass it on a command line.
 
 ```bash
 ~/.agents/skills/jev-browser/scripts/jev setup-key
@@ -46,3 +46,9 @@ Verify the actual outcome in the retained tab; `done` is the model's judgment, n
 Installing this skill does not reroute an active task. For an existing task, explicitly read this SKILL.md and invoke the executor at a suitable boundary. Keep native computer use available.
 
 Official sources: https://github.com/browser-use/jev-ultrafast and https://docs.typesafe.ai/agent-skill
+
+## See whether Jev actually ran
+
+Run `~/.agents/skills/jev-browser/scripts/jev status` on the same Mac. It displays the last five runs, action counts, completed model requests, agent-loop time, and total command time (including initialization and cleanup). Records start with this version; no record cannot disprove an older invocation. Native Kindle actions cannot appear here because this executor only controls Chrome. A `done` record is not independent verification or a speed comparison. Failed/in-flight model requests may not be included in completed request counts.
+
+The local log `~/.local/state/jev-browser/runs.jsonl` stores timings/counts only, without goals, page content, URLs, or credentials. To compare speed, use the same task and success criteria with both executors; report total time separately from model-loop time.
